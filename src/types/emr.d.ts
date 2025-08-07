@@ -3,6 +3,27 @@ export type GutterStyle = 'Top' | 'Left' | 'Right'
 // 文档格式
 export type DocumentFormat = 'xml' | 'json' | 'rtf' | 'html' | 'text'
 
+export interface TMenuOptionSetting {
+  label: string
+  exec: () => void
+}
+
+/** 右键菜单项设置类型 */
+export type TMenuOption = string | '-' | TMenuOptionSetting
+
+/** 右键菜单信息 */
+export interface IMenuSetting {
+  /** 结构化元素类型 */
+  ElementType: DocumentElementType
+  PageElement: HTMLCanvasElement
+  /** 快捷菜单名称 */
+  TypeName: string
+  X: number
+  Y: number
+}
+
+/** 右键快捷菜单事件参数类型 */
+export type ContextMenuParams = [eventSender: EMRElement, args: IMenuSetting]
 // 输入域样式枚举
 export type InnerEditStyle =
   | 'Text' // 普通文本输入
@@ -22,12 +43,12 @@ export interface BaseElement {
   /** 元素名称 */
   ElementName?: string | null
   /** 元素类型名称 */
-  ElementTypeName?: string | null
+  ElementType?: DocumentElementType
 }
 
 // 文本输入域元素
 export interface XTextInputFieldElement extends BaseElement {
-  ElementTypeName: 'XTextInputFieldElement'
+  ElementType: 'XTextInputFieldElement'
   /** 内部编辑样式 */
   InnerEditStyle: InnerEditStyle
   /** 是否为动态下拉列表 */
@@ -53,7 +74,7 @@ export interface XTextInputFieldElement extends BaseElement {
 
 // 单选框元素
 export interface XTextRadioBoxElement extends BaseElement {
-  ElementTypeName: 'XTextRadioBoxElement'
+  ElementType: 'XTextRadioBoxElement'
   /** 是否选中 */
   Checked?: boolean
   /** 单选框组名 */
@@ -66,7 +87,7 @@ export interface XTextRadioBoxElement extends BaseElement {
 
 // 复选框元素
 export interface XTextCheckBoxElement extends BaseElement {
-  ElementTypeName: 'XTextCheckBoxElement'
+  ElementType: 'XTextCheckBoxElement'
   /** 是否选中 */
   Checked?: boolean
   /** 显示文本 */
@@ -77,7 +98,7 @@ export interface XTextCheckBoxElement extends BaseElement {
 
 // 标签文本元素
 export interface XTextLabelElement extends BaseElement {
-  ElementTypeName: 'XTextLabelElement'
+  ElementType: 'XTextLabelElement'
   /** 标签文本内容 */
   Text?: string
   /** 字体大小 */
@@ -94,7 +115,7 @@ export interface XTextLabelElement extends BaseElement {
 
 // 条形码元素
 export interface XTextNewBarcodeElement extends BaseElement {
-  ElementTypeName: 'XTextNewBarcodeElement'
+  ElementType: 'XTextNewBarcodeElement'
   /** 条形码内容 */
   BarcodeText?: string
   /** 条形码类型 */
@@ -109,7 +130,7 @@ export interface XTextNewBarcodeElement extends BaseElement {
 
 // 二维码元素
 export interface XTextTDBarcodeElement extends BaseElement {
-  ElementTypeName: 'XTextTDBarcodeElement'
+  ElementType: 'XTextTDBarcodeElement'
   /** 二维码内容 */
   QRCodeText?: string
   /** 二维码大小 */
@@ -122,14 +143,14 @@ export interface XTextTDBarcodeElement extends BaseElement {
 
 // 分页符元素
 export interface XTextPageBreakElement extends BaseElement {
-  ElementTypeName: 'XTextPageBreakElement'
+  ElementType: 'XTextPageBreakElement'
   /** 分页符类型 */
   BreakType?: 'Page' | 'Column' | 'Section'
 }
 
 // 图片元素
 export interface XTextImageElement extends BaseElement {
-  ElementTypeName: 'XTextImageElement'
+  ElementType: 'XTextImageElement'
   /** 图片源（base64或URL） */
   ImageSource?: string
   /** 图片宽度 */
@@ -146,7 +167,7 @@ export interface XTextImageElement extends BaseElement {
 
 // 按钮元素
 export interface XTextButtonElement extends BaseElement {
-  ElementTypeName: 'XTextButtonElement'
+  ElementType: 'XTextButtonElement'
   /** 按钮文本 */
   Text?: string
   /** 按钮类型 */
@@ -161,7 +182,7 @@ export interface XTextButtonElement extends BaseElement {
 
 // 水平线元素
 export interface XTextHorizontalLineElement extends BaseElement {
-  ElementTypeName: 'XTextHorizontalLineElement'
+  ElementType: 'XTextHorizontalLineElement'
   /** 线条宽度 */
   Width?: number
   /** 线条高度 */
@@ -176,7 +197,7 @@ export interface XTextHorizontalLineElement extends BaseElement {
 
 // 页码元素
 export interface XTextPageInfoElement extends BaseElement {
-  ElementTypeName: 'XTextPageInfoElement'
+  ElementType: 'XTextPageInfoElement'
   /** 页码格式 */
   PageNumberFormat?: string
   /** 是否显示总页数 */
@@ -191,7 +212,7 @@ export interface XTextPageInfoElement extends BaseElement {
 
 // 多媒体元素
 export interface XTextMediaElement extends BaseElement {
-  ElementTypeName: 'XTextMediaElement'
+  ElementType: 'XTextMediaElement'
   /** 媒体源URL */
   MediaSource?: string
   /** 媒体类型 */
@@ -213,7 +234,7 @@ import type { MedicalExpressionType, MedicalExpressionData } from './medical'
 
 // 医学表达式元素（包含多种医学图表）
 export interface XTextNewMedicalExpressionElement extends BaseElement {
-  ElementTypeName: 'XTextNewMedicalExpressionElement'
+  ElementType: 'XTextNewMedicalExpressionElement'
   /** 医学表达式类型 */
   MedicalExpressionType?: MedicalExpressionType
   /** 表达式数据 */
@@ -228,6 +249,11 @@ export interface XTextNewMedicalExpressionElement extends BaseElement {
   Editable?: boolean
   /** 自定义样式 */
   CustomStyle?: string
+}
+
+/** 表格元素 */
+export interface XTextTableCellElement extends BaseElement {
+  ElementType: 'XTextTableCellElement'
 }
 
 // 所有元素类型的联合类型
@@ -245,12 +271,30 @@ export type DocumentElement =
   | XTextPageInfoElement
   | XTextMediaElement
   | XTextNewMedicalExpressionElement
+  | XTextTableCellElement
+
+/** 文档结构化元素类型联合类型 */
+export type DocumentElementType =
+  | 'XTextInputFieldElement'
+  | 'XTextRadioBoxElement'
+  | 'XTextCheckBoxElement'
+  | 'XTextLabelElement'
+  | 'XTextNewBarcodeElement'
+  | 'XTextTDBarcodeElement'
+  | 'XTextPageBreakElement'
+  | 'XTextImageElement'
+  | 'XTextButtonElement'
+  | 'XTextHorizontalLineElement'
+  | 'XTextPageInfoElement'
+  | 'XTextMediaElement'
+  | 'XTextNewMedicalExpressionElement'
+  | 'XTextTableCellElement'
 
 export type WriterEventArgs = {
   ElementHashCode: number
   ElementID: string | number | null
   ElementName: string | null
-  ElementTypeName: string | null
+  ElementType: string | null
   WriterControl: EMRElement
 }
 
@@ -375,6 +419,18 @@ declare global {
 
     /** 获得所有支持的命令名称组成的字符串，各个名称之间用逗号分开 */
     GetCommandNameList(): string
+
+    /** 右键菜单事件 */
+    EventShowContextMenu(
+      eventSender: EMRElement,
+      args: {
+        ElementType: DocumentElementType
+        PageElement: HTMLCanvasElement
+        TypeName: string
+        X: number
+        Y: number
+      },
+    ): void
   }
 }
 

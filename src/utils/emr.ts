@@ -1,4 +1,11 @@
-import type { DocumentFormat, WriterEventArgs } from '../types/emr'
+import type {
+  ContextMenuParams,
+  DocumentFormat,
+  WriterEventArgs,
+  IMenuSetting,
+  TMenuOption,
+  TMenuOptionSetting,
+} from '../types/emr'
 
 class EMREditor {
   /** DCWriter 控件对象 */
@@ -45,14 +52,11 @@ class EMREditor {
 
   /** 右键菜单事件 */
   eventShowContextMenuEvent(rootElement: EMRElement) {
-    rootElement.EventShowContextMenu = function (eventSender, args) {
-      console.log(args, '<<<<< args')
+    rootElement.EventShowContextMenu = function (...[eventSender, args]: ContextMenuParams) {
       let myWriterControl = eventSender
-      var typename = args.ElementType //当前的元素
-      if (typename != null && typename != '') {
-        console.log(typename, 'typeName')
-        typename = typename.toLowerCase()
-        var options = [
+      const typename = args.ElementType
+      if (typename) {
+        let options: TMenuOption[] = [
           {
             label: '撤销',
             exec: () => {
@@ -61,9 +65,9 @@ class EMREditor {
           },
           '-',
         ]
-        if (typename == 'xtexttablecellelement') {
+        if (typename === 'XTextTableCellElement') {
           //单元格
-          var options2 = [
+          let options2 = [
             '-',
             {
               label: '删除表格行',
@@ -79,25 +83,25 @@ class EMREditor {
       }
     }
 
-    function ContextMenu(options, menuObj, rootElement) {
+    function ContextMenu(options: TMenuOption[], menuObj: IMenuSetting, rootElement: EMRElement) {
       if (options != null && Array.isArray(options)) {
         if (menuObj) {
           //获取到包裹元素
-          var pageContainer = rootElement.querySelector('[dctype=page-container]')
+          let pageContainer = rootElement.querySelector('[dctype=page-container]') as HTMLElement
           //判断是否存在dcContextMenu的元素
-          var hasContextMenu = pageContainer.querySelector('#dcContextMenu')
+          let hasContextMenu = pageContainer.querySelector('#dcContextMenu') as HTMLElement
           if (!hasContextMenu) {
-            var meunDiv = document.createElement('div')
+            let meunDiv = document.createElement('div')
             meunDiv.setAttribute('id', 'dcContextMenu')
             pageContainer.appendChild(meunDiv)
             meunDiv.innerHTML = `<div class="dcMenu-line"></div>`
             hasContextMenu = meunDiv
             //判断是否有css
-            var dcHead = document.head
+            let dcHead = document.head
             //判断是否存在对应的css
-            var hasContextMenuCss = dcHead.querySelector('#ContextMenuCss')
+            let hasContextMenuCss = dcHead.querySelector('#ContextMenuCss')
             if (!hasContextMenuCss) {
-              var newCssString = `
+              let newCssString = `
             #dcContextMenu{
                 position: absolute;
                 margin: 0;
@@ -159,27 +163,27 @@ class EMREditor {
                 border-top: 1px solid #ccc;
                 border-bottom: 1px solid #fff;
             }`
-              var ContextMenuCss = document.createElement('style')
+              let ContextMenuCss = document.createElement('style')
               ContextMenuCss.setAttribute('id', 'ContextMenuCss')
               dcHead.appendChild(ContextMenuCss)
               ContextMenuCss.innerHTML = newCssString
               //页面滚动
               pageContainer.addEventListener('scroll', function () {
-                var hasContextMenu = rootElement.querySelector('#dcContextMenu')
+                let hasContextMenu = rootElement.querySelector('#dcContextMenu') as HTMLElement
                 if (hasContextMenu) {
                   hasContextMenu.remove()
                 }
               })
               //鼠标按下
               document.body.addEventListener('mousedown', function () {
-                var hasContextMenu = rootElement.querySelector('#dcContextMenu')
+                let hasContextMenu = rootElement.querySelector('#dcContextMenu') as HTMLElement
                 if (hasContextMenu) {
                   hasContextMenu.remove()
                 }
               })
               //丢失焦点
               window.addEventListener('blur', function () {
-                var hasContextMenu = rootElement.querySelector('#dcContextMenu')
+                let hasContextMenu = rootElement.querySelector('#dcContextMenu') as HTMLElement
                 if (hasContextMenu) {
                   hasContextMenu.remove()
                 }
@@ -187,44 +191,46 @@ class EMREditor {
             }
           } else {
             //存在时，清空所有item和sep的元素
-            var allItem = hasContextMenu.querySelectorAll('.dcMenu-item, .dcMenu-sep')
-            for (var i = 0; i < allItem.length; i++) {
+            let allItem = hasContextMenu.querySelectorAll('.dcMenu-item, .dcMenu-sep')
+            for (let i = 0; i < allItem.length; i++) {
               allItem[i].remove()
             }
           }
-          var containerHeight = 0
+          let containerHeight = 0
           if (Array.isArray(options) && options.length > 0) {
             //根据options显示元素
-            for (var option = 0; option < options.length; option++) {
-              if (typeof options[option] == 'object') {
-                var itemEle = document.createElement('div')
+            for (let option = 0; option < options.length; option++) {
+              if (typeof options[option] === 'object') {
+                let itemEle = document.createElement('div')
                 itemEle.setAttribute('class', 'dcMenu-item')
                 itemEle.style.cssText = 'height: 30px;'
                 hasContextMenu.appendChild(itemEle)
+                const optionObj = options[option] as TMenuOptionSetting
                 itemEle.innerHTML = `
-                        <div class="dcMenu-text" style="height: 30px; line-height: 30px;">${options[option].label}</div>
+                        <div class="dcMenu-text" style="height: 30px; line-height: 30px;">${optionObj.label}</div>
                         <div class="dcMenu-icon"></div>
                     `
-                itemEle.setAttribute('menuIndex', option)
+                // 修复：setAttribute 需要字符串类型
+                itemEle.setAttribute('menuIndex', option.toString())
                 itemEle.addEventListener('mousedown', function (e) {
                   e.stopPropagation()
                   e.preventDefault()
                 })
                 itemEle.addEventListener('click', function () {
-                  options[this.getAttribute('menuIndex')].exec()
-                  //itemEle.getAttribute()
+                  const indStr = itemEle.getAttribute('menuIndex') as string
+                  ;(options[Number(indStr)] as TMenuOptionSetting).exec()
                   //将hasContextMenu元素隐藏
                   hasContextMenu.remove()
                 })
                 containerHeight += 30
-              } else if (typeof options[option] == 'string' && options[option] == '-') {
-                var sepEle = document.createElement('div')
+              } else if (typeof options[option] === 'string' && options[option] === '-') {
+                let sepEle = document.createElement('div')
                 sepEle.setAttribute('class', 'dcMenu-sep')
                 hasContextMenu.appendChild(sepEle)
                 containerHeight += 8
               }
             }
-            var pageElement = menuObj.PageElement
+            let pageElement = menuObj.PageElement
             containerHeight = containerHeight ? containerHeight + 6 : 0
             hasContextMenu.style.height = containerHeight + 'px'
             hasContextMenu.style.left = pageElement.offsetLeft + menuObj.X + 'px'
