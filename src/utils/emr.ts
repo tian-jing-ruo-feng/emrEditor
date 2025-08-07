@@ -1,11 +1,11 @@
+import type { DocumentFormat, WriterEventArgs } from '../types/emr'
+
 import type {
-  ContextMenuParams,
-  DocumentFormat,
-  WriterEventArgs,
   IMenuSetting,
   TMenuOption,
   TMenuOptionSetting,
-} from '../types/emr'
+  ContextMenuParams,
+} from '../types/contextMenu'
 
 class EMREditor {
   /** DCWriter 控件对象 */
@@ -77,7 +77,18 @@ class EMREditor {
             },
           ]
           options = options.concat(options2)
-        } else {
+        } else if (typename === 'XTextInputFieldElement') {
+          options.push(
+            ...[
+              '-',
+              {
+                label: '属性',
+                exec: () => {
+                  myWriterControl.InputFieldDialog()
+                },
+              },
+            ],
+          )
         }
         ContextMenu(options, args, eventSender)
       }
