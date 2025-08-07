@@ -80,13 +80,13 @@ class EMREditor {
         } else if (typename === 'XTextInputFieldElement') {
           options.push(
             ...[
-              '-',
               {
                 label: '属性',
                 exec: () => {
                   myWriterControl.InputFieldDialog()
                 },
               },
+              '-',
             ],
           )
         }

@@ -15,7 +15,7 @@ import type {
   XTextMediaElement,
   XTextNewMedicalExpressionElement,
   InnerEditStyle,
-} from '../types/emr'
+} from '../types/fieldElement.d.ts'
 import type { MedicalExpressionType } from '../types/medical'
 
 /**
@@ -27,7 +27,7 @@ export function createTextInputField(
   options: Partial<XTextInputFieldElement> = {},
 ): XTextInputFieldElement {
   return {
-    ElementTypeName: 'XTextInputFieldElement',
+    ElementType: 'XTextInputFieldElement',
     ElementName: elementName,
     InnerEditStyle: innerEditStyle,
     ...options,
@@ -44,7 +44,7 @@ export function createDropdownInputField(
   options: Partial<XTextInputFieldElement> = {},
 ): XTextInputFieldElement {
   return {
-    ElementTypeName: 'XTextInputFieldElement',
+    ElementType: 'XTextInputFieldElement',
     ElementName: elementName,
     InnerEditStyle: 'DropdownList',
     DynamicListItems: isDynamic,
@@ -61,7 +61,7 @@ export function createTimeInputField(
   options: Partial<XTextInputFieldElement> = {},
 ): XTextInputFieldElement {
   return {
-    ElementTypeName: 'XTextInputFieldElement',
+    ElementType: 'XTextInputFieldElement',
     ElementName: elementName,
     InnerEditStyle: 'Time',
     ...options,
@@ -76,7 +76,7 @@ export function createDateInputField(
   options: Partial<XTextInputFieldElement> = {},
 ): XTextInputFieldElement {
   return {
-    ElementTypeName: 'XTextInputFieldElement',
+    ElementType: 'XTextInputFieldElement',
     ElementName: elementName,
     InnerEditStyle: 'Date',
     ...options,
@@ -92,7 +92,7 @@ export function createDateTimeInputField(
   options: Partial<XTextInputFieldElement> = {},
 ): XTextInputFieldElement {
   return {
-    ElementTypeName: 'XTextInputFieldElement',
+    ElementType: 'XTextInputFieldElement',
     ElementName: elementName,
     InnerEditStyle: includeSeconds ? 'DateTime' : 'DateTimeWithoutSecond',
     ...options,
@@ -110,7 +110,7 @@ export function createNumericInputField(
   options: Partial<XTextInputFieldElement> = {},
 ): XTextInputFieldElement {
   return {
-    ElementTypeName: 'XTextInputFieldElement',
+    ElementType: 'XTextInputFieldElement',
     ElementName: elementName,
     InnerEditStyle: 'Numeric',
     MinValue: minValue,
@@ -131,7 +131,7 @@ export function createRadioBox(
   options: Partial<XTextRadioBoxElement> = {},
 ): XTextRadioBoxElement {
   return {
-    ElementTypeName: 'XTextRadioBoxElement',
+    ElementType: 'XTextRadioBoxElement',
     ElementName: elementName,
     GroupName: groupName,
     Text: text,
@@ -150,7 +150,7 @@ export function createCheckBox(
   options: Partial<XTextCheckBoxElement> = {},
 ): XTextCheckBoxElement {
   return {
-    ElementTypeName: 'XTextCheckBoxElement',
+    ElementType: 'XTextCheckBoxElement',
     ElementName: elementName,
     Text: text,
     Value: value,
@@ -167,7 +167,7 @@ export function createLabel(
   options: Partial<XTextLabelElement> = {},
 ): XTextLabelElement {
   return {
-    ElementTypeName: 'XTextLabelElement',
+    ElementType: 'XTextLabelElement',
     ElementName: elementName,
     Text: text,
     ...options,
@@ -184,7 +184,7 @@ export function createBarcode(
   options: Partial<XTextNewBarcodeElement> = {},
 ): XTextNewBarcodeElement {
   return {
-    ElementTypeName: 'XTextNewBarcodeElement',
+    ElementType: 'XTextNewBarcodeElement',
     ElementName: elementName,
     BarcodeText: barcodeText,
     BarcodeType: barcodeType,
@@ -201,7 +201,7 @@ export function createQRCode(
   options: Partial<XTextTDBarcodeElement> = {},
 ): XTextTDBarcodeElement {
   return {
-    ElementTypeName: 'XTextTDBarcodeElement',
+    ElementType: 'XTextTDBarcodeElement',
     ElementName: elementName,
     QRCodeText: qrCodeText,
     ...options,
@@ -217,7 +217,7 @@ export function createPageBreak(
   options: Partial<XTextPageBreakElement> = {},
 ): XTextPageBreakElement {
   return {
-    ElementTypeName: 'XTextPageBreakElement',
+    ElementType: 'XTextPageBreakElement',
     ElementName: elementName,
     BreakType: breakType,
     ...options,
@@ -233,7 +233,7 @@ export function createImage(
   options: Partial<XTextImageElement> = {},
 ): XTextImageElement {
   return {
-    ElementTypeName: 'XTextImageElement',
+    ElementType: 'XTextImageElement',
     ElementName: elementName,
     ImageSource: imageSource,
     ...options,
@@ -249,7 +249,7 @@ export function createButton(
   options: Partial<XTextButtonElement> = {},
 ): XTextButtonElement {
   return {
-    ElementTypeName: 'XTextButtonElement',
+    ElementType: 'XTextButtonElement',
     ElementName: elementName,
     Text: text,
     ...options,
@@ -264,7 +264,7 @@ export function createHorizontalLine(
   options: Partial<XTextHorizontalLineElement> = {},
 ): XTextHorizontalLineElement {
   return {
-    ElementTypeName: 'XTextHorizontalLineElement',
+    ElementType: 'XTextHorizontalLineElement',
     ElementName: elementName,
     ...options,
   }
@@ -278,7 +278,7 @@ export function createPageInfo(
   options: Partial<XTextPageInfoElement> = {},
 ): XTextPageInfoElement {
   return {
-    ElementTypeName: 'XTextPageInfoElement',
+    ElementType: 'XTextPageInfoElement',
     ElementName: elementName,
     ...options,
   }
@@ -294,7 +294,7 @@ export function createMedia(
   options: Partial<XTextMediaElement> = {},
 ): XTextMediaElement {
   return {
-    ElementTypeName: 'XTextMediaElement',
+    ElementType: 'XTextMediaElement',
     ElementName: elementName,
     MediaSource: mediaSource,
     MediaType: mediaType,
@@ -312,7 +312,7 @@ export function createMedicalExpression(
   options: Partial<XTextNewMedicalExpressionElement> = {},
 ): XTextNewMedicalExpressionElement {
   return {
-    ElementTypeName: 'XTextNewMedicalExpressionElement',
+    ElementType: 'XTextNewMedicalExpressionElement',
     ElementName: elementName,
     MedicalExpressionType: medicalExpressionType,
     ExpressionData: expressionData,
@@ -343,23 +343,23 @@ export function isValidElementType(element: any): element is DocumentElement {
   return (
     element &&
     typeof element === 'object' &&
-    'ElementTypeName' in element &&
-    validTypes.includes(element.ElementTypeName)
+    'ElementType' in element &&
+    validTypes.includes(element.ElementType)
   )
 }
 
 /**
  * 获取元素类型名称
  */
-export function getElementTypeName(element: DocumentElement): string {
-  return element.ElementTypeName || 'Unknown'
+export function getElementType(element: DocumentElement): string {
+  return element.ElementType || 'Unknown'
 }
 
 /**
  * 检查是否为输入域元素
  */
 export function isInputFieldElement(element: DocumentElement): element is XTextInputFieldElement {
-  return element.ElementTypeName === 'XTextInputFieldElement'
+  return element.ElementType === 'XTextInputFieldElement'
 }
 
 /**
@@ -368,7 +368,7 @@ export function isInputFieldElement(element: DocumentElement): element is XTextI
 export function isMedicalExpressionElement(
   element: DocumentElement,
 ): element is XTextNewMedicalExpressionElement {
-  return element.ElementTypeName === 'XTextNewMedicalExpressionElement'
+  return element.ElementType === 'XTextNewMedicalExpressionElement'
 }
 
 /**
