@@ -46,6 +46,7 @@ class EMREditor {
   /** 右键菜单事件 */
   eventShowContextMenuEvent(rootElement: EMRElement) {
     rootElement.EventShowContextMenu = function (eventSender, args) {
+      console.log(args, '<<<<< args')
       let myWriterControl = eventSender
       var typename = args.ElementType //当前的元素
       if (typename != null && typename != '') {
