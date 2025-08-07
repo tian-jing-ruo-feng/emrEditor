@@ -9,6 +9,7 @@ export const useEmrStore = defineStore(
     const pageSetting = ref<DocumentPageSettings>()
     const commandList = ref<string[]>([])
 
+    /** 左侧栏目设置 */
     const leftsideSetting = computed(() => [
       {
         title: '页面设置',

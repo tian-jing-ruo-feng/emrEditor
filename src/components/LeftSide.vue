@@ -2,6 +2,7 @@
   <el-scrollbar height="100vh">
     <TransitionGroup name="list" tag="ul">
       <li
+        class="border-b border-[#ccc]"
         v-for="(setting, index) in settings"
         :title="setting.title"
         :name="setting.name"
@@ -44,7 +45,8 @@
     settings.value = leftsideSetting.value.map((item, ind) => {
       return {
         ...item,
-        active: ind === 0 ? true : false,
+        // active: ind === 0 ? true : false,
+        active: false,
       }
     })
   })
