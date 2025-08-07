@@ -32,6 +32,7 @@
     emrEditorInstance.dcwriterInitSuccessEvent((rootElement: EMRElement) => {
       /** 文档加载完成事件 */
       emrEditorInstance.documentLoadEvent(rootElement)
+      emrEditorInstance.eventShowContextMenuEvent(rootElement)
 
       const pgSetting = rootElement.GetDocumentPageSettings()
       setPageSetting(pgSetting)

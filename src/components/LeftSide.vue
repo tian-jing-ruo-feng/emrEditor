@@ -9,7 +9,7 @@
         :key="setting.name"
       >
         <h2
-          class="h-[30px] leading-[30px] bg-[var(--el-color-primary-light-3)] px-[4px] cursor-pointer relative"
+          class="h-[30px] leading-[30px] bg-[var(--el-color-primary-light-7)] px-[4px] cursor-pointer relative"
           @click="toggleCollapse(index, !setting.active)"
         >
           {{ setting.title }}

@@ -43,6 +43,198 @@ class EMREditor {
     }
   }
 
+  /** 右键菜单事件 */
+  eventShowContextMenuEvent(rootElement: EMRElement) {
+    rootElement.EventShowContextMenu = function (eventSender, args) {
+      let myWriterControl = eventSender
+      var typename = args.ElementType //当前的元素
+      if (typename != null && typename != '') {
+        console.log(typename, 'typeName')
+        typename = typename.toLowerCase()
+        var options = [
+          {
+            label: '撤销',
+            exec: () => {
+              myWriterControl.DCExecuteCommand('Undo', false, null)
+            },
+          },
+          '-',
+        ]
+        if (typename == 'xtexttablecellelement') {
+          //单元格
+          var options2 = [
+            '-',
+            {
+              label: '删除表格行',
+              exec: () => {
+                myWriterControl.DCExecuteCommand('Table_DeleteRow', false, null)
+              },
+            },
+          ]
+          options = options.concat(options2)
+        } else {
+        }
+        ContextMenu(options, args, eventSender)
+      }
+    }
+
+    function ContextMenu(options, menuObj, rootElement) {
+      if (options != null && Array.isArray(options)) {
+        if (menuObj) {
+          //获取到包裹元素
+          var pageContainer = rootElement.querySelector('[dctype=page-container]')
+          //判断是否存在dcContextMenu的元素
+          var hasContextMenu = pageContainer.querySelector('#dcContextMenu')
+          if (!hasContextMenu) {
+            var meunDiv = document.createElement('div')
+            meunDiv.setAttribute('id', 'dcContextMenu')
+            pageContainer.appendChild(meunDiv)
+            meunDiv.innerHTML = `<div class="dcMenu-line"></div>`
+            hasContextMenu = meunDiv
+            //判断是否有css
+            var dcHead = document.head
+            //判断是否存在对应的css
+            var hasContextMenuCss = dcHead.querySelector('#ContextMenuCss')
+            if (!hasContextMenuCss) {
+              var newCssString = `
+            #dcContextMenu{
+                position: absolute;
+                margin: 0;
+                padding: 2px;
+                border-width: 1px;
+                border-style: solid;
+                background-color: #fafafa;
+                border-color: #ddd;
+                color: #444;
+                box-shadow: rgb(204, 204, 204) 2px 2px 3px;
+                width: 144px;
+                overflow: hidden;
+                /* left: 8px;
+                top: 481.672px; */
+                z-index: 110008;
+                display: none;
+            }
+            #dcContextMenu > div:hover{
+                color: rgb(0, 0, 0);
+                border-color: rgb(183,210,255);
+                background: rgb(234,242,255);
+            }
+            #dcContextMenu .dcMenu-line{
+                position: absolute;
+                left: 26px;
+                top: 0;
+                height: 100%;
+                font-size: 1px;
+                border-left: 1px solid #ccc;
+                border-right: 1px solid #fff;
+            }
+            #dcContextMenu .dcMenu-item{
+                position: relative;
+                white-space: nowrap;
+                cursor: pointer;
+                margin: 0px;
+                padding: 0px;
+                overflow: hidden;
+                border-width: 1px;
+                border-style: solid;
+                border-color: transparent;
+            }
+            #dcContextMenu .dcMenu-item .dcMenu-text{
+                float: left;
+                padding-left: 28px;
+                font-size: 12px;
+            }
+            #dcContextMenu .dcMenu-icon{
+                position: absolute;
+                width: 16px;
+                height: 16px;
+                left: 2px;
+                top: 50%;
+                margin-top: -8px;
+            }
+            #dcContextMenu .dcMenu-sep{
+                margin: 3px 0px 3px 25px;
+                font-size: 1px;
+                border-top: 1px solid #ccc;
+                border-bottom: 1px solid #fff;
+            }`
+              var ContextMenuCss = document.createElement('style')
+              ContextMenuCss.setAttribute('id', 'ContextMenuCss')
+              dcHead.appendChild(ContextMenuCss)
+              ContextMenuCss.innerHTML = newCssString
+              //页面滚动
+              pageContainer.addEventListener('scroll', function () {
+                var hasContextMenu = rootElement.querySelector('#dcContextMenu')
+                if (hasContextMenu) {
+                  hasContextMenu.remove()
+                }
+              })
+              //鼠标按下
+              document.body.addEventListener('mousedown', function () {
+                var hasContextMenu = rootElement.querySelector('#dcContextMenu')
+                if (hasContextMenu) {
+                  hasContextMenu.remove()
+                }
+              })
+              //丢失焦点
+              window.addEventListener('blur', function () {
+                var hasContextMenu = rootElement.querySelector('#dcContextMenu')
+                if (hasContextMenu) {
+                  hasContextMenu.remove()
+                }
+              })
+            }
+          } else {
+            //存在时，清空所有item和sep的元素
+            var allItem = hasContextMenu.querySelectorAll('.dcMenu-item, .dcMenu-sep')
+            for (var i = 0; i < allItem.length; i++) {
+              allItem[i].remove()
+            }
+          }
+          var containerHeight = 0
+          if (Array.isArray(options) && options.length > 0) {
+            //根据options显示元素
+            for (var option = 0; option < options.length; option++) {
+              if (typeof options[option] == 'object') {
+                var itemEle = document.createElement('div')
+                itemEle.setAttribute('class', 'dcMenu-item')
+                itemEle.style.cssText = 'height: 30px;'
+                hasContextMenu.appendChild(itemEle)
+                itemEle.innerHTML = `
+                        <div class="dcMenu-text" style="height: 30px; line-height: 30px;">${options[option].label}</div>
+                        <div class="dcMenu-icon"></div>
+                    `
+                itemEle.setAttribute('menuIndex', option)
+                itemEle.addEventListener('mousedown', function (e) {
+                  e.stopPropagation()
+                  e.preventDefault()
+                })
+                itemEle.addEventListener('click', function () {
+                  options[this.getAttribute('menuIndex')].exec()
+                  //itemEle.getAttribute()
+                  //将hasContextMenu元素隐藏
+                  hasContextMenu.remove()
+                })
+                containerHeight += 30
+              } else if (typeof options[option] == 'string' && options[option] == '-') {
+                var sepEle = document.createElement('div')
+                sepEle.setAttribute('class', 'dcMenu-sep')
+                hasContextMenu.appendChild(sepEle)
+                containerHeight += 8
+              }
+            }
+            var pageElement = menuObj.PageElement
+            containerHeight = containerHeight ? containerHeight + 6 : 0
+            hasContextMenu.style.height = containerHeight + 'px'
+            hasContextMenu.style.left = pageElement.offsetLeft + menuObj.X + 'px'
+            hasContextMenu.style.top = pageElement.offsetTop + menuObj.Y + 'px'
+            hasContextMenu.style.display = 'block'
+          }
+        }
+      }
+    }
+  }
+
   /** 加载指定类型的病历模板文档 */
   loadDocument(
     ...args: [
