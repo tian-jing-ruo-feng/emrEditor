@@ -1,21 +1,32 @@
 <template>
-  <ul>
-    <li v-for="(setting, index) in settings" :title="setting.title" :name="setting.name">
-      <h2
-        class="h-[30px] leading-[30px] bg-[var(--el-color-primary-light-3)] px-[4px] cursor-pointer relative"
-        @click="toggleCollapse(index, !setting.active)"
+  <el-scrollbar height="100vh">
+    <TransitionGroup name="list" tag="ul">
+      <li
+        v-for="(setting, index) in settings"
+        :title="setting.title"
+        :name="setting.name"
+        :key="setting.name"
       >
-        {{ setting.title }}
-        <span class="icon-wrapper inline-block absolute right-[12px]">
-          <el-icon class="align-middle" v-if="setting.active"><ArrowUpBold></ArrowUpBold></el-icon>
-          <el-icon class="align-middle" v-else><ArrowDownBold></ArrowDownBold></el-icon>
-        </span>
-      </h2>
-      <div v-if="setting.active">
-        <json-viewer :value="setting.content" copyable sort theme="light"></json-viewer>
-      </div>
-    </li>
-  </ul>
+        <h2
+          class="h-[30px] leading-[30px] bg-[var(--el-color-primary-light-3)] px-[4px] cursor-pointer relative"
+          @click="toggleCollapse(index, !setting.active)"
+        >
+          {{ setting.title }}
+          <span class="icon-wrapper inline-block absolute right-[12px]">
+            <el-icon class="align-middle" v-if="setting.active">
+              <ArrowUpBold></ArrowUpBold>
+            </el-icon>
+            <el-icon class="align-middle" v-else><ArrowDownBold></ArrowDownBold></el-icon>
+          </span>
+        </h2>
+        <Transition>
+          <div v-if="setting.active">
+            <json-viewer :value="setting.content" copyable sort theme="light"></json-viewer>
+          </div>
+        </Transition>
+      </li>
+    </TransitionGroup>
+  </el-scrollbar>
 </template>
 
 <script setup lang="ts">
@@ -43,4 +54,14 @@
   }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+  .v-enter-active,
+  .v-leave-active {
+    transition: opacity 0.5s ease;
+  }
+
+  .v-enter-from,
+  .v-leave-to {
+    opacity: 0;
+  }
+</style>

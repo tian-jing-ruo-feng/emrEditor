@@ -1,7 +1,7 @@
 <template>
   <div class="app-wrapper">
     <el-card class="left-side">
-      <LeftSide></LeftSide>
+      <LeftSide class="h-screen"></LeftSide>
     </el-card>
     <div ref="ctl" id="myWriterControl" dctype="WriterControlForWASM" RuleVisible="true">
       正在加载...
@@ -20,7 +20,7 @@
   import { xmlContent } from './mocks/constants'
 
   const emrStore = useEmrStore()
-  const { setPageSetting } = emrStore
+  const { setPageSetting, setCommandList } = emrStore
   const ctl = ref<EMRElement | null>(null)
   const emrControl = ref<EMREditor>()
 
@@ -38,6 +38,10 @@
 
       /** 加载指定文档 */
       emrEditorInstance.loadDocument(xmlContent, 'xml')
+
+      // console.log(emrEditorInstance.SaveDocumentToString(), 'save formart json')
+      const commands = emrEditorInstance.getCommandNameList()
+      setCommandList(commands?.split(',') || [])
     })
 
     emrEditorInstance.documentContentChangeEvent()
@@ -93,6 +97,7 @@
   .left-side,
   .right-side {
     width: 25%;
+    height: 100%;
     &:deep(.el-card__body) {
       padding: 0;
     }
