@@ -22,7 +22,14 @@
         </h2>
         <Transition>
           <div v-if="setting.active">
-            <json-viewer :value="setting.content" copyable sort theme="light"></json-viewer>
+            <json-viewer
+              :value="setting.content"
+              :expanded="true"
+              :expandDepth="4"
+              copyable
+              sort
+              theme="light"
+            ></json-viewer>
           </div>
         </Transition>
       </li>

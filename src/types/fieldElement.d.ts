@@ -245,18 +245,18 @@ export type DocumentElement =
   | XTextTableCellElement
 
 /** 文档结构化元素类型联合类型 */
-export type DocumentElementType =
-  | 'XTextInputFieldElement'
-  | 'XTextRadioBoxElement'
-  | 'XTextCheckBoxElement'
-  | 'XTextLabelElement'
-  | 'XTextNewBarcodeElement'
-  | 'XTextTDBarcodeElement'
-  | 'XTextPageBreakElement'
-  | 'XTextImageElement'
-  | 'XTextButtonElement'
-  | 'XTextHorizontalLineElement'
-  | 'XTextPageInfoElement'
-  | 'XTextMediaElement'
-  | 'XTextNewMedicalExpressionElement'
-  | 'XTextTableCellElement'
+// export type DocumentElementType =
+//   | 'XTextInputFieldElement'
+//   | 'XTextRadioBoxElement'
+//   | 'XTextCheckBoxElement'
+//   | 'XTextLabelElement'
+//   | 'XTextNewBarcodeElement'
+//   | 'XTextTDBarcodeElement'
+//   | 'XTextPageBreakElement'
+//   | 'XTextImageElement'
+//   | 'XTextButtonElement'
+//   | 'XTextHorizontalLineElement'
+//   | 'XTextPageInfoElement'
+//   | 'XTextMediaElement'
+//   | 'XTextNewMedicalExpressionElement'
+//   | 'XTextTableCellElement'

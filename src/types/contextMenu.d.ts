@@ -1,3 +1,5 @@
+import type { DocumentElementTypeEnum } from './enum'
+
 export interface TMenuOptionSetting {
   label: string
   exec: () => void
@@ -9,7 +11,7 @@ export type TMenuOption = string | '-' | TMenuOptionSetting
 /** 右键菜单信息 */
 export interface IMenuSetting {
   /** 结构化元素类型 */
-  ElementType: DocumentElementType
+  ElementType: DocumentElementTypeEnum
   PageElement: HTMLCanvasElement
   /** 快捷菜单名称 */
   TypeName: string

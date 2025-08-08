@@ -20,7 +20,13 @@
   import { xmlContent } from './mocks/constants'
 
   const emrStore = useEmrStore()
-  const { setPageSetting, setCommandList } = emrStore
+  const {
+    setPageSetting,
+    setCommandList,
+    setDocumentDataSource,
+    setBindingDataSources,
+    setBindingdDocumentDataSource,
+  } = emrStore
   const ctl = ref<EMRElement | null>(null)
   const emrControl = ref<EMREditor>()
 
@@ -34,6 +40,7 @@
       emrEditorInstance.documentLoadEvent(rootElement)
       emrEditorInstance.eventShowContextMenuEvent(rootElement)
 
+      /** 获取页面设置信息 */
       const pgSetting = rootElement.GetDocumentPageSettings()
       setPageSetting(pgSetting)
 
@@ -41,8 +48,38 @@
       emrEditorInstance.loadDocument(xmlContent, 'xml')
 
       // console.log(emrEditorInstance.SaveDocumentToString(), 'save formart json')
+      /** 获取命令列表数据 */
       const commands = emrEditorInstance.getCommandNameList()
       setCommandList(commands?.split(',') || [])
+
+      /** 获取数据源，json格式 */
+      const dataSource = emrEditorInstance.getDataSourceBindingDescriptionsJSON()
+      setDocumentDataSource(dataSource ?? [])
+
+      /** 获取文档绑定数据源头名称列表 */
+      const bindingDataSources = emrEditorInstance.getBindingDataSources()
+      setBindingDataSources(bindingDataSources ?? '')
+
+      /** 获取指定数据源名称数据 */
+      const documentDataSource = bindingDataSources?.split(',').reduce(
+        (pre, curr) => {
+          // 获取指定数据源名称的数据，并赋值到 pre 对象
+          const bindingData = emrEditorInstance.getDataWithDataSources(null, curr) as {
+            [key: string]: unknown
+          }
+          const isBinded = bindingData![curr] ? true : false
+          if (isBinded) {
+            pre[curr] = bindingData[curr]
+            console.info(bindingData, `👈数据源名称：[${curr}] 绑定了数据`)
+          } else {
+            pre[curr] = undefined
+            console.log(`👉数据源名称：[${curr}] 未绑定数据`)
+          }
+          return pre
+        },
+        {} as { [key: string]: unknown },
+      )
+      setBindingdDocumentDataSource(documentDataSource ?? {})
     })
 
     emrEditorInstance.documentContentChangeEvent()

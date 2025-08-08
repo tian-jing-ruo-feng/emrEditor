@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import { computed, ref } from 'vue'
-import type { DocumentPageSettings } from '../types/emr'
+import type { DocumentPageSettings } from '../types/pageSetting'
+import type { dataSourceItem } from '../types/dataSource'
 
 export const useEmrStore = defineStore(
   'emr',
@@ -8,6 +9,9 @@ export const useEmrStore = defineStore(
     /** 文档页面设置 */
     const pageSetting = ref<DocumentPageSettings>()
     const commandList = ref<string[]>([])
+    const documentDataSource = ref<dataSourceItem[]>([])
+    const bindingDataSources = ref<string>('')
+    const bindingDocumentDataSource = ref<{ [key: string]: unknown }>({})
 
     /** 左侧栏目设置 */
     const leftsideSetting = computed(() => [
@@ -26,6 +30,21 @@ export const useEmrStore = defineStore(
         name: 'commandList',
         content: commandList.value,
       },
+      {
+        title: '文档数据源名称列表',
+        name: 'bindingDataSources',
+        content: bindingDataSources.value,
+      },
+      {
+        title: '文档绑定数据源数据【Object】',
+        name: 'bindingDocumentDataSource',
+        content: bindingDocumentDataSource.value,
+      },
+      {
+        title: '数据源绑定的信息【JSON】',
+        name: 'documentDataSource',
+        content: documentDataSource.value,
+      },
     ])
 
     /** 设置页面设置 */
@@ -38,11 +57,29 @@ export const useEmrStore = defineStore(
       commandList.value = commands
     }
 
+    /** 设置文档数据源 */
+    const setDocumentDataSource = (dataSource: dataSourceItem[]) => {
+      documentDataSource.value = dataSource
+    }
+
+    /** 设置文档数据源绑定名称 */
+    const setBindingDataSources = (dataSources: string) => {
+      bindingDataSources.value = dataSources
+    }
+
+    /** 设置文档绑定数据源数据 */
+    const setBindingdDocumentDataSource = (dataSource: { [key: string]: unknown }) => {
+      bindingDocumentDataSource.value = dataSource
+    }
+
     return {
       pageSetting,
       leftsideSetting,
       setPageSetting,
       setCommandList,
+      setDocumentDataSource,
+      setBindingDataSources,
+      setBindingdDocumentDataSource,
     }
   },
   {

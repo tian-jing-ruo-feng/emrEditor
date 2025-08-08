@@ -1,10 +1,72 @@
 import type { IMenuSetting, TMenuOption, TMenuOptionSetting } from '../types/contextMenu'
+import type { DocumentElementTypeEnum } from '../types/enum'
+import { DocumentElementType } from '../utils/constant'
 
 const DC_CONTEXT_MENU_ID = 'dcContextMenu'
+/** 右键菜单元素 id */
 const DC_CONTEXT_MENU_ID_SELECTOR = `#${DC_CONTEXT_MENU_ID}`
+/** 右键菜单样式 style 标签 id */
 const CONTEXT_MENU_CSS_ID = 'ContextMenuCss'
+const Field_Attribute_Dialog = {
+  [DocumentElementType.XTextInputFieldElement]: (ctl: EMRElement) => ctl.InputFieldDialog(),
+  [DocumentElementType.XTextRadioBoxElement]: (ctl: EMRElement) => ctl.CheckboxAndRadioDialog(),
+  [DocumentElementType.XTextCheckBoxElement]: (ctl: EMRElement) => ctl.CheckboxAndRadioDialog(),
+  [DocumentElementType.XTextLabelElement]: (ctl: EMRElement) => ctl.LabelDialog(),
+  [DocumentElementType.XTextTableCellElement]: (ctl: EMRElement) => ctl.tableCellDialog(),
+  [DocumentElementType.XTextNewBarcodeElement]: (ctl: EMRElement) => ctl.BarCodeDialog(),
+  [DocumentElementType.XTextTDBarcodeElement]: (ctl: EMRElement) => ctl.QRCodeDialog(),
+  [DocumentElementType.XTextImageElement]: (ctl: EMRElement) => ctl.ImageDialog(),
+  [DocumentElementType.XTextButtonElement]: (ctl: EMRElement) => ctl.ButtonDialog(),
+  [DocumentElementType.XTextHorizontalLineElement]: (ctl: EMRElement) => ctl.HorizontalLineDialog(),
+  [DocumentElementType.XTextPageInfoElement]: (ctl: EMRElement) => ctl.PageNumberDialog(),
+  [DocumentElementType.XTextElement]: (ctl: EMRElement) => ctl.FontSelectionDialog(),
+}
+
+export const insertBetween = <T>(arr: T[], separator: T): T[] => {
+  return arr.flatMap((item, index) => (index < arr.length - 1 ? [item, separator] : [item]))
+}
+
+function genAttributeDialogByElementType(
+  myWriterControl: EMRElement,
+  elementType: DocumentElementTypeEnum,
+) {
+  if (Field_Attribute_Dialog[elementType]) {
+    return Field_Attribute_Dialog[elementType](myWriterControl)
+  }
+
+  return
+}
 
 /** 配置菜单 */
+export function genContextMenuOptions(
+  myWriterControl: EMRElement,
+  elementType: DocumentElementTypeEnum,
+) {
+  let options: TMenuOption[] = []
+  const splitLine = '-'
+  const baseOptions = [
+    {
+      label: '撤销',
+      exec: () => {
+        myWriterControl.DCExecuteCommand('Undo', false, null)
+      },
+    },
+  ]
+  /** 文档结构化元素菜单设置 */
+  const FieldElementOptions = [
+    {
+      label: '属性',
+      exec: () => {
+        /** 生成各自结构化元素对应的属性对话框 */
+        genAttributeDialogByElementType(myWriterControl, elementType)
+      },
+    },
+  ]
+
+  options.push(...baseOptions, ...FieldElementOptions)
+  options = insertBetween(options, splitLine)
+  return options
+}
 
 /** 生成菜单 */
 export function ContextMenu(

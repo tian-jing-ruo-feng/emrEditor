@@ -2,6 +2,7 @@ import type { IFielddAttributeDialog } from './fieldAttrituteDialog'
 import type { DocumentElementType } from './fieldElement'
 import type { DocumentPageSettings } from './pageSetting'
 import type { MedicalExpressionType, MedicalExpressionData } from './medical'
+import type { dataSourceItem } from './dataSource'
 
 // 文档格式
 export type DocumentFormat = 'xml' | 'json' | 'rtf' | 'html' | 'text'
@@ -72,6 +73,31 @@ declare global {
         Y: number
       },
     ): void
+
+    /** 以json的方式返回文档的数据源绑定的信息 */
+    GetDataSourceBindingDescriptionsJSON(): dataSourceItem[]
+
+    /**
+     * 获取文档中所有的数据源值
+     * @returns 数据源名称字符串列表。各个名称之间用逗号分开
+     * */
+    GetBindingDataSources(): string
+
+    /**
+     * *新方式返回数据源绑定的结构化元素值
+     * @param {String | null} parnetid 父容器编号(获取指定容器元素里面数据源名称绑定的内容，为空时，返回全文)
+     * @param {String} datasourcename 数据源名称
+     * @returns {object}
+     * */
+    getDataWithDataSources(parnetid: string | null, datasourcename: string): object
+
+    /**
+     * *新方式对结构化元素批量赋值
+     * @param {null} parnetid 父容器id
+     * @param {object} 需要绑定的结构化元素数据源内容
+     * @returns {object}
+     */
+    setDataWithDataSources(parnetid: null, dataObj: object): object
   }
 }
 
