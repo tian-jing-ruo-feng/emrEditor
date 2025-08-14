@@ -8,6 +8,7 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    DocumentSetting: typeof import('./src/components/DocumentSetting.vue')['default']
     ElButton: typeof import('element-plus/es')['ElButton']
     ElCard: typeof import('element-plus/es')['ElCard']
     ElCollapse: typeof import('element-plus/es')['ElCollapse']
@@ -43,5 +44,6 @@ declare module 'vue' {
     RightSide: typeof import('./src/components/RightSide.vue')['default']
     Title: typeof import('./src/components/Title.vue')['default']
     UserLogin: typeof import('./src/components/UserLogin.vue')['default']
+    UserManagement: typeof import('./src/components/UserManagement.vue')['default']
   }
 }

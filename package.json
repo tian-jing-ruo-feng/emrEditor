@@ -3,6 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "title": "EMR 编辑器",
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc -b && vite build",
@@ -38,6 +39,7 @@
     "unplugin-vue-components": "^28.8.0",
     "vite": "^7.0.4",
     "vite-plugin-eslint": "^1.8.1",
+    "vite-plugin-html": "^3.2.2",
     "vue-tsc": "^2.2.12"
   }
 }

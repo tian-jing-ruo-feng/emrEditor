@@ -1,5 +1,5 @@
 <template>
-  <div class="px-[10px]">
+  <div>
     <el-card>
       <!-- 操作按钮区域 -->
       <div class="flex gap-3 mb-4">

@@ -5,7 +5,7 @@
       <div class="header-left">
         <div class="brand">
           <span class="brand-mark">E</span>
-          <span class="title">EMR 编辑器</span>
+          <span class="title">{{ pkg.title }}</span>
           <span class="badge">BETA</span>
         </div>
       </div>
@@ -44,12 +44,12 @@
       <el-tabs v-model="activeTab">
         <el-tab-pane label="文档结构" name="structure">
           <div class="panel-content">
-            <LeftSide class="h-full" />
+            <DocumentSetting class="h-full" />
           </div>
         </el-tab-pane>
         <el-tab-pane label="用户管理" name="user">
           <div class="panel-content">
-            <RightSide class="h-full" />
+            <UserManagement class="h-full" />
           </div>
         </el-tab-pane>
       </el-tabs>
@@ -60,9 +60,10 @@
 <script setup lang="ts">
   import { onMounted, ref } from 'vue'
   import { useEmrStore } from './store/emr'
-  import LeftSide from './components/LeftSide.vue'
-  import RightSide from './components/RightSide.vue'
+  import DocumentSetting from './components/DocumentSetting.vue'
+  import UserManagement from './components/UserManagement.vue'
   import EMREditor from './utils/emr'
+  import pkg from '../package.json'
   /** mock数据👇 */
   import { xmlContent } from './mocks/constants'
   import { str2 } from './mocks/subDoc'

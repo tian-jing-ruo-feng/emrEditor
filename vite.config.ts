@@ -5,12 +5,21 @@ import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import vue from '@vitejs/plugin-vue'
 // @ts-expect-error: vite-plugin-eslint 没有类型声明文件
 import eslintPlugin from 'vite-plugin-eslint'
+import { createHtmlPlugin } from 'vite-plugin-html'
+import pkg from './package.json'
 import path from 'path'
 
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [
     vue(),
+    createHtmlPlugin({
+      inject: {
+        data: {
+          title: pkg.title,
+        },
+      },
+    }),
     eslintPlugin({
       // 指定 ESLint 配置文件路径
       overrideConfigFile: path.resolve(process.cwd(), '.eslintrc.cjs'),
