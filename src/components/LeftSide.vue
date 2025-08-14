@@ -1,40 +1,26 @@
 <template>
-  <el-scrollbar height="100%">
-    <TransitionGroup name="list" tag="ul">
-      <li
-        class="border-b border-[#ccc]"
-        v-for="(setting, index) in settings"
-        :title="setting.title"
-        :name="setting.name"
-        :key="setting.name"
-      >
-        <h2
-          class="h-[30px] leading-[30px] bg-[var(--el-color-primary-light-7)] px-[4px] cursor-pointer relative"
-          @click="toggleCollapse(index, !setting.active)"
-        >
+  <el-collapse v-model="activeNames">
+    <el-collapse-item
+      v-for="(setting, index) in settings"
+      :title="setting.title"
+      :name="setting.name"
+      :key="'collapse-item-setting-' + index"
+    >
+      <template #title>
+        <h2>
           {{ setting.title }}
-          <span class="icon-wrapper inline-block absolute right-[12px]">
-            <el-icon class="align-middle" v-if="setting.active">
-              <ArrowUpBold></ArrowUpBold>
-            </el-icon>
-            <el-icon class="align-middle" v-else><ArrowDownBold></ArrowDownBold></el-icon>
-          </span>
         </h2>
-        <Transition>
-          <div v-if="setting.active">
-            <json-viewer
-              :value="setting.content"
-              :expanded="true"
-              :expandDepth="4"
-              copyable
-              sort
-              theme="light"
-            ></json-viewer>
-          </div>
-        </Transition>
-      </li>
-    </TransitionGroup>
-  </el-scrollbar>
+      </template>
+      <json-viewer
+        :value="setting.content"
+        :expanded="true"
+        :expandDepth="4"
+        copyable
+        sort
+        theme="light"
+      ></json-viewer>
+    </el-collapse-item>
+  </el-collapse>
 </template>
 
 <script setup lang="ts">
@@ -47,30 +33,11 @@
   const emrStore = useEmrStore()
   const { leftsideSetting } = storeToRefs(emrStore)
   const settings = ref()
+  const activeNames = ref<string[]>([])
 
   watchEffect(() => {
-    settings.value = leftsideSetting.value.map((item, ind) => {
-      return {
-        ...item,
-        // active: ind === 0 ? true : false,
-        active: false,
-      }
-    })
+    settings.value = leftsideSetting.value
   })
-
-  function toggleCollapse(index: number, active: boolean) {
-    settings.value[index].active = active
-  }
 </script>
 
-<style lang="scss" scoped>
-  .v-enter-active,
-  .v-leave-active {
-    transition: opacity 0.5s ease;
-  }
-
-  .v-enter-from,
-  .v-leave-to {
-    opacity: 0;
-  }
-</style>
+<style lang="scss" scoped></style>
