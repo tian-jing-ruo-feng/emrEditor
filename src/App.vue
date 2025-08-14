@@ -52,6 +52,16 @@
             <UserManagement class="h-full" />
           </div>
         </el-tab-pane>
+        <!-- TODO: -->
+        <el-tab-pane label="数据源" name="datasource">
+          <div class="panel-content">数据源</div>
+        </el-tab-pane>
+        <el-tab-pane label="模板" name="template">
+          <div class="panel-content">模板</div>
+        </el-tab-pane>
+        <el-tab-pane label="病程" name="subDocument">
+          <div class="panel-content">病程</div>
+        </el-tab-pane>
       </el-tabs>
     </el-drawer>
   </div>
