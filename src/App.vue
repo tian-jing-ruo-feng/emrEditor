@@ -1,14 +1,51 @@
 <template>
-  <div class="app-wrapper">
-    <el-card class="left-side">
-      <LeftSide class="h-screen"></LeftSide>
-    </el-card>
-    <div ref="ctl" id="myWriterControl" dctype="WriterControlForWASM" RuleVisible="true">
-      正在加载...
-    </div>
-    <el-card class="right-side">
-      <h2>编辑器打印内容</h2>
-    </el-card>
+  <div class="app-container">
+    <!-- 顶部工具栏 -->
+    <header class="app-header">
+      <div class="header-left">
+        <span class="title">EMR 编辑器</span>
+      </div>
+      <div class="header-right">
+        <el-button size="small" @click="openStructure">文档结构</el-button>
+        <el-button size="small" type="primary" @click="openUser">用户管理</el-button>
+      </div>
+    </header>
+
+    <!-- 中间编辑器 -->
+    <main class="app-main">
+      <div
+        ref="ctl"
+        id="myWriterControl"
+        dctype="WriterControlForWASM"
+        RuleVisible="true"
+        registercode="0566987B1B6CD6DECCBEE8CE4CDEAD577FCF5A30201BE7553AFD47C841548F0C0CA6212C10F259E9AF13820AF8E4A17CCBF7612FFFF1A779EBF962627BCAF7ECB906FA8C96694D242208ED9CECD19A907F6820C142920C54553B32B4FE661F78E553F9D3CCE077B455FA558F71D78FE816"
+      >
+        正在加载...
+      </div>
+    </main>
+
+    <!-- 底部抽屉：文档结构 / 用户管理 -->
+    <el-drawer
+      v-model="drawerVisible"
+      direction="ltr"
+      :with-header="false"
+      size="50vw"
+      :modal="true"
+      :close-on-click-modal="true"
+    >
+      <el-tabs v-model="activeTab">
+        <el-tab-pane label="文档结构" name="structure">
+          <div class="panel-content">
+            <LeftSide class="h-full" />
+          </div>
+        </el-tab-pane>
+        <el-tab-pane label="用户管理" name="user">
+          <div class="panel-content">
+            <RightSide class="h-full" />
+          </div>
+        </el-tab-pane>
+      </el-tabs>
+    </el-drawer>
   </div>
 </template>
 
@@ -16,8 +53,13 @@
   import { onMounted, ref } from 'vue'
   import { useEmrStore } from './store/emr'
   import LeftSide from './components/LeftSide.vue'
+  import RightSide from './components/RightSide.vue'
   import EMREditor from './utils/emr'
+  /** mock数据👇 */
   import { xmlContent } from './mocks/constants'
+  import { str2 } from './mocks/subDoc'
+  import { navigatedoc } from './mocks/navigateDoc'
+  /** mock数据👆 */
 
   const emrStore = useEmrStore()
   const {
@@ -26,44 +68,49 @@
     setDocumentDataSource,
     setBindingDataSources,
     setBindingdDocumentDataSource,
+    setEmrEditorInstance,
   } = emrStore
   const ctl = ref<EMRElement | null>(null)
   const emrControl = ref<EMREditor>()
 
+  // 抽屉与标签
+  const drawerVisible = ref(false)
+  const activeTab = ref<'structure' | 'user'>('structure')
+
+  const openStructure = () => {
+    activeTab.value = 'structure'
+    drawerVisible.value = true
+  }
+  const openUser = () => {
+    activeTab.value = 'user'
+    drawerVisible.value = true
+  }
+
   onMounted(() => {
-    /** 实例化编辑器 */
     const emrEditorInstance = new EMREditor(ctl.value)
     emrControl.value = emrEditorInstance
-    /** 全局事件监听处理，必须前置 */
+    setEmrEditorInstance(emrEditorInstance)
+
     emrEditorInstance.dcwriterInitSuccessEvent((rootElement: EMRElement) => {
-      /** 文档加载完成事件 */
       emrEditorInstance.documentLoadEvent(rootElement)
       emrEditorInstance.eventShowContextMenuEvent(rootElement)
 
-      /** 获取页面设置信息 */
       const pgSetting = rootElement.GetDocumentPageSettings()
       setPageSetting(pgSetting)
 
-      /** 加载指定文档 */
       emrEditorInstance.loadDocument(xmlContent, 'xml')
 
-      // console.log(emrEditorInstance.SaveDocumentToString(), 'save formart json')
-      /** 获取命令列表数据 */
       const commands = emrEditorInstance.getCommandNameList()
       setCommandList(commands?.split(',') || [])
 
-      /** 获取数据源，json格式 */
       const dataSource = emrEditorInstance.getDataSourceBindingDescriptionsJSON()
       setDocumentDataSource(dataSource ?? [])
 
-      /** 获取文档绑定数据源头名称列表 */
       const bindingDataSources = emrEditorInstance.getBindingDataSources()
       setBindingDataSources(bindingDataSources ?? '')
 
-      /** 获取指定数据源名称数据 */
       const documentDataSource = bindingDataSources?.split(',').reduce(
         (pre, curr) => {
-          // 获取指定数据源名称的数据，并赋值到 pre 对象
           const bindingData = emrEditorInstance.getDataWithDataSources(null, curr) as {
             [key: string]: unknown
           }
@@ -83,61 +130,59 @@
     })
 
     emrEditorInstance.documentContentChangeEvent()
-
-    /** 初始化编辑器 */
     emrEditorInstance.initDCWriter()
   })
 </script>
 
 <style lang="scss" scoped>
-  .app-wrapper {
+  .app-container {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
     width: 100vw;
     height: 100vh;
     overflow: hidden;
+    background: #f6f7fb;
+  }
+
+  .app-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 56px;
+    padding: 0 16px;
+    border-bottom: 1px solid #e4e7ed;
+    background: #fff;
+
+    .title {
+      font-weight: 600;
+      font-size: 16px;
+      color: #303133;
+    }
+  }
+
+  .app-main {
+    flex: 1;
+    min-height: 0;
+    background: #fff;
   }
 
   #myWriterControl {
-    width: 50%;
+    width: 100%;
     height: 100%;
 
-    /** 工具面板 */
     &:deep(.DC-toolBar-panel) {
-      /** 菜单栏 */
       .DC-toolBar-panel-menu {
-        border-left: 1px solid #ccc;
-        border-right: 1px solid #ccc;
-        border-top: 1px solid #ccc;
-        button {
-        }
-      }
-      /** 菜单栏列表 */
-      .DC-toolBar-panel-menuList {
-        ul {
-          li {
-            div {
-            }
-            div {
-            }
-          }
-        }
-      }
-      /** 快捷工具栏 */
-      .DC-toolBar-panel-toolsbar {
-        .toolbar-group {
-          .toobar-box {
-          }
-        }
+        border-left: 1px solid #e4e7ed;
+        border-right: 1px solid #e4e7ed;
+        border-top: 1px solid #e4e7ed;
+        background: #fafafa;
       }
     }
   }
-  .left-side,
-  .right-side {
-    width: 25%;
+
+  .panel-content {
     height: 100%;
-    &:deep(.el-card__body) {
-      padding: 0;
-    }
+    padding: 8px 12px;
+    box-sizing: border-box;
   }
 </style>

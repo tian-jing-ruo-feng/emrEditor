@@ -3,6 +3,7 @@ import type { DocumentElementType } from './fieldElement'
 import type { DocumentPageSettings } from './pageSetting'
 import type { MedicalExpressionType, MedicalExpressionData } from './medical'
 import type { dataSourceItem } from './dataSource'
+import type { UserDetail, UserRequestParams } from './user'
 
 // 文档格式
 export type DocumentFormat = 'xml' | 'json' | 'rtf' | 'html' | 'text'
@@ -98,6 +99,15 @@ declare global {
      * @returns {object}
      */
     setDataWithDataSources(parnetid: null, dataObj: object): object
+
+    /** 根据用户登录信息执行用户登录操作 */
+    UserLoginByUserLoginInfo(
+      parameter: UserRequestParams['parameter'],
+      updateUI: UserRequestParams['updateUI'],
+    ): void
+
+    /** 自身属性 */
+    CurrentUser: UserDetail
   }
 }
 

@@ -2,10 +2,12 @@ import { defineStore } from 'pinia'
 import { computed, ref } from 'vue'
 import type { DocumentPageSettings } from '../types/pageSetting'
 import type { dataSourceItem } from '../types/dataSource'
+import EMREditor from '../utils/emr'
 
 export const useEmrStore = defineStore(
   'emr',
   () => {
+    const emrEditorInstance = ref<EMREditor>()
     /** 文档页面设置 */
     const pageSetting = ref<DocumentPageSettings>()
     const commandList = ref<string[]>([])
@@ -47,6 +49,11 @@ export const useEmrStore = defineStore(
       },
     ])
 
+    /** 设置emr 实例 */
+    const setEmrEditorInstance = (emrInstance: EMREditor) => {
+      emrEditorInstance.value = emrInstance
+    }
+
     /** 设置页面设置 */
     const setPageSetting = (setting: DocumentPageSettings) => {
       pageSetting.value = setting
@@ -73,8 +80,10 @@ export const useEmrStore = defineStore(
     }
 
     return {
+      emrEditorInstance,
       pageSetting,
       leftsideSetting,
+      setEmrEditorInstance,
       setPageSetting,
       setCommandList,
       setDocumentDataSource,

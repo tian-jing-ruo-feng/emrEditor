@@ -1,6 +1,7 @@
 import { createApp } from 'vue'
 import './reset.css'
 import './main.css'
+import 'element-plus/dist/index.css'
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 import pinia from './store'
 import App from './App.vue'

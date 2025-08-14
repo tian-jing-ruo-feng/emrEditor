@@ -7,6 +7,7 @@ import type {
   ContextMenuParams,
 } from '../types/contextMenu'
 import { ContextMenu, genContextMenuOptions } from '../composabes/useContextMenu'
+import type { UserRequestParams } from '../types/user'
 
 class EMREditor {
   /** DCWriter 控件对象 */
@@ -55,6 +56,7 @@ class EMREditor {
   eventShowContextMenuEvent(rootElement: EMRElement) {
     rootElement.EventShowContextMenu = function (...[eventSender, args]: ContextMenuParams) {
       let myWriterControl = eventSender
+      console.log(args, 'args context menu')
       const typename = args.ElementType
       console.log(typename, 'typeName')
       if (typename) {
@@ -136,6 +138,22 @@ class EMREditor {
    * */
   getDataWithDataSources(parnetid: string | null, datasourcename: string) {
     return this.clt?.getDataWithDataSources(parnetid, datasourcename)
+  }
+
+  /** 用户登录弹窗 */
+  loginDialog() {
+    return this.clt?.loginDialog()
+  }
+
+  /** 根据用户登录信息执行用户登录操作
+   * @param parameter 用户信息
+   * @param updateUI 是否刷新文档
+   */
+  userLoginByUserLoginInfo(
+    parameter: UserRequestParams['parameter'],
+    updateUI: UserRequestParams['updateUI'],
+  ) {
+    return this.clt?.UserLoginByUserLoginInfo(parameter, updateUI)
   }
 }
 

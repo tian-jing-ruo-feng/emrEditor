@@ -1,5 +1,5 @@
 <template>
-  <el-scrollbar height="100vh">
+  <el-scrollbar height="100%">
     <TransitionGroup name="list" tag="ul">
       <li
         class="border-b border-[#ccc]"
