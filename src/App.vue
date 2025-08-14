@@ -28,7 +28,7 @@
         RuleVisible="true"
         registercode="0566987B1B6CD6DECCBEE8CE4CDEAD577FCF5A30201BE7553AFD47C841548F0C0CA6212C10F259E9AF13820AF8E4A17CCBF7612FFFF1A779EBF962627BCAF7ECB906FA8C96694D242208ED9CECD19A907F6820C142920C54553B32B4FE661F78E553F9D3CCE077B455FA558F71D78FE816"
       >
-        正在加载...
+        <LoadingSkeleton v-if="isLoading"></LoadingSkeleton>
       </div>
     </main>
 
@@ -63,6 +63,7 @@
   import DocumentSetting from './components/DocumentSetting.vue'
   import UserManagement from './components/UserManagement.vue'
   import EMREditor from './utils/emr'
+  import LoadingSkeleton from './components/LoadingSkeleton.vue'
   import pkg from '../package.json'
   /** mock数据👇 */
   import { xmlContent } from './mocks/constants'
@@ -81,6 +82,7 @@
   } = emrStore
   const ctl = ref<EMRElement | null>(null)
   const emrControl = ref<EMREditor>()
+  const isLoading = ref(false)
 
   // 抽屉与标签
   const drawerVisible = ref(false)
@@ -136,9 +138,11 @@
         {} as { [key: string]: unknown },
       )
       setBindingdDocumentDataSource(documentDataSource ?? {})
+      isLoading.value = false
     })
 
     emrEditorInstance.documentContentChangeEvent()
+    isLoading.value = true
     emrEditorInstance.initDCWriter()
   })
 </script>

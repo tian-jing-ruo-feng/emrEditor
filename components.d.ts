@@ -41,6 +41,7 @@ declare module 'vue' {
     ElTag: typeof import('element-plus/es')['ElTag']
     HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
     LeftSide: typeof import('./src/components/LeftSide.vue')['default']
+    LoadingSkeleton: typeof import('./src/components/LoadingSkeleton.vue')['default']
     RightSide: typeof import('./src/components/RightSide.vue')['default']
     Title: typeof import('./src/components/Title.vue')['default']
     UserLogin: typeof import('./src/components/UserLogin.vue')['default']
