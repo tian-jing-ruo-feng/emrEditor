@@ -3,11 +3,19 @@
     <!-- 顶部工具栏 -->
     <header class="app-header">
       <div class="header-left">
-        <span class="title">EMR 编辑器</span>
+        <div class="brand">
+          <span class="brand-mark">E</span>
+          <span class="title">EMR 编辑器</span>
+          <span class="badge">BETA</span>
+        </div>
       </div>
       <div class="header-right">
-        <el-button size="small" @click="openStructure">文档结构</el-button>
-        <el-button size="small" type="primary" @click="openUser">用户管理</el-button>
+        <nav class="toolbar">
+          <div class="group">
+            <el-button size="small" @click="openStructure">文档结构</el-button>
+            <el-button size="small" type="primary" @click="openUser">用户管理</el-button>
+          </div>
+        </nav>
       </div>
     </header>
 
@@ -145,18 +153,135 @@
   }
 
   .app-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 56px;
-    padding: 0 16px;
-    border-bottom: 1px solid #e4e7ed;
-    background: #fff;
+    height: 52px;
+    padding: 0 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.35);
+    background: linear-gradient(
+      135deg,
+      rgba(99, 102, 241, 0.65),
+      rgba(56, 189, 248, 0.65),
+      rgba(16, 185, 129, 0.65)
+    );
+    backdrop-filter: blur(12px) saturate(160%);
+    -webkit-backdrop-filter: blur(12px) saturate(160%);
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.15) inset,
+      0 6px 20px rgba(16, 24, 40, 0.12);
+    isolation: isolate;
+
+    .header-left {
+      display: flex;
+      align-items: center;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .brand-mark {
+      width: 22px;
+      height: 22px;
+      border-radius: 6px;
+      background: linear-gradient(135deg, #7c3aed, #22d3ee);
+      color: #fff;
+      font-weight: 700;
+      font-size: 12px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      letter-spacing: 0.5px;
+      box-shadow: 0 2px 10px rgba(34, 211, 238, 0.45);
+      user-select: none;
+    }
 
     .title {
       font-weight: 600;
-      font-size: 16px;
-      color: #303133;
+      font-size: 14px;
+      color: #0f172a;
+    }
+
+    .badge {
+      padding: 2px 6px;
+      border-radius: 999px;
+      font-size: 12px;
+      color: #0ea5e9;
+      background: rgba(236, 245, 255, 0.7);
+      border: 1px solid rgba(217, 236, 255, 0.8);
+      line-height: 1;
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+    }
+
+    .toolbar {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .group {
+      display: flex;
+      align-items: center;
+      padding: 2px;
+      border: 1px solid rgba(255, 255, 255, 0.45);
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.35);
+      backdrop-filter: blur(6px) saturate(150%);
+      -webkit-backdrop-filter: blur(6px) saturate(150%);
+      box-shadow:
+        0 1px 0 rgba(255, 255, 255, 0.25) inset,
+        0 8px 20px rgba(16, 24, 40, 0.08);
+
+      :deep(.el-button) {
+        height: 28px;
+        border: none;
+        background: transparent;
+        color: #1f2937;
+
+        &:hover {
+          background: rgba(255, 255, 255, 0.55);
+          color: #0f172a;
+        }
+      }
+
+      :deep(.el-button.is-disabled) {
+        color: #c0c4cc;
+      }
+
+      :deep(.el-button + .el-button) {
+        margin-left: 4px;
+      }
+
+      :deep(.el-button--primary) {
+        background: linear-gradient(135deg, rgba(59, 130, 246, 0.22), rgba(56, 189, 248, 0.22));
+        color: #0ea5e9;
+
+        &:hover {
+          background: linear-gradient(135deg, rgba(59, 130, 246, 0.32), rgba(56, 189, 248, 0.32));
+          color: #0284c7;
+        }
+      }
+    }
+  }
+
+  @supports not ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+    .app-header {
+      background: linear-gradient(135deg, #6366f1, #38bdf8, #10b981);
+    }
+    .app-header .group {
+      background: rgba(255, 255, 255, 0.7);
     }
   }
 

@@ -9,7 +9,7 @@
       </div>
 
       <!-- 用户信息展示 -->
-      <el-descriptions v-if="userInfo" :column="1" title="当前用户信息" border>
+      <el-descriptions v-if="userInfo" :column="2" title="当前用户信息" border>
         <el-descriptions-item v-for="(item, key) in UserDetailCommentMap" :key="item">
           <template #label>
             <div class="cell-item">{{ item }}</div>
