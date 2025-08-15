@@ -79,6 +79,7 @@
   import { xmlContent } from './mocks/constants'
   import { str2 } from './mocks/subDoc'
   import { navigatedoc } from './mocks/navigateDoc'
+  import { usePanel } from './utils/panel.ts'
   /** mock数据👆 */
 
   const emrStore = useEmrStore()
@@ -113,6 +114,9 @@
     setEmrEditorInstance(emrEditorInstance)
 
     emrEditorInstance.dcwriterInitSuccessEvent((rootElement: EMRElement) => {
+      /** 自定义panel菜单栏 */
+      usePanel(rootElement)
+
       emrEditorInstance.documentLoadEvent(rootElement)
       emrEditorInstance.eventShowContextMenuEvent(rootElement)
 
