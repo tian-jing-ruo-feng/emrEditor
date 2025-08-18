@@ -1,7 +1,9 @@
+import { consola } from 'consola'
+
 export type MenuConfig = {
-  label: string,
-  icon: string,
-  onClick: () => void,
+  label: string
+  icon: string
+  onClick: (ctl: EMRElement) => void
   children?: MenuConfig[]
 }
 
@@ -22,37 +24,57 @@ const SVG_Dictionary = {
   'add-document':
     '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024"><path fill="currentColor" d="M832 384H576V128H192v768h640zm-26.496-64L640 154.496V320zM160 64h480l256 256v608a32 32 0 0 1-32 32H160a32 32 0 0 1-32-32V96a32 32 0 0 1 32-32m320 512V448h64v128h128v64H544v128h-64V640H352v-64z"></path></svg>',
   /** 保存 */
-  'save-document': '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M7 19V13H17V19H19V7.82843L16.1716 5H5V19H7ZM4 3H17L21 7V20C21 20.5523 20.5523 21 20 21H4C3.44772 21 3 20.5523 3 20V4C3 3.44772 3.44772 3 4 3ZM9 15V19H15V15H9Z"></path></svg>'
-
+  'save-document':
+    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M7 19V13H17V19H19V7.82843L16.1716 5H5V19H7ZM4 3H17L21 7V20C21 20.5523 20.5523 21 20 21H4C3.44772 21 3 20.5523 3 20V4C3 3.44772 3.44772 3 4 3ZM9 15V19H15V15H9Z"></path></svg>',
 }
 /** 自定义菜单配置列表 */
 const MenuListConfig: MenuConfig[] = [
   {
     label: '新建',
     icon: SVG_Dictionary['add-document'],
-    onClick() {
-      // alert('新建')
-    }
+    onClick(ctl: EMRElement) {
+      consola.info('新建')
+      ctl.DCExecuteCommand('FileNew', false, false)
+    },
   },
   {
     label: '保存',
     icon: SVG_Dictionary['save-document'],
-    onClick() {
+    onClick(ctl: EMRElement) {
+      consola.info('保存')
       // alert('保存')
-    }
+      const saveStr = ctl.SaveDocumentToString()
+      consola.info('保存字符串', saveStr)
+    },
   },
   {
     label: '父级',
     icon: '',
-    onClick() { },
+    onClick() {},
     children: [
       {
-        label: '子级',
+        label: '子级1',
         icon: '',
-        onClick() { }
-      }
-    ]
-  }
+        onClick(ctl: EMRElement) {
+          consola.info('子级1点击事件')
+        },
+      },
+      {
+        label: '子级2',
+        icon: '',
+        onClick(ctl: EMRElement) {
+          consola.info('子级2点击事件')
+        },
+      },
+      {
+        label: '子级3',
+        icon: '',
+        onClick(ctl: EMRElement) {
+          consola.info('子级3点击事件')
+        },
+      },
+    ],
+  },
 ]
 
 export const usePanel = (ctl: EMRElement) => {
@@ -96,10 +118,9 @@ function modifyFileMenuList(panelMenuEle: HTMLElement, menulistEles: HTMLElement
               ulEle.insertBefore(fragment, firsLiEle)
             }
           }
-        }, 0);
+        }, 0)
       })
     }
-
   }
 }
 
@@ -109,23 +130,26 @@ function modifyFileMenuList(panelMenuEle: HTMLElement, menulistEles: HTMLElement
  * @param {EMRElement} ctl 编辑器元素
  * @param {MenuConfig[]} menuListConfig 菜单列表配置
  */
-function attachFirstLevelMenuHoverHandlers(fragment: DocumentFragment, ctl: EMRElement, menuListConfig: MenuConfig[]) {
+function attachFirstLevelMenuHoverHandlers(
+  fragment: DocumentFragment,
+  ctl: EMRElement,
+  menuListConfig: MenuConfig[],
+) {
   const children = [...fragment.childNodes]
   /** 一级菜单列表：没有二级菜单，则隐藏二级菜单面板 */
   children.forEach((li, ind) => {
     li.addEventListener('mouseenter', () => {
-      let liListMenuDOM = ctl.querySelector(DC_CHILDMENU);
+      let liListMenuDOM = ctl.querySelector(DC_CHILDMENU)
       const menu = menuListConfig[ind]
       if (!menu.children && liListMenuDOM) {
-        liListMenuDOM.classList.remove("show");
-        return;
+        liListMenuDOM.classList.remove('show')
+        return
       } else if (!menu.children) {
-        return;
+        return
       }
     })
   })
 }
-
 
 /**
  * 生成li菜单元素
@@ -135,9 +159,9 @@ function attachFirstLevelMenuHoverHandlers(fragment: DocumentFragment, ctl: EMRE
 function createLiMenu(menu: MenuConfig, ctl: EMRElement) {
   const li = document.createElement('li') as HTMLLIElement
   li.innerHTML += `<div>${menu.icon}</div> ${menu.label}`
-  li.onclick = menu.onClick
+  li.onclick = () => menu.onClick(ctl)
   if (menu.children) {
-    li.classList.add("DC-toolBar-menuList-li-hasChild");
+    li.classList.add('DC-toolBar-menuList-li-hasChild')
     createSecondMenuList(menu.children, li, ctl)
   }
   li.classList.add(MENU_ITEM_DIVIDED)
@@ -155,7 +179,7 @@ function createSecondMenuList(menu: MenuConfig[], liDOM: HTMLLIElement, ctl: EMR
         showMenuList(liListMenuDOM)
 
         if (ulEle.children?.length) {
-          [...ulEle.children].forEach(child => child.remove())
+          ;[...ulEle.children].forEach(child => child.remove())
         }
         /** 创建代码片段 */
         const fragment = createMenuList(menu, ctl)
@@ -166,12 +190,12 @@ function createSecondMenuList(menu: MenuConfig[], liDOM: HTMLLIElement, ctl: EMR
       }
     } else {
       /** 创建菜单列表元素 */
-      liListMenuDOM = ctl.ownerDocument.createElement("div");
-      liListMenuDOM.id = DC_CHILDMENU.slice(1);
-      liListMenuDOM.classList.add(DC_TOOLBAR_PANEL_MENULIST_SELECTOR.slice(1));
-      let pannelDOM = ctl.querySelector(DC_TOOLBAR_PANEL_SELECTOR);
+      liListMenuDOM = ctl.ownerDocument.createElement('div')
+      liListMenuDOM.id = DC_CHILDMENU.slice(1)
+      liListMenuDOM.classList.add(DC_TOOLBAR_PANEL_MENULIST_SELECTOR.slice(1))
+      let pannelDOM = ctl.querySelector(DC_TOOLBAR_PANEL_SELECTOR)
       if (pannelDOM) {
-        pannelDOM.insertAdjacentElement("beforeend", liListMenuDOM);
+        pannelDOM.insertAdjacentElement('beforeend', liListMenuDOM)
       }
       showMenuList(liListMenuDOM)
 
@@ -189,7 +213,7 @@ function createSecondMenuList(menu: MenuConfig[], liDOM: HTMLLIElement, ctl: EMR
 
 /** 展示二级菜单 */
 function showMenuList(liListMenuDOM: HTMLElement) {
-  liListMenuDOM.classList.add("show");
+  liListMenuDOM.classList.add('show')
 }
 
 /**
@@ -203,19 +227,19 @@ function adjustPosition(e: Event, liListMenuDOM: HTMLElement, ctl: EMRElement) {
   /** 调整位置 */
   const target = e.target as HTMLElement
   const offsetParent = target.offsetParent as HTMLElement
-  liListMenuDOM.style.left = offsetParent.offsetLeft + offsetParent.offsetWidth + "px";
-  liListMenuDOM.style.top = offsetParent.offsetTop + target.offsetTop + "px";
-  liListMenuDOM.style.maxHeight = ctl.offsetHeight - (target.offsetTop + 30) + "px";
+  liListMenuDOM.style.left = offsetParent.offsetLeft + offsetParent.offsetWidth + 'px'
+  liListMenuDOM.style.top = offsetParent.offsetTop + target.offsetTop + 'px'
+  liListMenuDOM.style.maxHeight = ctl.offsetHeight - (target.offsetTop + 30) + 'px'
 }
 
 /**
  * 生成菜单代码片段
- * @param menuListConfig 
+ * @param menuListConfig
  * @returns {DocumentFragment}
  */
 function createMenuList(menuListConfig: MenuConfig[], ctl: EMRElement) {
   const fragment = document.createDocumentFragment()
-  menuListConfig.forEach((menu) => {
+  menuListConfig.forEach(menu => {
     const li = createLiMenu(menu, ctl)
 
     fragment.appendChild(li)

@@ -12,6 +12,7 @@
   "dependencies": {
     "@element-plus/icons-vue": "^2.3.2",
     "clipboard": "^2.0.11",
+    "consola": "^3.4.2",
     "element-plus": "^2.10.5",
     "pinia": "^3.0.3",
     "pinia-plugin-persistedstate": "^4.4.1",

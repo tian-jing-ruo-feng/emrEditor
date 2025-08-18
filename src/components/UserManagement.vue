@@ -109,7 +109,7 @@
   }
 
   function getUser() {
-    const user = emrEditorInstance.value?.clt?.CurrentUser
+    const user = emrEditorInstance.value?.ctl?.CurrentUser
     userInfo.value = user
   }
 </script>

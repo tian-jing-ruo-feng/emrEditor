@@ -1,3 +1,4 @@
+import consola from 'consola'
 import type { IMenuSetting, TMenuOption, TMenuOptionSetting } from '../types/contextMenu'
 import type { DocumentElementTypeEnum } from '../types/enum'
 import { DocumentElementType } from '../utils/constant'
@@ -42,6 +43,7 @@ export function genContextMenuOptions(
   myWriterControl: EMRElement,
   elementType: DocumentElementTypeEnum,
 ) {
+  consola.info('右键元素类型👉', elementType)
   let options: TMenuOption[] = []
   const splitLine = '-'
   const baseOptions = [
@@ -57,11 +59,24 @@ export function genContextMenuOptions(
     {
       label: '属性',
       exec: () => {
+        /** 测试：获取输入焦点所在病程记录的ID */
+        const subdocId = myWriterControl.CurrentSubDoc()
+        consola.info('病程id', subdocId)
         /** 生成各自结构化元素对应的属性对话框 */
         genAttributeDialogByElementType(myWriterControl, elementType)
       },
     },
   ]
+
+  if (elementType === DocumentElementType.XTextElement) {
+    // 普通文档
+    options.push({
+      label: '插入片段',
+      exec: () => {
+        consola.info('插入片段')
+      },
+    })
+  }
 
   options.push(...baseOptions, ...FieldElementOptions)
   options = insertBetween(options, splitLine)

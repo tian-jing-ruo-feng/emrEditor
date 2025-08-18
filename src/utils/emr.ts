@@ -8,13 +8,14 @@ import type {
 } from '../types/contextMenu'
 import { ContextMenu, genContextMenuOptions } from '../composabes/useContextMenu'
 import type { UserRequestParams } from '../types/user'
+import type { InsertSubDocumentsParma, SubDocOptions } from '../types/subDoc'
 
 class EMREditor {
   /** DCWriter 控件对象 */
-  clt: EMRElement | null = null
+  ctl: EMRElement | null = null
 
   constructor(ctl: EMRElement | null) {
-    this.clt = ctl
+    this.ctl = ctl
   }
 
   /** 编辑器初始化成功事件 */
@@ -76,12 +77,12 @@ class EMREditor {
     ]
   ) {
     console.log('文档加载中')
-    this.clt?.LoadDocumentFromString(...args)
+    this.ctl?.LoadDocumentFromString(...args)
   }
 
   /** 初始化编辑器 */
   initDCWriter() {
-    const ctl = this.clt
+    const ctl = this.ctl
     if (ctl) {
       // 启动时就已经加载好js，直接调用window.CreateWriterControlForWASM，不然使用EventBeforeCreateControl事件等待js加载完成
       if (typeof window.CreateWriterControlForWASM != 'function') {
@@ -100,22 +101,22 @@ class EMREditor {
 
   /** 设置内置工具栏 */
   setInnerToolBar() {
-    this.clt?.SetToolBarVisibility(true)
+    this.ctl?.SetToolBarVisibility(true)
   }
 
   /** 获取页面设置信息 */
   getPageSetting() {
-    return this.clt?.GetDocumentPageSettings()
+    return this.ctl?.GetDocumentPageSettings()
   }
 
   /** *保存返回指定类型的字符串病历文档 */
   SaveDocumentToString() {
-    return this.clt?.SaveDocumentToString()
+    return this.ctl?.SaveDocumentToString()
   }
 
   /** 获取命令列表 */
   getCommandNameList() {
-    return this.clt?.GetCommandNameList()
+    return this.ctl?.GetCommandNameList()
   }
 
   /**
@@ -123,12 +124,12 @@ class EMREditor {
    * @returns 数据源名称字符串列表。各个名称之间用逗号分开
    * */
   getBindingDataSources() {
-    return this.clt?.GetBindingDataSources()
+    return this.ctl?.GetBindingDataSources()
   }
 
   /** 以json的方式返回文档的数据源绑定的信息 */
   getDataSourceBindingDescriptionsJSON() {
-    return this.clt?.GetDataSourceBindingDescriptionsJSON()
+    return this.ctl?.GetDataSourceBindingDescriptionsJSON()
   }
 
   /**
@@ -137,12 +138,12 @@ class EMREditor {
    * @param {String} datasourcename 数据源名称
    * */
   getDataWithDataSources(parnetid: string | null, datasourcename: string) {
-    return this.clt?.getDataWithDataSources(parnetid, datasourcename)
+    return this.ctl?.getDataWithDataSources(parnetid, datasourcename)
   }
 
   /** 用户登录弹窗 */
   loginDialog() {
-    return this.clt?.loginDialog()
+    return this.ctl?.loginDialog()
   }
 
   /** 根据用户登录信息执行用户登录操作
@@ -153,8 +154,50 @@ class EMREditor {
     parameter: UserRequestParams['parameter'],
     updateUI: UserRequestParams['updateUI'],
   ) {
-    return this.clt?.UserLoginByUserLoginInfo(parameter, updateUI)
+    return this.ctl?.UserLoginByUserLoginInfo(parameter, updateUI)
   }
+
+  /** **********************病程 Start👇********************** */
+  /**
+   * 在病程文档后批量追加病程记录文档
+   * @param {SubDocOptions} options
+   */
+  appendSubDocuments(options: SubDocOptions) {
+    return this.ctl?.AppendSubDocuments(options)
+  }
+
+  /**
+   * 在指定病程后追加多个病程记录
+   * @param {InsertSubDocumentsParma['options']} options
+   */
+  insertSubDocuments(
+    options: InsertSubDocumentsParma['options'],
+    afterElement?: InsertSubDocumentsParma['afterElement'],
+    isafter?: InsertSubDocumentsParma['isafter'],
+  ) {
+    return this.ctl?.InsertSubDocuments(options, afterElement, isafter)
+  }
+
+  insertSubDocuentAtCurrentPosition(
+    option: {
+      ID: string
+      Title?: string
+    },
+    insertUp: boolean,
+  ) {
+    return this.ctl?.InsertSubDocuentAtCurrentPosition(option, insertUp)
+  }
+
+  loadSubDocumentFromString(option: {
+    FileContentXML: string
+    ID?: string
+    Usebase64?: boolean
+    ShowMaskUI?: boolean
+  }) {
+    return this.ctl?.LoadSubDocumentFromString(option)
+  }
+
+  /** **********************病程 End  👆********************** */
 }
 
 export default EMREditor

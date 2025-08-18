@@ -4,6 +4,7 @@ import type { DocumentPageSettings } from './pageSetting'
 import type { MedicalExpressionType, MedicalExpressionData } from './medical'
 import type { dataSourceItem } from './dataSource'
 import type { UserDetail, UserRequestParams } from './user'
+import type { SubDocOptions, InsertSubDocumentsParma } from './subDoc'
 
 // 文档格式
 export type DocumentFormat = 'xml' | 'json' | 'rtf' | 'html' | 'text'
@@ -108,6 +109,34 @@ declare global {
 
     /** 自身属性 */
     CurrentUser: UserDetail
+
+    /** 在病程文档后批量追加病程记录文档 */
+    AppendSubDocuments(options: SubDocOptions): boolean
+
+    /** 在指定病程后追加多个病程记录 */
+    InsertSubDocuments(
+      options: InsertSubDocumentsParma['options'],
+      afterElement?: InsertSubDocumentsParma['afterElement'],
+      isafter?: InsertSubDocumentsParma['isafter'],
+    ): boolean
+
+    /**
+     * 在指定病程处插入病程元素
+     * @param {ID: string; title?: string} option
+     * @param {Boolean} insertUp true:在上面插入；false:在下面插入
+     */
+    InsertSubDocuentAtCurrentPosition(
+      option: { ID: string; Title?: string },
+      insertUp: boolean,
+    ): boolean
+
+    /**  */
+    LoadSubDocumentFromString(option: {
+      FileContentXML: string
+      ID?: string
+      Usebase64?: boolean
+      ShowMaskUI?: boolean
+    }): boolean
   }
 }
 

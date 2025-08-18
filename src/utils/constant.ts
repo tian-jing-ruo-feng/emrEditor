@@ -1,5 +1,7 @@
 /** 文档结构化元素类型枚举 */
 export const DocumentElementType = {
+  /** 病程文本元素 */
+  XTextSubDocumentElement: 'XTextSubDocumentElement',
   /** 普通文本 */
   XTextElement: 'XTextElement',
   /** 文本输入域元素 */

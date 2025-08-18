@@ -1,5 +1,9 @@
 /** 文档结构化元素类型枚举 */
 export declare enum DocumentElementTypeEnum {
+  /** 病程文本元素 */
+  XTextSubDocumentElement = 'XTextSubDocumentElement',
+  /** 普通文本元素 */
+  XTextElement = 'XTextElement',
   /** 文本输入域元素 */
   XTextInputFieldElement = 'XTextInputFieldElement',
   /** 单选框元素 */

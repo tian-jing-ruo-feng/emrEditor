@@ -12,6 +12,18 @@
       <div class="header-right">
         <nav class="toolbar">
           <div class="group">
+            <el-dropdown>
+              <el-button type="primary">
+                病程
+                <el-icon class="el-icon--right"><arrow-down /></el-icon>
+              </el-button>
+              <template #dropdown>
+                <el-dropdown-menu>
+                  <el-dropdown-item @click="addSubDoc">插入病程</el-dropdown-item>
+                  <el-dropdown-item @click="addSubDocByPosition">指定位置插入病程</el-dropdown-item>
+                </el-dropdown-menu>
+              </template>
+            </el-dropdown>
             <el-button size="small" @click="openStructure">文档结构</el-button>
             <el-button size="small" type="primary" @click="openUser">用户管理</el-button>
           </div>
@@ -77,9 +89,11 @@
   import pkg from '../package.json'
   /** mock数据👇 */
   import { xmlContent } from './mocks/constants'
-  import { str2 } from './mocks/subDoc'
+  import { subDoc } from './mocks/subDoc'
   import { navigatedoc } from './mocks/navigateDoc'
   import { usePanel } from './utils/panel.ts'
+  import consola from 'consola'
+  import { SUB9 } from './mocks/subDocWithoutID.ts'
   /** mock数据👆 */
 
   const emrStore = useEmrStore()
@@ -106,6 +120,57 @@
   const openUser = () => {
     activeTab.value = 'user'
     drawerVisible.value = true
+  }
+
+  const addSubDoc = () => {
+    const subDocXml = subDoc
+    const attr1 = {
+      Attributes: { 姓名: '李四', 科室: '太平间', 床号: '123' }, //自定义属性
+      NewPage: true, //是否新起一页
+      ReadOnly: true, //是否可编辑
+      Title: '李四的病程记22222222录', //文档标题
+      ToolTip: '提示：李四的病程记录2222222', //文档标题
+      ID: 'randomString(6)', //
+      //  "BackgroundColorValue": "#C0C0C0",
+      TitleLevel: 0, //导航级别，从0到7的整数
+      CSSStyle: 'border:6px solid red;', //自定义的样式
+      Parameters: { 'emr.DE02.01.052.00': '喵喵喵', aaa: '刘三姐' }, //绑定的数据格式
+      DataBindingXML: '<DataSourceName><Name>李四</Name></DataSourceName>', //数据源绑定
+      EnablePermission: true, //是否启用权限
+      loadoriginheaderfooter: true, //保存子文档的页眉和页脚
+      autofittablewidth: true, //设置子文档内的表格列宽进行缩放适应主文档宽度
+      afterElement: true, // 表示将插入的位置
+    }
+    const options = {
+      // fileformat: 'xml', //病程文件的格式
+      Files: [subDocXml],
+      Options: [attr1],
+      Usebase64: 'false',
+    }
+    emrControl.value?.appendSubDocuments(options)
+    emrControl.value?.ctl?.RefreshInnerView()
+  }
+  const addSubDocByPosition = () => {
+    const ID = Date.now().toString()
+    consola.info(ID)
+    emrControl.value?.insertSubDocuentAtCurrentPosition(
+      {
+        ID,
+        Title: '日常病程记录',
+      },
+      false,
+    )
+    /** 填充数据 */
+    const options = {
+      FileContentXML: SUB9,
+      ID, //已经存在的病程id
+      Usebase64: false,
+      ShowMaskUI: true,
+    }
+    let result = emrControl.value?.loadSubDocumentFromString(options)
+    consola.warn(result)
+    // ctl.value.RefreshInnerView()
+    emrControl.value?.ctl?.RefreshInnerView()
   }
 
   onMounted(() => {
