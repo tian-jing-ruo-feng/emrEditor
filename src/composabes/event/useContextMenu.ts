@@ -2,6 +2,7 @@ import consola from 'consola'
 import type { IMenuSetting, TMenuOption, TMenuOptionSetting } from '../../types/contextMenu'
 import type { DocumentElementTypeEnum } from '../../types/enum'
 import { DocumentElementType } from '../../utils/constant'
+import { fragment } from '../../mocks/fragment'
 
 const DC_CONTEXT_MENU_ID = 'dcContextMenu'
 /** 右键菜单元素 id */
@@ -74,6 +75,7 @@ export function genContextMenuOptions(
       label: '插入片段',
       exec: () => {
         consola.info('插入片段')
+        myWriterControl.InsertXmlString(fragment)
       },
     })
   }
@@ -229,7 +231,7 @@ export function ContextMenu(
             })
             itemEle.addEventListener('click', function () {
               const indStr = itemEle.getAttribute('menuIndex') as string
-              ;(options[Number(indStr)] as TMenuOptionSetting).exec()
+                ; (options[Number(indStr)] as TMenuOptionSetting).exec()
               //将hasContextMenu元素隐藏
               hasContextMenu.remove()
             })

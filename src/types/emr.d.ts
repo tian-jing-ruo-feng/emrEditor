@@ -133,13 +133,20 @@ declare global {
       insertUp: boolean,
     ): boolean
 
-    /**  */
+    /** 加载病程 */
     LoadSubDocumentFromString(option: {
       FileContentXML: string
       ID?: string
       Usebase64?: boolean
       ShowMaskUI?: boolean
     }): boolean
+
+    /**
+     * 插入片段 Xml格式的文档内容
+     * @param {String} content
+     * @returns boolean 插入是否成功
+     */
+    InsertXmlString(content: string): boolean
   }
 }
 

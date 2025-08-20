@@ -71,6 +71,10 @@
         <el-tab-pane label="模板" name="template">
           <div class="panel-content">模板</div>
         </el-tab-pane>
+        <el-tab-pane label="片段" name="fragment">
+          <!-- TODO: 片段内容列表展示 -->
+          <div class="panel-content">片段</div>
+        </el-tab-pane>
         <el-tab-pane label="病程" name="subDocument">
           <div class="panel-content">病程</div>
         </el-tab-pane>
