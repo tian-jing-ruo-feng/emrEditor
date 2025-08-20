@@ -1,7 +1,7 @@
 import consola from 'consola'
-import type { IMenuSetting, TMenuOption, TMenuOptionSetting } from '../types/contextMenu'
-import type { DocumentElementTypeEnum } from '../types/enum'
-import { DocumentElementType } from '../utils/constant'
+import type { IMenuSetting, TMenuOption, TMenuOptionSetting } from '../../types/contextMenu'
+import type { DocumentElementTypeEnum } from '../../types/enum'
+import { DocumentElementType } from '../../utils/constant'
 
 const DC_CONTEXT_MENU_ID = 'dcContextMenu'
 /** 右键菜单元素 id */

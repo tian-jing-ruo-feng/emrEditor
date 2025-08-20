@@ -76,6 +76,9 @@ declare global {
       },
     ): void
 
+    /** 鼠标双击事件 */
+    ondocumentdblclick(e: Event): void
+
     /** 以json的方式返回文档的数据源绑定的信息 */
     GetDataSourceBindingDescriptionsJSON(): dataSourceItem[]
 

@@ -6,9 +6,10 @@ import type {
   TMenuOptionSetting,
   ContextMenuParams,
 } from '../types/contextMenu'
-import { ContextMenu, genContextMenuOptions } from '../composabes/useContextMenu'
+import { ContextMenu, genContextMenuOptions } from '../composabes/event/useContextMenu'
 import type { UserRequestParams } from '../types/user'
 import type { InsertSubDocumentsParma, SubDocOptions } from '../types/subDoc'
+import consola from 'consola'
 
 class EMREditor {
   /** DCWriter 控件对象 */
@@ -59,11 +60,19 @@ class EMREditor {
       let myWriterControl = eventSender
       console.log(args, 'args context menu')
       const typename = args.ElementType
-      console.log(typename, 'typeName')
+      consola.log(typename, 'typeName')
       if (typename) {
         const options = genContextMenuOptions(myWriterControl, typename)
         ContextMenu(options, args, myWriterControl)
       }
+    }
+  }
+
+  /** 鼠标双击事件 */
+  dbClickEvent(rootElement: EMRElement) {
+    rootElement.ondocumentdblclick = (e: Event) => {
+      consola.info('鼠标双击事件', e.currentTarget)
+      rootElement.DCExecuteCommand('ElementProperties', true, false)
     }
   }
 
