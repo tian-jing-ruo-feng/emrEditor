@@ -5,6 +5,7 @@ import type { MedicalExpressionType, MedicalExpressionData } from './medical'
 import type { dataSourceItem } from './dataSource'
 import type { UserDetail, UserRequestParams } from './user'
 import type { SubDocOptions, InsertSubDocumentsParma } from './subDoc'
+import type { SelectionInfo } from './selectionInfo'
 
 // 文档格式
 export type DocumentFormat = 'xml' | 'json' | 'rtf' | 'html' | 'text'
@@ -20,6 +21,18 @@ export type WriterEventArgs = {
 // 扩展 HTMLElement 类型，添加编辑器相关方法
 declare global {
   interface EMRElement extends HTMLElement, IFielddAttributeDialog {
+    /** 选中内容数据信息 */
+    Selection: SelectionInfo
+    /** 选中文本 */
+    SelectedText: string
+    /** 选中文本长度 */
+    SelectionLength: number
+    /** 获取选择内容的开始位置信息 */
+    SelectionStartPosition: number
+    /** 获取病程记录的编号 */
+    CurrentSubDoc(): string
+    /** 保存片段 */
+    DocumentSelection(format: 'XML' | 'TEXT' | 'HTML' | 'JSON'): string
     /** 执行编辑器命令 */
     DCExecuteCommand(command: string, value: unknown, param: unknown): void
 

@@ -80,6 +80,18 @@ export function genContextMenuOptions(
     })
   }
 
+  /** 保存为片段 */
+  if (myWriterControl.SelectionLength) {
+    options.push({
+      label: '保存为片段',
+      exec: () => {
+        /** 保存为xml格式 */
+        const res = myWriterControl.DocumentSelection('XML')
+        consola.info('保存片段结果\n', res)
+      }
+    })
+  }
+
   options.push(...baseOptions, ...FieldElementOptions)
   options = insertBetween(options, splitLine)
   return options
