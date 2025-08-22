@@ -121,66 +121,66 @@ export function ContextMenu(
         let hasContextMenuCss = dcHead.querySelector(`#${CONTEXT_MENU_CSS_ID}`)
         if (!hasContextMenuCss) {
           let newCssString = `
-        #dcContextMenu{
-            position: absolute;
-            margin: 0;
-            padding: 2px;
-            border-width: 1px;
-            border-style: solid;
-            background-color: #fafafa;
-            border-color: #ddd;
-            color: #444;
-            box-shadow: rgb(204, 204, 204) 2px 2px 3px;
-            width: 144px;
-            overflow: hidden;
-            /* left: 8px;
-            top: 481.672px; */
-            z-index: 110008;
-            display: none;
+  #dcContextMenu{
+    position: absolute;
+  margin: 0;
+  padding: 2px;
+  border-width: 1px;
+  border-style: solid;
+  background-color: #fafafa;
+  border-color: #ddd;
+  color: #444;
+  box-shadow: rgb(204, 204, 204) 2px 2px 3px;
+  width: 144px;
+  overflow: hidden;
+  /* left: 8px;
+  top: 481.672px; */
+  z-index: 110008;
+  display: none;
         }
         #dcContextMenu > div:hover{
-            color: rgb(0, 0, 0);
-            border-color: rgb(183,210,255);
-            background: rgb(234,242,255);
+    color: rgb(0, 0, 0);
+  border-color: rgb(183,210,255);
+  background: rgb(234,242,255);
         }
-        #dcContextMenu .dcMenu-line{
-            position: absolute;
-            left: 26px;
-            top: 0;
-            height: 100%;
-            font-size: 1px;
-            border-left: 1px solid #ccc;
-            border-right: 1px solid #fff;
+  #dcContextMenu .dcMenu-line{
+    position: absolute;
+  left: 26px;
+  top: 0;
+  height: 100%;
+  font-size: 1px;
+  border-left: 1px solid #ccc;
+  border-right: 1px solid #fff;
         }
-        #dcContextMenu .dcMenu-item{
-            position: relative;
-            white-space: nowrap;
-            cursor: pointer;
-            margin: 0px;
-            padding: 0px;
-            overflow: hidden;
-            border-width: 1px;
-            border-style: solid;
-            border-color: transparent;
+  #dcContextMenu .dcMenu-item{
+    position: relative;
+  white-space: nowrap;
+  cursor: pointer;
+  margin: 0px;
+  padding: 0px;
+  overflow: hidden;
+  border-width: 1px;
+  border-style: solid;
+  border-color: transparent;
         }
-        #dcContextMenu .dcMenu-item .dcMenu-text{
-            float: left;
-            padding-left: 28px;
-            font-size: 12px;
+  #dcContextMenu .dcMenu-item .dcMenu-text{
+    float: left;
+  padding-left: 28px;
+  font-size: 12px;
         }
-        #dcContextMenu .dcMenu-icon{
-            position: absolute;
-            width: 16px;
-            height: 16px;
-            left: 2px;
-            top: 50%;
-            margin-top: -8px;
+  #dcContextMenu .dcMenu-icon{
+    position: absolute;
+  width: 16px;
+  height: 16px;
+  left: 2px;
+  top: 50%;
+  margin-top: -8px;
         }
-        #dcContextMenu .dcMenu-sep{
-            margin: 3px 0px 3px 25px;
-            font-size: 1px;
-            border-top: 1px solid #ccc;
-            border-bottom: 1px solid #fff;
+  #dcContextMenu .dcMenu-sep{
+    margin: 3px 0px 3px 25px;
+  font-size: 1px;
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #fff;
         }`
           let ContextMenuCss = document.createElement('style')
           ContextMenuCss.setAttribute('id', CONTEXT_MENU_CSS_ID)
@@ -232,9 +232,9 @@ export function ContextMenu(
             hasContextMenu.appendChild(itemEle)
             const optionObj = options[option] as TMenuOptionSetting
             itemEle.innerHTML = `
-                    <div class="dcMenu-text" style="height: 30px; line-height: 30px;">${optionObj.label}</div>
-                    <div class="dcMenu-icon"></div>
-                `
+  <div class="dcMenu-text" style="height: 30px; line-height: 30px;">${optionObj.label}</div>
+  <div class="dcMenu-icon"></div>
+  `
             // 修复：setAttribute 需要字符串类型
             itemEle.setAttribute('menuIndex', option.toString())
             itemEle.addEventListener('mousedown', function (e) {

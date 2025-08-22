@@ -3,6 +3,7 @@ import { computed, ref } from 'vue'
 import type { DocumentPageSettings } from '../types/pageSetting'
 import type { dataSourceItem } from '../types/dataSource'
 import EMREditor from '../utils/emr'
+import type { IMenuSetting } from '../types/contextMenu'
 
 export const useEmrStore = defineStore(
   'emr',
@@ -14,6 +15,7 @@ export const useEmrStore = defineStore(
     const documentDataSource = ref<dataSourceItem[]>([])
     const bindingDataSources = ref<string>('')
     const bindingDocumentDataSource = ref<{ [key: string]: unknown }>({})
+    const contextMenuEventInfo = ref<IMenuSetting>()
 
     /** 左侧栏目设置 */
     const leftsideSetting = computed(() => [
@@ -79,16 +81,23 @@ export const useEmrStore = defineStore(
       bindingDocumentDataSource.value = dataSource
     }
 
+    /** 设置右键菜单事件信息 */
+    const setContextMenuEventInfo = (info: IMenuSetting) => {
+      contextMenuEventInfo.value = info
+    }
+
     return {
       emrEditorInstance,
       pageSetting,
       leftsideSetting,
+      contextMenuEventInfo,
       setEmrEditorInstance,
       setPageSetting,
       setCommandList,
       setDocumentDataSource,
       setBindingDataSources,
       setBindingdDocumentDataSource,
+      setContextMenuEventInfo
     }
   },
   {
