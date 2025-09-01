@@ -57,7 +57,10 @@ const MenuListConfig: MenuConfig[] = [
       const userInfo = {
         userName: '张三',
         userAge: 25,
-        userSex: 0
+        userSex: 0,
+        fromWay: 'walk',
+        fromWayName: '（步行）自行来院',
+        dylist: '有下拉选项1,无下拉选项2'
       }
       /** 绑定数据到数据源 */
       ctl.setDataWithDataSources(null, { userInfo })

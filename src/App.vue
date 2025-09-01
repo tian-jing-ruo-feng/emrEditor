@@ -190,7 +190,7 @@
 
       emrEditorInstance.documentLoadEvent(rootElement)
       emrEditorInstance.eventShowContextMenuEvent(rootElement)
-      // emrEditorInstance.dbClickEvent(rootElement)
+      emrEditorInstance.dbClickEvent(rootElement)
       emrEditorInstance.queryListItem(rootElement)
       emrEditorInstance.eventChangeSearchInputSpellCode(rootElement)
 

@@ -52,12 +52,13 @@ export const emergencyDoc = `
                                     <MinLength>1</MinLength>
                                     <CheckMaxValue>true</CheckMaxValue>
                                     <CheckMinValue>true</CheckMinValue>
-                                    <DateTimeMaxValue>0001-01-01T00:25:00+08:00</DateTimeMaxValue>
-                                    <DateTimeMinValue>0001-01-01T00:25:00+08:00</DateTimeMinValue>
+                                    <DateTimeMaxValue>0001-01-01T00:40:00+08:00</DateTimeMaxValue>
+                                    <DateTimeMinValue>0001-01-01T00:40:00+08:00</DateTimeMinValue>
                                  </ValidateStyle>
                                  <ValueBinding>
                                     <DataSource>userInfo</DataSource>
                                     <BindingPath>userName</BindingPath>
+                                    <Readonly>true</Readonly>
                                  </ValueBinding>
                                  <MoveFocusHotKey>None</MoveFocusHotKey>
                                  <Name>姓名</Name>
@@ -83,12 +84,13 @@ export const emergencyDoc = `
                                  <ValidateStyle>
                                     <CheckMaxValue>true</CheckMaxValue>
                                     <CheckMinValue>true</CheckMinValue>
-                                    <DateTimeMaxValue>0001-01-01T00:25:00+08:00</DateTimeMaxValue>
-                                    <DateTimeMinValue>0001-01-01T00:25:00+08:00</DateTimeMinValue>
+                                    <DateTimeMaxValue>0001-01-01T00:40:00+08:00</DateTimeMaxValue>
+                                    <DateTimeMinValue>0001-01-01T00:40:00+08:00</DateTimeMinValue>
                                  </ValidateStyle>
                                  <ValueBinding>
                                     <DataSource>userInfo</DataSource>
                                     <BindingPath>userSex</BindingPath>
+                                    <Readonly>true</Readonly>
                                  </ValueBinding>
                                  <MoveFocusHotKey>None</MoveFocusHotKey>
                                  <SpecifyWidth>200</SpecifyWidth>
@@ -143,12 +145,13 @@ export const emergencyDoc = `
                                  <ValidateStyle>
                                     <ValueType>Integer</ValueType>
                                     <MaxValue>1000</MaxValue>
-                                    <DateTimeMaxValue>0001-01-01T00:25:00+08:00</DateTimeMaxValue>
-                                    <DateTimeMinValue>0001-01-01T00:25:00+08:00</DateTimeMinValue>
+                                    <DateTimeMaxValue>0001-01-01T00:40:00+08:00</DateTimeMaxValue>
+                                    <DateTimeMinValue>0001-01-01T00:40:00+08:00</DateTimeMinValue>
                                  </ValidateStyle>
                                  <ValueBinding>
                                     <DataSource>userInfo</DataSource>
                                     <BindingPath>userAge</BindingPath>
+                                    <Readonly>true</Readonly>
                                  </ValueBinding>
                                  <MoveFocusHotKey>None</MoveFocusHotKey>
                                  <Name>年龄</Name>
@@ -204,27 +207,32 @@ export const emergencyDoc = `
                         </Element>
                         <Element xsi:type="XTextTableCell" StyleIndex="8">
                            <XElements>
-                              <Element xsi:type="XInputField" StyleIndex="25">
+                              <Element xsi:type="XInputField" StyleIndex="24">
                                  <ID>fromWay</ID>
                                  <ToolTip>送达方式</ToolTip>
                                  <ValidateStyle>
                                     <CheckMaxValue>true</CheckMaxValue>
                                     <CheckMinValue>true</CheckMinValue>
-                                    <DateTimeMaxValue>0001-01-01T00:00:00+08:00</DateTimeMaxValue>
-                                    <DateTimeMinValue>0001-01-01T00:00:00+08:00</DateTimeMinValue>
+                                    <DateTimeMaxValue>0001-01-01T00:10:00+08:00</DateTimeMaxValue>
+                                    <DateTimeMinValue>0001-01-01T00:10:00+08:00</DateTimeMinValue>
                                  </ValidateStyle>
                                  <ValueBinding>
                                     <DataSource>userInfo</DataSource>
                                     <BindingPath>fromWay</BindingPath>
+                                    <BindingPathForText>fromWayName</BindingPathForText>
+                                    <Readonly>true</Readonly>
                                  </ValueBinding>
-                                 <CopySource />
                                  <MoveFocusHotKey>None</MoveFocusHotKey>
-                                 <SpecifyWidth>497</SpecifyWidth>
+                                 <SpecifyWidth>500</SpecifyWidth>
+                                 <DefaultEventExpression>送达方式</DefaultEventExpression>
                                  <Name>送达方式</Name>
-                                 <DisplayFormat />
+                                 <DisplayFormat>
+                                    <Style>String</Style>
+                                    <Format>trim</Format>
+                                 </DisplayFormat>
                                  <BackgroundText>送达方式</BackgroundText>
                                  <EnableHighlight>Default</EnableHighlight>
-                                 <EditorActiveMode>GotFocus MouseDblClick MouseClick</EditorActiveMode>
+                                 <EditorActiveMode>GotFocus MouseClick MouseRightClick</EditorActiveMode>
                                  <FieldSettings>
                                     <EditStyle>DropdownList</EditStyle>
                                     <DynamicListItems>true</DynamicListItems>
@@ -247,18 +255,19 @@ export const emergencyDoc = `
                         </Element>
                         <Element xsi:type="XTextTableCell" StyleIndex="8">
                            <XElements>
-                              <Element xsi:type="XInputField" StyleIndex="24">
+                              <Element xsi:type="XInputField" StyleIndex="4">
                                  <ID>dylist</ID>
                                  <ToolTip>动态下拉</ToolTip>
                                  <ValidateStyle>
                                     <CheckMaxValue>true</CheckMaxValue>
                                     <CheckMinValue>true</CheckMinValue>
-                                    <DateTimeMaxValue>0001-01-01T00:05:00+08:00</DateTimeMaxValue>
-                                    <DateTimeMinValue>0001-01-01T00:05:00+08:00</DateTimeMinValue>
+                                    <DateTimeMaxValue>0001-01-01T00:20:00+08:00</DateTimeMaxValue>
+                                    <DateTimeMinValue>0001-01-01T00:20:00+08:00</DateTimeMinValue>
                                  </ValidateStyle>
                                  <ValueBinding>
                                     <DataSource>userInfo</DataSource>
                                     <BindingPath>dylist</BindingPath>
+                                    <Readonly>true</Readonly>
                                  </ValueBinding>
                                  <MoveFocusHotKey>None</MoveFocusHotKey>
                                  <SpecifyWidth>500</SpecifyWidth>
@@ -288,6 +297,7 @@ export const emergencyDoc = `
                      </XElements>
                   </Element>
                </XElements>
+               <AllowReBindingDataSource>true</AllowReBindingDataSource>
                <Columns>
                   <Element xsi:type="XTextTableColumn">
                      <Width>296.687</Width>
@@ -993,16 +1003,12 @@ export const emergencyDoc = `
             <FontName>宋体</FontName>
             <FontSize>12</FontSize>
          </Style>
-         <Style Index="25">
-            <FontName>宋体</FontName>
-            <FontSize>12</FontSize>
-         </Style>
       </Styles>
    </ContentStyles>
-   <DocumentContentVersion>14</DocumentContentVersion>
+   <DocumentContentVersion>55</DocumentContentVersion>
    <Info>
       <CreationTime>1980-01-01T00:00:00+08:00</CreationTime>
-      <LastModifiedTime>2025-09-01T13:09:38+08:00</LastModifiedTime>
+      <LastModifiedTime>2025-09-01T15:05:35+08:00</LastModifiedTime>
       <LastPrintTime>1980-01-01T00:00:00+08:00</LastPrintTime>
       <Operator>DCSoft.Writer Version:1.0.0.0</Operator>
       <NumOfPage>2</NumOfPage>
