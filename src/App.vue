@@ -192,6 +192,7 @@
       emrEditorInstance.eventShowContextMenuEvent(rootElement)
       // emrEditorInstance.dbClickEvent(rootElement)
       emrEditorInstance.queryListItem(rootElement)
+      emrEditorInstance.eventChangeSearchInputSpellCode(rootElement)
 
       const pgSetting = rootElement.GetDocumentPageSettings()
       setPageSetting(pgSetting)

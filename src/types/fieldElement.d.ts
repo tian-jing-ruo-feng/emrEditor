@@ -262,6 +262,7 @@ export type DocumentElement =
 //   | 'XTextTableCellElement'
 
 export type EventObject = {
+  Value: unknown,
   ElementID: string;
   ListSourceName: string | null;
   AddResultItemByTextValue: (strText: string, strValue: unknown) => void;
@@ -279,4 +280,8 @@ export type EventObject = {
     TextInList: string /**下拉选项文本显示 */,
     Group: string /** 分组 */
   }) => void;
+
+  ChangeSpellCode: () => void;
+
+  Completed: () => void;
 }

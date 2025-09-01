@@ -96,6 +96,9 @@ declare global {
     /** 动态下拉列表事件 */
     QueryListItems(sender: EMRElement, eventObject: EventObject): void
 
+    /** 下拉列表搜索事件 */
+    EventChangeSearchInputSpellCode(eventObject: EventObject): void
+
     /** 以json的方式返回文档的数据源绑定的信息 */
     GetDataSourceBindingDescriptionsJSON(): dataSourceItem[]
 

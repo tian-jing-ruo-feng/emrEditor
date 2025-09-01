@@ -81,13 +81,15 @@ class EMREditor {
   queryListItem(rootElement: EMRElement) {
     console.log('动态下拉列表事件');
     rootElement.QueryListItems = function (sender: EMRElement, eventObject: EventObject) {
+      console.log(eventObject, 'eventObject');
       // console.log("QueryListItems获取的编号："
       //   + eventObject.ElementID
       //   + "，获取的数据来源名称："
       //   + eventObject.ListSourceName);
       const { ElementID } = eventObject
+      let res: { text: string; value: unknown }[] = []
       if (ElementID === 'fromWay') {
-        const res = [
+        res = [
           {
             text: '（步行）自行来院',
             value: 'walk'
@@ -109,10 +111,43 @@ class EMREditor {
             value: 'other'
           },
         ]
+      } else {
+        // 其他
+        res = [
+          {
+            text: '下拉选项1',
+            value: '1'
+          },
+          {
+            text: '下拉选项2',
+            value: '2'
+          },
+        ]
+      }
+      // mock remote request data
+      setTimeout(() => {
         res.forEach(item => {
           eventObject.AddResultItemByTextValue(item.text, item.value)
+          eventObject.Completed()
         })
-      }
+      }, 300);
+    }
+  }
+
+  /** 下拉列表搜索事件 */
+  eventChangeSearchInputSpellCode(rootElement: EMRElement) {
+    rootElement.EventChangeSearchInputSpellCode = function (eventObject: EventObject) {
+      console.log("EventChangeSearchInputSpellCode获取的编号："
+        + eventObject.ElementID
+        + "，获取的数据来源名称："
+        + eventObject.ListSourceName)
+      console.log(eventObject, '👈用户输入信息');
+      // mock remote request
+      setTimeout(() => {
+        eventObject.AddResultItemByTextValue('测试', 'test')
+        eventObject.ChangeSpellCode();
+      }, 300);
+
     }
   }
 
