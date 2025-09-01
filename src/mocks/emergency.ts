@@ -52,20 +52,17 @@ export const emergencyDoc = `
                                     <MinLength>1</MinLength>
                                     <CheckMaxValue>true</CheckMaxValue>
                                     <CheckMinValue>true</CheckMinValue>
-                                    <DateTimeMaxValue>0001-01-01T00:00:00+08:00</DateTimeMaxValue>
-                                    <DateTimeMinValue>0001-01-01T00:00:00+08:00</DateTimeMinValue>
+                                    <DateTimeMaxValue>0001-01-01T00:10:00+08:00</DateTimeMaxValue>
+                                    <DateTimeMinValue>0001-01-01T00:10:00+08:00</DateTimeMinValue>
                                  </ValidateStyle>
                                  <ValueBinding>
                                     <DataSource>userInfo</DataSource>
                                     <BindingPath>userName</BindingPath>
                                  </ValueBinding>
-                                 <CopySource />
                                  <MoveFocusHotKey>None</MoveFocusHotKey>
                                  <Name>姓名</Name>
-                                 <DisplayFormat />
                                  <EnableHighlight>Default</EnableHighlight>
                                  <EditorActiveMode>None</EditorActiveMode>
-                                 <FieldSettings />
                               </Element>
                               <Element xsi:type="XParagraphFlag" />
                            </XElements>
@@ -82,12 +79,12 @@ export const emergencyDoc = `
                            <XElements>
                               <Element xsi:type="XInputField" StyleIndex="29">
                                  <ID>userSex</ID>
-                                 <ToolTip>请选择性别</ToolTip>
+                                 <ToolTip>性别</ToolTip>
                                  <ValidateStyle>
                                     <CheckMaxValue>true</CheckMaxValue>
                                     <CheckMinValue>true</CheckMinValue>
-                                    <DateTimeMaxValue>0001-01-01T00:00:00+08:00</DateTimeMaxValue>
-                                    <DateTimeMinValue>0001-01-01T00:00:00+08:00</DateTimeMinValue>
+                                    <DateTimeMaxValue>0001-01-01T00:10:00+08:00</DateTimeMaxValue>
+                                    <DateTimeMinValue>0001-01-01T00:10:00+08:00</DateTimeMinValue>
                                  </ValidateStyle>
                                  <ValueBinding>
                                     <DataSource>userInfo</DataSource>
@@ -95,14 +92,18 @@ export const emergencyDoc = `
                                  </ValueBinding>
                                  <CopySource />
                                  <MoveFocusHotKey>None</MoveFocusHotKey>
+                                 <SpecifyWidth>200</SpecifyWidth>
                                  <Name>性别</Name>
-                                 <DisplayFormat />
+                                 <DisplayFormat>
+                                    <Style>String</Style>
+                                    <Format>lower</Format>
+                                 </DisplayFormat>
                                  <EnableHighlight>Default</EnableHighlight>
-                                 <EditorActiveMode>Default Program F2 GotFocus MouseDblClick MouseClick MouseRightClick Enter</EditorActiveMode>
+                                 <EditorActiveMode>MouseClick</EditorActiveMode>
                                  <FieldSettings>
                                     <EditStyle>DropdownList</EditStyle>
-                                    <DynamicListItems>true</DynamicListItems>
                                     <ListSource>
+                                       <SourceName>sexDict</SourceName>
                                        <Items>
                                           <Item>
                                              <Text>男</Text>
@@ -143,17 +144,15 @@ export const emergencyDoc = `
                                  <ValidateStyle>
                                     <ValueType>Integer</ValueType>
                                     <MaxValue>1000</MaxValue>
-                                    <DateTimeMaxValue>0001-01-01T00:00:00+08:00</DateTimeMaxValue>
-                                    <DateTimeMinValue>0001-01-01T00:00:00+08:00</DateTimeMinValue>
+                                    <DateTimeMaxValue>0001-01-01T00:10:00+08:00</DateTimeMaxValue>
+                                    <DateTimeMinValue>0001-01-01T00:10:00+08:00</DateTimeMinValue>
                                  </ValidateStyle>
                                  <ValueBinding>
                                     <DataSource>userInfo</DataSource>
                                     <BindingPath>userAge</BindingPath>
                                  </ValueBinding>
-                                 <CopySource />
                                  <MoveFocusHotKey>None</MoveFocusHotKey>
                                  <Name>年龄</Name>
-                                 <DisplayFormat />
                                  <EnableHighlight>Default</EnableHighlight>
                                  <EditorActiveMode>None</EditorActiveMode>
                                  <FieldSettings>
@@ -791,6 +790,7 @@ export const emergencyDoc = `
          <XElements />
       </Element>
    </XElements>
+   <FileFormat>XML</FileFormat>
    <ContentStyles>
       <Default xsi:type="DocumentContentStyle">
          <FontName>宋体</FontName>
@@ -978,10 +978,10 @@ export const emergencyDoc = `
          </Style>
       </Styles>
    </ContentStyles>
-   <DocumentContentVersion>3722</DocumentContentVersion>
+   <DocumentContentVersion>12</DocumentContentVersion>
    <Info>
       <CreationTime>1980-01-01T00:00:00+08:00</CreationTime>
-      <LastModifiedTime>2025-08-22T10:43:37+08:00</LastModifiedTime>
+      <LastModifiedTime>2025-08-22T13:21:38+08:00</LastModifiedTime>
       <LastPrintTime>1980-01-01T00:00:00+08:00</LastPrintTime>
       <Operator>DCSoft.Writer Version:1.0.0.0</Operator>
       <NumOfPage>2</NumOfPage>

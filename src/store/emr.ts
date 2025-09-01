@@ -91,6 +91,7 @@ export const useEmrStore = defineStore(
       pageSetting,
       leftsideSetting,
       contextMenuEventInfo,
+      bindingDocumentDataSource,
       setEmrEditorInstance,
       setPageSetting,
       setCommandList,
