@@ -10,6 +10,7 @@ import { ContextMenu, genContextMenuOptions } from '../composabes/event/useConte
 import type { UserRequestParams } from '../types/user'
 import type { InsertSubDocumentsParma, SubDocOptions } from '../types/subDoc'
 import consola from 'consola'
+import type { EventObject } from '../types/fieldElement'
 
 class EMREditor {
   /** DCWriter 控件对象 */
@@ -76,6 +77,45 @@ class EMREditor {
     }
   }
 
+  /** 动态下拉列表事件 */
+  queryListItem(rootElement: EMRElement) {
+    console.log('动态下拉列表事件');
+    rootElement.QueryListItems = function (sender: EMRElement, eventObject: EventObject) {
+      // console.log("QueryListItems获取的编号："
+      //   + eventObject.ElementID
+      //   + "，获取的数据来源名称："
+      //   + eventObject.ListSourceName);
+      const { ElementID } = eventObject
+      if (ElementID === 'fromWay') {
+        const res = [
+          {
+            text: '（步行）自行来院',
+            value: 'walk'
+          },
+          {
+            text: '轮椅推送',
+            value: 'wheelchairPush'
+          },
+          {
+            text: '平车推送',
+            value: 'fletbedPush'
+          },
+          {
+            text: '救护车送达',
+            value: 'ambulanceDelivery'
+          },
+          {
+            text: '其他',
+            value: 'other'
+          },
+        ]
+        res.forEach(item => {
+          eventObject.AddResultItemByTextValue(item.text, item.value)
+        })
+      }
+    }
+  }
+
   /** 加载指定类型的病历模板文档 */
   loadDocument(
     ...args: [
@@ -120,7 +160,6 @@ class EMREditor {
 
   /** *保存返回指定类型的字符串病历文档 */
   SaveDocumentToString() {
-    return this.ctl?.SaveDocumentToString()
   }
 
   /** 获取命令列表 */

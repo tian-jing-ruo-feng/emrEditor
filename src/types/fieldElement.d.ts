@@ -260,3 +260,23 @@ export type DocumentElement =
 //   | 'XTextMediaElement'
 //   | 'XTextNewMedicalExpressionElement'
 //   | 'XTextTableCellElement'
+
+export type EventObject = {
+  ElementID: string;
+  ListSourceName: string | null;
+  AddResultItemByTextValue: (strText: string, strValue: unknown) => void;
+  /**
+   * AddResultItem
+   * @param {string} Text 选中输入框文本显示
+   * @param {unknown} Value 选中值
+   * @param {string} TextInList 下拉选项文本显示
+   * @param {string} Group 分组
+   * @returns void
+   */
+  AddResultItem: ({
+    Text: string /** 选中输入框文本显示 */,
+    Value: unknown /** 选中值 */,
+    TextInList: string /**下拉选项文本显示 */,
+    Group: string /** 分组 */
+  }) => void;
+}

@@ -1,5 +1,5 @@
 import type { IFielddAttributeDialog } from './fieldAttrituteDialog'
-import type { DocumentElementType } from './fieldElement'
+import type { DocumentElementType, EventObject } from './fieldElement'
 import type { DocumentPageSettings } from './pageSetting'
 import type { MedicalExpressionType, MedicalExpressionData } from './medical'
 import type { dataSourceItem } from './dataSource'
@@ -17,6 +17,7 @@ export type WriterEventArgs = {
   ElementType: string | null
   WriterControl: EMRElement
 }
+
 
 // 扩展 HTMLElement 类型，添加编辑器相关方法
 declare global {
@@ -91,6 +92,9 @@ declare global {
 
     /** 鼠标双击事件 */
     ondocumentdblclick(e: Event): void
+
+    /** 动态下拉列表事件 */
+    QueryListItems(sender: EMRElement, eventObject: EventObject): void
 
     /** 以json的方式返回文档的数据源绑定的信息 */
     GetDataSourceBindingDescriptionsJSON(): dataSourceItem[]

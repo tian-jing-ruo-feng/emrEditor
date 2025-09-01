@@ -29,7 +29,7 @@ export const emergencyDoc = `
             <Element xsi:type="XString">
                <Text>	</Text>
             </Element>
-            <Element xsi:type="XTextTable" NumOfRows="3" NumOfColumns="4">
+            <Element xsi:type="XTextTable" NumOfRows="4" NumOfColumns="4">
                <ID>table1</ID>
                <XElements>
                   <Element xsi:type="XTextTableRow">
@@ -44,7 +44,7 @@ export const emergencyDoc = `
                         </Element>
                         <Element xsi:type="XTextTableCell" StyleIndex="8">
                            <XElements>
-                              <Element xsi:type="XInputField" StyleIndex="29">
+                              <Element xsi:type="XInputField" StyleIndex="4">
                                  <ID>userName</ID>
                                  <ToolTip>请输入姓名</ToolTip>
                                  <ValidateStyle>
@@ -52,8 +52,8 @@ export const emergencyDoc = `
                                     <MinLength>1</MinLength>
                                     <CheckMaxValue>true</CheckMaxValue>
                                     <CheckMinValue>true</CheckMinValue>
-                                    <DateTimeMaxValue>0001-01-01T00:10:00+08:00</DateTimeMaxValue>
-                                    <DateTimeMinValue>0001-01-01T00:10:00+08:00</DateTimeMinValue>
+                                    <DateTimeMaxValue>0001-01-01T00:25:00+08:00</DateTimeMaxValue>
+                                    <DateTimeMinValue>0001-01-01T00:25:00+08:00</DateTimeMinValue>
                                  </ValidateStyle>
                                  <ValueBinding>
                                     <DataSource>userInfo</DataSource>
@@ -77,20 +77,19 @@ export const emergencyDoc = `
                         </Element>
                         <Element xsi:type="XTextTableCell" StyleIndex="8">
                            <XElements>
-                              <Element xsi:type="XInputField" StyleIndex="29">
+                              <Element xsi:type="XInputField" StyleIndex="4">
                                  <ID>userSex</ID>
                                  <ToolTip>性别</ToolTip>
                                  <ValidateStyle>
                                     <CheckMaxValue>true</CheckMaxValue>
                                     <CheckMinValue>true</CheckMinValue>
-                                    <DateTimeMaxValue>0001-01-01T00:10:00+08:00</DateTimeMaxValue>
-                                    <DateTimeMinValue>0001-01-01T00:10:00+08:00</DateTimeMinValue>
+                                    <DateTimeMaxValue>0001-01-01T00:25:00+08:00</DateTimeMaxValue>
+                                    <DateTimeMinValue>0001-01-01T00:25:00+08:00</DateTimeMinValue>
                                  </ValidateStyle>
                                  <ValueBinding>
                                     <DataSource>userInfo</DataSource>
                                     <BindingPath>userSex</BindingPath>
                                  </ValueBinding>
-                                 <CopySource />
                                  <MoveFocusHotKey>None</MoveFocusHotKey>
                                  <SpecifyWidth>200</SpecifyWidth>
                                  <Name>性别</Name>
@@ -138,14 +137,14 @@ export const emergencyDoc = `
                         </Element>
                         <Element xsi:type="XTextTableCell" StyleIndex="8">
                            <XElements>
-                              <Element xsi:type="XInputField" StyleIndex="29">
+                              <Element xsi:type="XInputField" StyleIndex="4">
                                  <ID>userAge</ID>
                                  <ToolTip>请输入年龄</ToolTip>
                                  <ValidateStyle>
                                     <ValueType>Integer</ValueType>
                                     <MaxValue>1000</MaxValue>
-                                    <DateTimeMaxValue>0001-01-01T00:10:00+08:00</DateTimeMaxValue>
-                                    <DateTimeMinValue>0001-01-01T00:10:00+08:00</DateTimeMinValue>
+                                    <DateTimeMaxValue>0001-01-01T00:25:00+08:00</DateTimeMaxValue>
+                                    <DateTimeMinValue>0001-01-01T00:25:00+08:00</DateTimeMinValue>
                                  </ValidateStyle>
                                  <ValueBinding>
                                     <DataSource>userInfo</DataSource>
@@ -205,9 +204,84 @@ export const emergencyDoc = `
                         </Element>
                         <Element xsi:type="XTextTableCell" StyleIndex="8">
                            <XElements>
-                              <Element xsi:type="XString">
-                                 <Text>自行来院</Text>
+                              <Element xsi:type="XInputField" StyleIndex="25">
+                                 <ID>fromWay</ID>
+                                 <ToolTip>送达方式</ToolTip>
+                                 <ValidateStyle>
+                                    <CheckMaxValue>true</CheckMaxValue>
+                                    <CheckMinValue>true</CheckMinValue>
+                                    <DateTimeMaxValue>0001-01-01T00:00:00+08:00</DateTimeMaxValue>
+                                    <DateTimeMinValue>0001-01-01T00:00:00+08:00</DateTimeMinValue>
+                                 </ValidateStyle>
+                                 <ValueBinding>
+                                    <DataSource>userInfo</DataSource>
+                                    <BindingPath>fromWay</BindingPath>
+                                 </ValueBinding>
+                                 <CopySource />
+                                 <MoveFocusHotKey>None</MoveFocusHotKey>
+                                 <SpecifyWidth>497</SpecifyWidth>
+                                 <Name>送达方式</Name>
+                                 <DisplayFormat />
+                                 <BackgroundText>送达方式</BackgroundText>
+                                 <EnableHighlight>Default</EnableHighlight>
+                                 <EditorActiveMode>GotFocus MouseDblClick MouseClick</EditorActiveMode>
+                                 <FieldSettings>
+                                    <EditStyle>DropdownList</EditStyle>
+                                    <DynamicListItems>true</DynamicListItems>
+                                 </FieldSettings>
                               </Element>
+                              <Element xsi:type="XParagraphFlag" />
+                           </XElements>
+                        </Element>
+                     </XElements>
+                  </Element>
+                  <Element xsi:type="XTextTableRow">
+                     <XElements>
+                        <Element xsi:type="XTextTableCell" StyleIndex="8">
+                           <XElements>
+                              <Element xsi:type="XString">
+                                 <Text>下拉列表</Text>
+                              </Element>
+                              <Element xsi:type="XParagraphFlag" />
+                           </XElements>
+                        </Element>
+                        <Element xsi:type="XTextTableCell" StyleIndex="8">
+                           <XElements>
+                              <Element xsi:type="XInputField" StyleIndex="24">
+                                 <ID>dylist</ID>
+                                 <ToolTip>动态下拉</ToolTip>
+                                 <ValidateStyle>
+                                    <CheckMaxValue>true</CheckMaxValue>
+                                    <CheckMinValue>true</CheckMinValue>
+                                    <DateTimeMaxValue>0001-01-01T00:05:00+08:00</DateTimeMaxValue>
+                                    <DateTimeMinValue>0001-01-01T00:05:00+08:00</DateTimeMinValue>
+                                 </ValidateStyle>
+                                 <ValueBinding>
+                                    <DataSource>userInfo</DataSource>
+                                    <BindingPath>dylist</BindingPath>
+                                 </ValueBinding>
+                                 <MoveFocusHotKey>None</MoveFocusHotKey>
+                                 <SpecifyWidth>500</SpecifyWidth>
+                                 <Name>动态下拉</Name>
+                                 <BackgroundText>动态下拉</BackgroundText>
+                                 <EnableHighlight>Default</EnableHighlight>
+                                 <EditorActiveMode>GotFocus MouseDblClick MouseClick</EditorActiveMode>
+                                 <FieldSettings>
+                                    <EditStyle>DropdownList</EditStyle>
+                                    <DynamicListItems>true</DynamicListItems>
+                                    <ListValueFormatString>有[includelist],无[excludelist]</ListValueFormatString>
+                                 </FieldSettings>
+                              </Element>
+                              <Element xsi:type="XParagraphFlag" />
+                           </XElements>
+                        </Element>
+                        <Element xsi:type="XTextTableCell" StyleIndex="8">
+                           <XElements>
+                              <Element xsi:type="XParagraphFlag" />
+                           </XElements>
+                        </Element>
+                        <Element xsi:type="XTextTableCell" StyleIndex="8">
+                           <XElements>
                               <Element xsi:type="XParagraphFlag" />
                            </XElements>
                         </Element>
@@ -282,7 +356,7 @@ export const emergencyDoc = `
             <Element xsi:type="XString" StyleIndex="9">
                <Text>	</Text>
             </Element>
-            <Element xsi:type="XString" StyleIndex="19">
+            <Element xsi:type="XString" StyleIndex="18">
                <Text>*</Text>
             </Element>
             <Element xsi:type="XString" StyleIndex="9">
@@ -311,7 +385,7 @@ export const emergencyDoc = `
             <Element xsi:type="XString" StyleIndex="9">
                <Text>	</Text>
             </Element>
-            <Element xsi:type="XString" StyleIndex="19">
+            <Element xsi:type="XString" StyleIndex="18">
                <Text>*</Text>
             </Element>
             <Element xsi:type="XString" StyleIndex="9">
@@ -344,17 +418,17 @@ export const emergencyDoc = `
             <Element xsi:type="XString" StyleIndex="11">
                <Text>	</Text>
             </Element>
-            <Element xsi:type="XString" StyleIndex="20">
+            <Element xsi:type="XString" StyleIndex="19">
                <Text>* T: </Text>
             </Element>
             <Element xsi:type="XString" StyleIndex="16">
                <Text>36.8℃</Text>
             </Element>
-            <Element xsi:type="XLineBreak" StyleIndex="21" />
+            <Element xsi:type="XLineBreak" StyleIndex="20" />
             <Element xsi:type="XString" StyleIndex="16">
                <Text>	</Text>
             </Element>
-            <Element xsi:type="XString" StyleIndex="20">
+            <Element xsi:type="XString" StyleIndex="19">
                <Text>* </Text>
             </Element>
             <Element xsi:type="XString" StyleIndex="14">
@@ -363,11 +437,11 @@ export const emergencyDoc = `
             <Element xsi:type="XString" StyleIndex="16">
                <Text>108次/分，律齐</Text>
             </Element>
-            <Element xsi:type="XLineBreak" StyleIndex="22" />
-            <Element xsi:type="XString" StyleIndex="23">
+            <Element xsi:type="XLineBreak" StyleIndex="20" />
+            <Element xsi:type="XString" StyleIndex="16">
                <Text>	</Text>
             </Element>
-            <Element xsi:type="XString" StyleIndex="20">
+            <Element xsi:type="XString" StyleIndex="19">
                <Text>* </Text>
             </Element>
             <Element xsi:type="XString" StyleIndex="14">
@@ -376,21 +450,21 @@ export const emergencyDoc = `
             <Element xsi:type="XString" StyleIndex="16">
                <Text>24次/分</Text>
             </Element>
-            <Element xsi:type="XLineBreak" StyleIndex="22" />
-            <Element xsi:type="XString" StyleIndex="22">
+            <Element xsi:type="XLineBreak" StyleIndex="20" />
+            <Element xsi:type="XString" StyleIndex="20">
                <Text>	</Text>
             </Element>
-            <Element xsi:type="XString" StyleIndex="20">
+            <Element xsi:type="XString" StyleIndex="19">
                <Text>* BP: </Text>
             </Element>
             <Element xsi:type="XString" StyleIndex="16">
                <Text>168/102 mmHg（左臂）</Text>
             </Element>
-            <Element xsi:type="XLineBreak" StyleIndex="22" />
-            <Element xsi:type="XString" StyleIndex="22">
+            <Element xsi:type="XLineBreak" StyleIndex="20" />
+            <Element xsi:type="XString" StyleIndex="20">
                <Text>	</Text>
             </Element>
-            <Element xsi:type="XString" StyleIndex="20">
+            <Element xsi:type="XString" StyleIndex="19">
                <Text>* </Text>
             </Element>
             <Element xsi:type="XString" StyleIndex="14">
@@ -399,11 +473,11 @@ export const emergencyDoc = `
             <Element xsi:type="XString" StyleIndex="16">
                <Text>94% (未吸氧状态下）</Text>
             </Element>
-            <Element xsi:type="XLineBreak" StyleIndex="22" />
-            <Element xsi:type="XString" StyleIndex="22">
+            <Element xsi:type="XLineBreak" StyleIndex="20" />
+            <Element xsi:type="XString" StyleIndex="20">
                <Text>	</Text>
             </Element>
-            <Element xsi:type="XString" StyleIndex="20">
+            <Element xsi:type="XString" StyleIndex="19">
                <Text>* </Text>
             </Element>
             <Element xsi:type="XString" StyleIndex="14">
@@ -412,11 +486,11 @@ export const emergencyDoc = `
             <Element xsi:type="XString" StyleIndex="16">
                <Text>神志清楚，表情痛苦，面色苍白，大汗淋漓，急性病容。</Text>
             </Element>
-            <Element xsi:type="XLineBreak" StyleIndex="22" />
-            <Element xsi:type="XString" StyleIndex="22">
+            <Element xsi:type="XLineBreak" StyleIndex="20" />
+            <Element xsi:type="XString" StyleIndex="20">
                <Text>	</Text>
             </Element>
-            <Element xsi:type="XString" StyleIndex="20">
+            <Element xsi:type="XString" StyleIndex="19">
                <Text>* </Text>
             </Element>
             <Element xsi:type="XString" StyleIndex="14">
@@ -425,7 +499,7 @@ export const emergencyDoc = `
             <Element xsi:type="XString" StyleIndex="16">
                <Text>双肺呼吸音粗，未闻及明显干湿性啰音。</Text>
             </Element>
-            <Element xsi:type="XLineBreak" StyleIndex="21" />
+            <Element xsi:type="XLineBreak" StyleIndex="20" />
             <Element xsi:type="XString" StyleIndex="16">
                <Text>	</Text>
             </Element>
@@ -435,7 +509,7 @@ export const emergencyDoc = `
             <Element xsi:type="XString" StyleIndex="16">
                <Text>心界不大，心率108次/分，律齐，各瓣膜听诊区未闻及病理性杂音。</Text>
             </Element>
-            <Element xsi:type="XLineBreak" StyleIndex="21" />
+            <Element xsi:type="XLineBreak" StyleIndex="20" />
             <Element xsi:type="XString" StyleIndex="16">
                <Text>	</Text>
             </Element>
@@ -445,8 +519,8 @@ export const emergencyDoc = `
             <Element xsi:type="XString" StyleIndex="16">
                <Text>腹软，无压痛、反跳痛。</Text>
             </Element>
-            <Element xsi:type="XLineBreak" StyleIndex="21" />
-            <Element xsi:type="XString" StyleIndex="21">
+            <Element xsi:type="XLineBreak" StyleIndex="20" />
+            <Element xsi:type="XString" StyleIndex="20">
                <Text>	</Text>
             </Element>
             <Element xsi:type="XString" StyleIndex="15">
@@ -458,8 +532,8 @@ export const emergencyDoc = `
             <Element xsi:type="XString" StyleIndex="16">
                <Text>生理反射存在，病理征未引出。</Text>
             </Element>
-            <Element xsi:type="XLineBreak" StyleIndex="18" />
-            <Element xsi:type="XLineBreak" StyleIndex="18" />
+            <Element xsi:type="XLineBreak" StyleIndex="12" />
+            <Element xsi:type="XLineBreak" StyleIndex="12" />
             <Element xsi:type="XParagraphFlag" StyleIndex="7" />
             <Element xsi:type="XString" StyleIndex="11">
                <Text>辅助检查</Text>
@@ -468,7 +542,7 @@ export const emergencyDoc = `
             <Element xsi:type="XString" StyleIndex="11">
                <Text>	</Text>
             </Element>
-            <Element xsi:type="XString" StyleIndex="20">
+            <Element xsi:type="XString" StyleIndex="19">
                <Text>1.</Text>
             </Element>
             <Element xsi:type="XString" StyleIndex="14">
@@ -477,8 +551,8 @@ export const emergencyDoc = `
             <Element xsi:type="XString" StyleIndex="16">
                <Text>窦性心动过速。V2-V5导联ST段弓背向上抬高0.2-0.4mV。提示：急性前壁心肌梗死。</Text>
             </Element>
-            <Element xsi:type="XLineBreak" StyleIndex="24" />
-            <Element xsi:type="XString" StyleIndex="20">
+            <Element xsi:type="XLineBreak" StyleIndex="21" />
+            <Element xsi:type="XString" StyleIndex="19">
                <Text>	2.</Text>
             </Element>
             <Element xsi:type="XString" StyleIndex="14">
@@ -491,7 +565,7 @@ export const emergencyDoc = `
             <Element xsi:type="XString" StyleIndex="16">
                <Text>肌钙蛋白I (cTnI)： 阳性</Text>
             </Element>
-            <Element xsi:type="XLineBreak" StyleIndex="21" />
+            <Element xsi:type="XLineBreak" StyleIndex="20" />
             <Element xsi:type="XString" StyleIndex="16">
                <Text>		</Text>
             </Element>
@@ -501,7 +575,7 @@ export const emergencyDoc = `
             <Element xsi:type="XString" StyleIndex="16">
                <Text>肌酸激酶同工酶 (CK-MB)： 升高</Text>
             </Element>
-            <Element xsi:type="XLineBreak" StyleIndex="21" />
+            <Element xsi:type="XLineBreak" StyleIndex="20" />
             <Element xsi:type="XString" StyleIndex="16">
                <Text>		</Text>
             </Element>
@@ -514,8 +588,8 @@ export const emergencyDoc = `
             <Element xsi:type="XString" StyleIndex="14">
                <Text> </Text>
             </Element>
-            <Element xsi:type="XLineBreak" StyleIndex="24" />
-            <Element xsi:type="XString" StyleIndex="20">
+            <Element xsi:type="XLineBreak" StyleIndex="21" />
+            <Element xsi:type="XString" StyleIndex="19">
                <Text>	3.</Text>
             </Element>
             <Element xsi:type="XString" StyleIndex="14">
@@ -524,8 +598,8 @@ export const emergencyDoc = `
             <Element xsi:type="XString" StyleIndex="16">
                <Text>左室前壁节段性室壁运动异常，左心功能减低（EF值约45%）。</Text>
             </Element>
-            <Element xsi:type="XLineBreak" StyleIndex="24" />
-            <Element xsi:type="XString" StyleIndex="20">
+            <Element xsi:type="XLineBreak" StyleIndex="21" />
+            <Element xsi:type="XString" StyleIndex="19">
                <Text>	4.</Text>
             </Element>
             <Element xsi:type="XString" StyleIndex="14">
@@ -534,27 +608,27 @@ export const emergencyDoc = `
             <Element xsi:type="XString" StyleIndex="16">
                <Text>轻微低氧血症。</Text>
             </Element>
-            <Element xsi:type="XLineBreak" StyleIndex="24" />
-            <Element xsi:type="XString" StyleIndex="20">
+            <Element xsi:type="XLineBreak" StyleIndex="21" />
+            <Element xsi:type="XString" StyleIndex="19">
                <Text>	5.</Text>
             </Element>
             <Element xsi:type="XString" StyleIndex="14">
                <Text>血常规：</Text>
             </Element>
-            <Element xsi:type="XString" StyleIndex="21">
+            <Element xsi:type="XString" StyleIndex="20">
                <Text> </Text>
             </Element>
             <Element xsi:type="XString" StyleIndex="16">
                <Text>WBC 11.5×10⁹/L，NEUT% 85%。</Text>
             </Element>
-            <Element xsi:type="XLineBreak" StyleIndex="24" />
-            <Element xsi:type="XString" StyleIndex="20">
+            <Element xsi:type="XLineBreak" StyleIndex="21" />
+            <Element xsi:type="XString" StyleIndex="19">
                <Text>	6.</Text>
             </Element>
             <Element xsi:type="XString" StyleIndex="14">
                <Text>电解质、肾功能：</Text>
             </Element>
-            <Element xsi:type="XString" StyleIndex="21">
+            <Element xsi:type="XString" StyleIndex="20">
                <Text> </Text>
             </Element>
             <Element xsi:type="XString" StyleIndex="16">
@@ -562,57 +636,54 @@ export const emergencyDoc = `
             </Element>
             <Element xsi:type="XLineBreak" StyleIndex="10" />
             <Element xsi:type="XParagraphFlag" StyleIndex="7" />
-            <Element xsi:type="XString" StyleIndex="20">
+            <Element xsi:type="XString" StyleIndex="19">
                <Text>初步诊断</Text>
             </Element>
-            <Element xsi:type="XLineBreak" StyleIndex="24" />
-            <Element xsi:type="XString" StyleIndex="20">
+            <Element xsi:type="XLineBreak" StyleIndex="21" />
+            <Element xsi:type="XString" StyleIndex="19">
                <Text>	1.</Text>
             </Element>
             <Element xsi:type="XString" StyleIndex="14">
                <Text>急性ST段抬高型心肌梗死（前壁）</Text>
             </Element>
-            <Element xsi:type="XLineBreak" StyleIndex="24" />
-            <Element xsi:type="XString" StyleIndex="20">
+            <Element xsi:type="XLineBreak" StyleIndex="21" />
+            <Element xsi:type="XString" StyleIndex="19">
                <Text>	2.</Text>
             </Element>
             <Element xsi:type="XString" StyleIndex="14">
-               <Text>心功能不全（Killip II级</Text>
+               <Text>心功能不全（Killip II级）</Text>
             </Element>
-            <Element xsi:type="XString" StyleIndex="25">
-               <Text>）</Text>
-            </Element>
-            <Element xsi:type="XLineBreak" StyleIndex="24" />
-            <Element xsi:type="XString" StyleIndex="20">
+            <Element xsi:type="XLineBreak" StyleIndex="21" />
+            <Element xsi:type="XString" StyleIndex="19">
                <Text>	3.</Text>
             </Element>
             <Element xsi:type="XString" StyleIndex="14">
                <Text>高血压病3级（很高危）</Text>
             </Element>
-            <Element xsi:type="XLineBreak" StyleIndex="24" />
-            <Element xsi:type="XString" StyleIndex="20">
+            <Element xsi:type="XLineBreak" StyleIndex="21" />
+            <Element xsi:type="XString" StyleIndex="19">
                <Text>	4.</Text>
             </Element>
             <Element xsi:type="XString" StyleIndex="14">
                <Text>2型糖尿</Text>
             </Element>
-            <Element xsi:type="XLineBreak" StyleIndex="22" />
+            <Element xsi:type="XLineBreak" StyleIndex="20" />
             <Element xsi:type="XParagraphFlag" StyleIndex="7" />
-            <Element xsi:type="XString" StyleIndex="20">
+            <Element xsi:type="XString" StyleIndex="19">
                <Text>处理措施</Text>
             </Element>
-            <Element xsi:type="XLineBreak" StyleIndex="24" />
-            <Element xsi:type="XString" StyleIndex="20">
+            <Element xsi:type="XLineBreak" StyleIndex="21" />
+            <Element xsi:type="XString" StyleIndex="19">
                <Text>	1.紧急处理：</Text>
             </Element>
-            <Element xsi:type="XLineBreak" StyleIndex="24" />
-            <Element xsi:type="XString" StyleIndex="20">
+            <Element xsi:type="XLineBreak" StyleIndex="21" />
+            <Element xsi:type="XString" StyleIndex="19">
                <Text>		* </Text>
             </Element>
             <Element xsi:type="XString" StyleIndex="16">
                <Text>立即绝对卧床休息，吸氧（5L/min），心电、血压、血氧饱和度监测。</Text>
             </Element>
-            <Element xsi:type="XLineBreak" StyleIndex="21" />
+            <Element xsi:type="XLineBreak" StyleIndex="20" />
             <Element xsi:type="XString" StyleIndex="16">
                <Text>		</Text>
             </Element>
@@ -622,7 +693,7 @@ export const emergencyDoc = `
             <Element xsi:type="XString" StyleIndex="16">
                <Text> 建立两条静脉通路。</Text>
             </Element>
-            <Element xsi:type="XLineBreak" StyleIndex="21" />
+            <Element xsi:type="XLineBreak" StyleIndex="20" />
             <Element xsi:type="XString" StyleIndex="16">
                <Text>		</Text>
             </Element>
@@ -632,7 +703,7 @@ export const emergencyDoc = `
             <Element xsi:type="XString" StyleIndex="16">
                <Text> 紧急给予“阿司匹林肠溶片300mg”嚼服，“替格瑞洛180mg”口服。</Text>
             </Element>
-            <Element xsi:type="XLineBreak" StyleIndex="21" />
+            <Element xsi:type="XLineBreak" StyleIndex="20" />
             <Element xsi:type="XString" StyleIndex="16">
                <Text>		</Text>
             </Element>
@@ -642,105 +713,81 @@ export const emergencyDoc = `
             <Element xsi:type="XString" StyleIndex="16">
                <Text> 吗啡3mg静脉注射镇痛。</Text>
             </Element>
-            <Element xsi:type="XLineBreak" StyleIndex="21" />
+            <Element xsi:type="XLineBreak" StyleIndex="20" />
             <Element xsi:type="XString" StyleIndex="16">
                <Text>	</Text>
             </Element>
             <Element xsi:type="XString" StyleIndex="14">
                <Text>2</Text>
             </Element>
-            <Element xsi:type="XString" StyleIndex="20">
+            <Element xsi:type="XString" StyleIndex="19">
                <Text>.</Text>
             </Element>
             <Element xsi:type="XString" StyleIndex="14">
                <Text>再灌注治疗</Text>
             </Element>
-            <Element xsi:type="XString" StyleIndex="20">
+            <Element xsi:type="XString" StyleIndex="19">
                <Text>：</Text>
             </Element>
-            <Element xsi:type="XLineBreak" StyleIndex="24" />
-            <Element xsi:type="XString" StyleIndex="20">
+            <Element xsi:type="XLineBreak" StyleIndex="21" />
+            <Element xsi:type="XString" StyleIndex="19">
                <Text>		* </Text>
             </Element>
             <Element xsi:type="XString" StyleIndex="16">
-               <Text>立即启动绿色通道，联系心内科导管室</Text>
+               <Text>立即启动绿色通道，联系心内科导管室。</Text>
             </Element>
-            <Element xsi:type="XString" StyleIndex="23">
-               <Text>。</Text>
-            </Element>
-            <Element xsi:type="XLineBreak" StyleIndex="22" />
-            <Element xsi:type="XString" StyleIndex="23">
+            <Element xsi:type="XLineBreak" StyleIndex="20" />
+            <Element xsi:type="XString" StyleIndex="16">
                <Text>		</Text>
             </Element>
-            <Element xsi:type="XString" StyleIndex="25">
+            <Element xsi:type="XString" StyleIndex="14">
                <Text>*</Text>
             </Element>
-            <Element xsi:type="XString" StyleIndex="23">
-               <Text> </Text>
-            </Element>
             <Element xsi:type="XString" StyleIndex="16">
-               <Text>向患者及家属告知病情危重性及急诊PCI（经皮冠状动脉介入治疗）的必要性和风险，家属表示理解并签署手术知情同意书</Text>
+               <Text> 向患者及家属告知病情危重性及急诊PCI（经皮冠状动脉介入治疗）的必要性和风险，家属表示理解并签署手术知情同意书。</Text>
             </Element>
-            <Element xsi:type="XString" StyleIndex="23">
-               <Text>。</Text>
-            </Element>
-            <Element xsi:type="XLineBreak" StyleIndex="22" />
-            <Element xsi:type="XString" StyleIndex="23">
+            <Element xsi:type="XLineBreak" StyleIndex="20" />
+            <Element xsi:type="XString" StyleIndex="16">
                <Text>		</Text>
             </Element>
-            <Element xsi:type="XString" StyleIndex="25">
+            <Element xsi:type="XString" StyleIndex="14">
                <Text>*</Text>
             </Element>
-            <Element xsi:type="XString" StyleIndex="23">
-               <Text> </Text>
-            </Element>
             <Element xsi:type="XString" StyleIndex="16">
-               <Text>拟急诊行冠状动脉造影+必要时PCI术</Text>
+               <Text> 拟急诊行冠状动脉造影+必要时PCI术。</Text>
             </Element>
-            <Element xsi:type="XString" StyleIndex="23">
-               <Text>。</Text>
-            </Element>
-            <Element xsi:type="XLineBreak" StyleIndex="22" />
-            <Element xsi:type="XString" StyleIndex="23">
+            <Element xsi:type="XLineBreak" StyleIndex="20" />
+            <Element xsi:type="XString" StyleIndex="16">
                <Text>	</Text>
             </Element>
-            <Element xsi:type="XString" StyleIndex="25">
+            <Element xsi:type="XString" StyleIndex="14">
                <Text>3</Text>
             </Element>
-            <Element xsi:type="XString" StyleIndex="20">
+            <Element xsi:type="XString" StyleIndex="19">
                <Text>.</Text>
             </Element>
             <Element xsi:type="XString" StyleIndex="14">
                <Text>药物治疗</Text>
             </Element>
-            <Element xsi:type="XString" StyleIndex="20">
+            <Element xsi:type="XString" StyleIndex="19">
                <Text>：</Text>
             </Element>
-            <Element xsi:type="XLineBreak" StyleIndex="24" />
-            <Element xsi:type="XString" StyleIndex="20">
+            <Element xsi:type="XLineBreak" StyleIndex="21" />
+            <Element xsi:type="XString" StyleIndex="19">
                <Text>		* </Text>
             </Element>
             <Element xsi:type="XString" StyleIndex="16">
-               <Text>硝酸甘油静脉泵入扩张冠状动脉、降压</Text>
+               <Text>硝酸甘油静脉泵入扩张冠状动脉、降压。</Text>
             </Element>
-            <Element xsi:type="XString" StyleIndex="23">
-               <Text>。</Text>
-            </Element>
-            <Element xsi:type="XLineBreak" StyleIndex="22" />
-            <Element xsi:type="XString" StyleIndex="23">
+            <Element xsi:type="XLineBreak" StyleIndex="20" />
+            <Element xsi:type="XString" StyleIndex="16">
                <Text>		</Text>
             </Element>
-            <Element xsi:type="XString" StyleIndex="25">
+            <Element xsi:type="XString" StyleIndex="14">
                <Text>*</Text>
             </Element>
-            <Element xsi:type="XString" StyleIndex="23">
-               <Text> </Text>
-            </Element>
             <Element xsi:type="XString" StyleIndex="16">
-               <Text>依诺肝素皮下注射抗凝</Text>
-            </Element>
-            <Element xsi:type="XString" StyleIndex="23">
-               <Text>。</Text>
+               <Text> 依诺肝素皮下注射抗凝。</Text>
             </Element>
             <Element xsi:type="XLineBreak" StyleIndex="10" />
             <Element xsi:type="XString" StyleIndex="11">
@@ -759,18 +806,18 @@ export const emergencyDoc = `
                <Text>上级医师：xxx</Text>
             </Element>
             <Element xsi:type="XLineBreak" StyleIndex="10" />
-            <Element xsi:type="XParagraphFlag" StyleIndex="26" />
-            <Element xsi:type="HorizontalLine" StyleIndex="28">
+            <Element xsi:type="XParagraphFlag" StyleIndex="22" />
+            <Element xsi:type="HorizontalLine" StyleIndex="22">
                <ID>hr1</ID>
                <LineSize>0</LineSize>
             </Element>
-            <Element xsi:type="XString" StyleIndex="26">
+            <Element xsi:type="XString" StyleIndex="22">
                <Text>附注：</Text>
             </Element>
             <Element xsi:type="XString" StyleIndex="16">
                <Text>患者已于23:50由医护人员护送，转入导管室行急诊PCI术。</Text>
             </Element>
-            <Element xsi:type="XParagraphFlag" StyleIndex="27" />
+            <Element xsi:type="XParagraphFlag" StyleIndex="23" />
          </XElements>
       </Element>
       <Element xsi:type="XTextFooter">
@@ -905,83 +952,57 @@ export const emergencyDoc = `
             <FontSize>12</FontSize>
          </Style>
          <Style Index="18">
-            <Color>#404040</Color>
-            <FontName>宋体</FontName>
-            <FontSize>12.001</FontSize>
-         </Style>
-         <Style Index="19">
             <BackgroundColor>#FFFFFF</BackgroundColor>
             <Color>#404040</Color>
             <FontName>宋体</FontName>
             <FontSize>12.001</FontSize>
             <Bold>true</Bold>
          </Style>
-         <Style Index="20">
+         <Style Index="19">
             <Color>#010002</Color>
             <FontName>宋体</FontName>
             <FontSize>12</FontSize>
             <Bold>true</Bold>
             <ParagraphListStyle>ListNumberStyleSimpChinNum1</ParagraphListStyle>
          </Style>
+         <Style Index="20">
+            <Color>#010002</Color>
+            <FontName>宋体</FontName>
+            <FontSize>12.001</FontSize>
+         </Style>
          <Style Index="21">
             <Color>#010002</Color>
             <FontName>宋体</FontName>
-            <FontSize>12.001</FontSize>
+            <FontSize>12</FontSize>
+            <Bold>true</Bold>
          </Style>
          <Style Index="22">
-            <Color>#010002</Color>
             <FontName>宋体</FontName>
-            <FontSize>12.001</FontSize>
+            <FontSize>12</FontSize>
+            <Bold>true</Bold>
+            <Align>Right</Align>
+            <FirstLineIndent>100</FirstLineIndent>
          </Style>
          <Style Index="23">
-            <BackgroundColor>#FFFFFF</BackgroundColor>
-            <Color>#010002</Color>
             <FontName>宋体</FontName>
-            <FontSize>12.001</FontSize>
+            <FontSize>12</FontSize>
+            <Bold>true</Bold>
+            <FirstLineIndent>100</FirstLineIndent>
          </Style>
          <Style Index="24">
-            <Color>#010002</Color>
             <FontName>宋体</FontName>
             <FontSize>12</FontSize>
-            <Bold>true</Bold>
          </Style>
          <Style Index="25">
-            <BackgroundColor>#FFFFFF</BackgroundColor>
-            <Color>#010002</Color>
-            <FontName>宋体</FontName>
-            <FontSize>12.001</FontSize>
-            <Bold>true</Bold>
-         </Style>
-         <Style Index="26">
-            <FontName>宋体</FontName>
-            <FontSize>12</FontSize>
-            <Bold>true</Bold>
-            <Align>Right</Align>
-            <FirstLineIndent>100</FirstLineIndent>
-         </Style>
-         <Style Index="27">
-            <FontName>宋体</FontName>
-            <FontSize>12</FontSize>
-            <Bold>true</Bold>
-            <FirstLineIndent>100</FirstLineIndent>
-         </Style>
-         <Style Index="28">
-            <FontName>宋体</FontName>
-            <FontSize>12</FontSize>
-            <Bold>true</Bold>
-            <Align>Right</Align>
-            <FirstLineIndent>100</FirstLineIndent>
-         </Style>
-         <Style Index="29">
             <FontName>宋体</FontName>
             <FontSize>12</FontSize>
          </Style>
       </Styles>
    </ContentStyles>
-   <DocumentContentVersion>12</DocumentContentVersion>
+   <DocumentContentVersion>14</DocumentContentVersion>
    <Info>
       <CreationTime>1980-01-01T00:00:00+08:00</CreationTime>
-      <LastModifiedTime>2025-08-22T13:21:38+08:00</LastModifiedTime>
+      <LastModifiedTime>2025-09-01T13:09:38+08:00</LastModifiedTime>
       <LastPrintTime>1980-01-01T00:00:00+08:00</LastPrintTime>
       <Operator>DCSoft.Writer Version:1.0.0.0</Operator>
       <NumOfPage>2</NumOfPage>
@@ -990,7 +1011,8 @@ export const emergencyDoc = `
 	
 姓名   性别   
 年龄   民族   
-联系方式 13800001111 送达方式 自行来院 
+联系方式 13800001111 送达方式 送达方式 
+下拉列表 动态下拉     
 主诉
 	突发性胸骨后压榨性疼痛伴大汗、气短2小时。
 

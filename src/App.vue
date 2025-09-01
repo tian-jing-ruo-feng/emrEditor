@@ -190,7 +190,8 @@
 
       emrEditorInstance.documentLoadEvent(rootElement)
       emrEditorInstance.eventShowContextMenuEvent(rootElement)
-      emrEditorInstance.dbClickEvent(rootElement)
+      // emrEditorInstance.dbClickEvent(rootElement)
+      emrEditorInstance.queryListItem(rootElement)
 
       const pgSetting = rootElement.GetDocumentPageSettings()
       setPageSetting(pgSetting)
