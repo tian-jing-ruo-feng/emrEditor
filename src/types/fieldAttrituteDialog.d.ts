@@ -90,10 +90,13 @@ export interface IFielddAttributeDialog {
   tableRowDialog(): void
 
   /** 显示当前单元格斜分线的设置对话框 */
-  cellGridlineDialog(): void
+  cellGridlineDialog(setting?: unknown, ctl?: EMRElement): void
 
   /** 显示当前标签元素的属性对话框 */
-  cellDiagonalLineDialog(): void
+  cellDiagonalLineDialog(cell?: unknown, ctl?: EMRElement): void
+
+  /** 设置表格边框对话框 */
+  bordersShadingDialog(): void
 
   /** 显示编辑图片的对话框 */
   imgEditDialog(json: object = {}): void

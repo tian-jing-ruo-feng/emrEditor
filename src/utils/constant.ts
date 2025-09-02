@@ -2,6 +2,8 @@
 export const DocumentElementType = {
   /** 病程文本元素 */
   XTextSubDocumentElement: 'XTextSubDocumentElement',
+  /** 注释 */
+  DocumentComment: 'DocumentComment',
   /** 普通文本 */
   XTextElement: 'XTextElement',
   /** 文本输入域元素 */

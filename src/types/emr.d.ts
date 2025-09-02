@@ -6,6 +6,7 @@ import type { dataSourceItem } from './dataSource'
 import type { UserDetail, UserRequestParams } from './user'
 import type { SubDocOptions, InsertSubDocumentsParma } from './subDoc'
 import type { SelectionInfo } from './selectionInfo'
+import type { CommentInfo, CommentParams } from './comment'
 
 // 文档格式
 export type DocumentFormat = 'xml' | 'json' | 'rtf' | 'html' | 'text'
@@ -22,6 +23,8 @@ export type WriterEventArgs = {
 // 扩展 HTMLElement 类型，添加编辑器相关方法
 declare global {
   interface EMRElement extends HTMLElement, IFielddAttributeDialog {
+    /** 是否只读 */
+    Readonly: boolean;
     /** 选中内容数据信息 */
     Selection: SelectionInfo
     /** 选中文本 */
@@ -30,6 +33,12 @@ declare global {
     SelectionLength: number
     /** 获取选择内容的开始位置信息 */
     SelectionStartPosition: number
+    /** *判断是否处于打印预览模式 */
+    IsPrintPreview(): boolean
+    /** 获取当前单元格的引用对象
+     * @returns {object} 单元格引用对象
+     */
+    CurrentTableCell(): object,
     /** 获取病程记录的编号 */
     CurrentSubDoc(): string
     /** 保存片段 */
@@ -48,6 +57,17 @@ declare global {
 
     /** 设置编辑器缩放比率 */
     SetZoomRate(number): boolean
+
+    /** 获取当前光标处批注信息 */
+    GetCurrentComment(): CommentInfo
+
+    /** 在当前位置处插入批注（选中内容设置批注） */
+    NewComment(json: CommentParams): boolean
+
+    /** 删除当前选中批注信息
+     * @param {number} index 指定的批注在所有批注中的序号。从上到下，从0开始。
+     */
+    DeleteComment(index: number): boolean
 
     /** 编辑器控制对象信息，存在即代表已创建 */
     AboutControl?: boolean

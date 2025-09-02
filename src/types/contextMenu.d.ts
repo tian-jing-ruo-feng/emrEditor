@@ -3,6 +3,7 @@ import type { DocumentElementTypeEnum } from './enum'
 export interface TMenuOptionSetting {
   label: string
   exec: () => void
+  subMenu?: TMenuOption[]
 }
 
 /** 右键菜单项设置类型 */
