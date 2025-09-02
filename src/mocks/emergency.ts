@@ -22,7 +22,7 @@ export const emergencyDoc = `
       <Element xsi:type="XTextBody">
          <AcceptTab>true</AcceptTab>
          <XElements>
-            <Element xsi:type="XString" StyleIndex="10">
+            <Element xsi:type="XString" StyleIndex="25">
                <Text>基本信息</Text>
             </Element>
             <Element xsi:type="XLineBreak" />
@@ -52,8 +52,8 @@ export const emergencyDoc = `
                                     <MinLength>1</MinLength>
                                     <CheckMaxValue>true</CheckMaxValue>
                                     <CheckMinValue>true</CheckMinValue>
-                                    <DateTimeMaxValue>0001-01-01T00:40:00+08:00</DateTimeMaxValue>
-                                    <DateTimeMinValue>0001-01-01T00:40:00+08:00</DateTimeMinValue>
+                                    <DateTimeMaxValue>0001-01-01T00:45:00+08:00</DateTimeMaxValue>
+                                    <DateTimeMinValue>0001-01-01T00:45:00+08:00</DateTimeMinValue>
                                  </ValidateStyle>
                                  <ValueBinding>
                                     <DataSource>userInfo</DataSource>
@@ -84,8 +84,8 @@ export const emergencyDoc = `
                                  <ValidateStyle>
                                     <CheckMaxValue>true</CheckMaxValue>
                                     <CheckMinValue>true</CheckMinValue>
-                                    <DateTimeMaxValue>0001-01-01T00:40:00+08:00</DateTimeMaxValue>
-                                    <DateTimeMinValue>0001-01-01T00:40:00+08:00</DateTimeMinValue>
+                                    <DateTimeMaxValue>0001-01-01T00:45:00+08:00</DateTimeMaxValue>
+                                    <DateTimeMinValue>0001-01-01T00:45:00+08:00</DateTimeMinValue>
                                  </ValidateStyle>
                                  <ValueBinding>
                                     <DataSource>userInfo</DataSource>
@@ -145,8 +145,8 @@ export const emergencyDoc = `
                                  <ValidateStyle>
                                     <ValueType>Integer</ValueType>
                                     <MaxValue>1000</MaxValue>
-                                    <DateTimeMaxValue>0001-01-01T00:40:00+08:00</DateTimeMaxValue>
-                                    <DateTimeMinValue>0001-01-01T00:40:00+08:00</DateTimeMinValue>
+                                    <DateTimeMaxValue>0001-01-01T00:45:00+08:00</DateTimeMaxValue>
+                                    <DateTimeMinValue>0001-01-01T00:45:00+08:00</DateTimeMinValue>
                                  </ValidateStyle>
                                  <ValueBinding>
                                     <DataSource>userInfo</DataSource>
@@ -213,8 +213,8 @@ export const emergencyDoc = `
                                  <ValidateStyle>
                                     <CheckMaxValue>true</CheckMaxValue>
                                     <CheckMinValue>true</CheckMinValue>
-                                    <DateTimeMaxValue>0001-01-01T00:10:00+08:00</DateTimeMaxValue>
-                                    <DateTimeMinValue>0001-01-01T00:10:00+08:00</DateTimeMinValue>
+                                    <DateTimeMaxValue>0001-01-01T00:15:00+08:00</DateTimeMaxValue>
+                                    <DateTimeMinValue>0001-01-01T00:15:00+08:00</DateTimeMinValue>
                                  </ValidateStyle>
                                  <ValueBinding>
                                     <DataSource>userInfo</DataSource>
@@ -261,8 +261,8 @@ export const emergencyDoc = `
                                  <ValidateStyle>
                                     <CheckMaxValue>true</CheckMaxValue>
                                     <CheckMinValue>true</CheckMinValue>
-                                    <DateTimeMaxValue>0001-01-01T00:20:00+08:00</DateTimeMaxValue>
-                                    <DateTimeMinValue>0001-01-01T00:20:00+08:00</DateTimeMinValue>
+                                    <DateTimeMaxValue>0001-01-01T00:25:00+08:00</DateTimeMaxValue>
+                                    <DateTimeMinValue>0001-01-01T00:25:00+08:00</DateTimeMinValue>
                                  </ValidateStyle>
                                  <ValueBinding>
                                     <DataSource>userInfo</DataSource>
@@ -314,7 +314,7 @@ export const emergencyDoc = `
                </Columns>
             </Element>
             <Element xsi:type="XParagraphFlag" StyleIndex="7" />
-            <Element xsi:type="XString" StyleIndex="11">
+            <Element xsi:type="XString" StyleIndex="26">
                <Text>主诉</Text>
             </Element>
             <Element xsi:type="XLineBreak" />
@@ -326,7 +326,7 @@ export const emergencyDoc = `
             </Element>
             <Element xsi:type="XLineBreak" StyleIndex="12" />
             <Element xsi:type="XParagraphFlag" StyleIndex="7" />
-            <Element xsi:type="XString" StyleIndex="11">
+            <Element xsi:type="XString" StyleIndex="26">
                <Text>现病史</Text>
             </Element>
             <Element xsi:type="XLineBreak" StyleIndex="10" />
@@ -421,7 +421,7 @@ export const emergencyDoc = `
             </Element>
             <Element xsi:type="XLineBreak" StyleIndex="12" />
             <Element xsi:type="XParagraphFlag" StyleIndex="7" />
-            <Element xsi:type="XString" StyleIndex="11">
+            <Element xsi:type="XString" StyleIndex="26">
                <Text>体格检查</Text>
             </Element>
             <Element xsi:type="XLineBreak" StyleIndex="10" />
@@ -545,7 +545,7 @@ export const emergencyDoc = `
             <Element xsi:type="XLineBreak" StyleIndex="12" />
             <Element xsi:type="XLineBreak" StyleIndex="12" />
             <Element xsi:type="XParagraphFlag" StyleIndex="7" />
-            <Element xsi:type="XString" StyleIndex="11">
+            <Element xsi:type="XString" StyleIndex="26">
                <Text>辅助检查</Text>
             </Element>
             <Element xsi:type="XLineBreak" StyleIndex="10" />
@@ -646,7 +646,7 @@ export const emergencyDoc = `
             </Element>
             <Element xsi:type="XLineBreak" StyleIndex="10" />
             <Element xsi:type="XParagraphFlag" StyleIndex="7" />
-            <Element xsi:type="XString" StyleIndex="19">
+            <Element xsi:type="XString" StyleIndex="27">
                <Text>初步诊断</Text>
             </Element>
             <Element xsi:type="XLineBreak" StyleIndex="21" />
@@ -679,7 +679,7 @@ export const emergencyDoc = `
             </Element>
             <Element xsi:type="XLineBreak" StyleIndex="20" />
             <Element xsi:type="XParagraphFlag" StyleIndex="7" />
-            <Element xsi:type="XString" StyleIndex="19">
+            <Element xsi:type="XString" StyleIndex="27">
                <Text>处理措施</Text>
             </Element>
             <Element xsi:type="XLineBreak" StyleIndex="21" />
@@ -804,7 +804,7 @@ export const emergencyDoc = `
                <Text>	</Text>
             </Element>
             <Element xsi:type="XParagraphFlag" StyleIndex="11" />
-            <Element xsi:type="XString" StyleIndex="11">
+            <Element xsi:type="XString" StyleIndex="26">
                <Text>医师签名</Text>
             </Element>
             <Element xsi:type="XParagraphFlag" StyleIndex="11" />
@@ -1003,12 +1003,33 @@ export const emergencyDoc = `
             <FontName>宋体</FontName>
             <FontSize>12</FontSize>
          </Style>
+         <Style Index="25">
+            <FontName>宋体</FontName>
+            <FontSize>12</FontSize>
+            <Bold>true</Bold>
+            <TitleLevel>0</TitleLevel>
+         </Style>
+         <Style Index="26">
+            <FontName>宋体</FontName>
+            <FontSize>12</FontSize>
+            <Bold>true</Bold>
+            <ParagraphListStyle>ListNumberStyleSimpChinNum1</ParagraphListStyle>
+            <TitleLevel>0</TitleLevel>
+         </Style>
+         <Style Index="27">
+            <Color>#010002</Color>
+            <FontName>宋体</FontName>
+            <FontSize>12</FontSize>
+            <Bold>true</Bold>
+            <ParagraphListStyle>ListNumberStyleSimpChinNum1</ParagraphListStyle>
+            <TitleLevel>0</TitleLevel>
+         </Style>
       </Styles>
    </ContentStyles>
-   <DocumentContentVersion>55</DocumentContentVersion>
+   <DocumentContentVersion>37</DocumentContentVersion>
    <Info>
       <CreationTime>1980-01-01T00:00:00+08:00</CreationTime>
-      <LastModifiedTime>2025-09-01T15:05:35+08:00</LastModifiedTime>
+      <LastModifiedTime>2025-09-02T16:13:38+08:00</LastModifiedTime>
       <LastPrintTime>1980-01-01T00:00:00+08:00</LastPrintTime>
       <Operator>DCSoft.Writer Version:1.0.0.0</Operator>
       <NumOfPage>2</NumOfPage>

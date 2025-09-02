@@ -46,8 +46,17 @@ declare global {
     /** 执行编辑器命令 */
     DCExecuteCommand(command: string, value: unknown, param: unknown): void
 
+    /** 执行命令 */
+    ExecuteCommand(command: string, value: unknown, param: unknown): void
+
     /** 设置工具栏可见性 */
     SetToolBarVisibility(visible: boolean): boolean
+
+    /** 获取文档中设置导航节点信息 */
+    GetNavigateNodesString(): string
+
+    /**点击导航节点列表编辑视图自动定位节点 */
+    NavigateByNodeID(id: string): boolean
 
     /** 获取文档页面设置 */
     GetDocumentPageSettings(): DocumentPageSettings

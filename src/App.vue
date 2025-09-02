@@ -12,6 +12,7 @@
       <div class="header-right">
         <nav class="toolbar">
           <div class="group">
+            <el-button size="small" @click="openNavigateView">导航视图</el-button>
             <el-dropdown>
               <el-button type="primary">
                 病程
@@ -40,6 +41,8 @@
         RuleVisible="true"
         CaretCss="3,Blue"
         IsUsePasteDiolog="true"
+        Doublebuffer="true"
+        PageTitlePosition="BottomRight"
         DocumentOptions.BehaviorOptions.CommentEditableWhenReadonly="true"
         registercode="0566987B1B6CD6DECCBEE8CE4CDEAD577FCF5A30201BE7553AFD47C841548F0C0CA6212C10F259E9AF13820AF8E4A17CCBF7612FFFF1A779EBF962627BCAF7ECB906FA8C96694D242208ED9CECD19A907F6820C142920C54553B32B4FE661F78E553F9D3CCE077B455FA558F71D78FE816"
       >
@@ -83,6 +86,16 @@
         </el-tab-pane>
       </el-tabs>
     </el-drawer>
+
+    <!-- 导航视图 -->
+    <el-card v-if="showNavigateView" class="navigate-view">
+      <el-menu default-active="1" @select="navigateByNodeID" style="border-right: none">
+        <el-menu-item :index="item[0] + ''" v-for="item in navigateStrings" :key="item[0]">
+          {{ item[0] }}
+          <span>{{ item[1] }}</span>
+        </el-menu-item>
+      </el-menu>
+    </el-card>
   </div>
 </template>
 
@@ -120,7 +133,10 @@
 
   // 抽屉与标签
   const drawerVisible = ref(false)
-  const activeTab = ref<'structure' | 'user'>('structure')
+  const activeTab = ref<'structure' | 'user' | 'navigateView'>('structure')
+  // 导航
+  const navigateStrings = ref<[string, string][]>([])
+  const showNavigateView = ref(false)
 
   const openStructure = () => {
     activeTab.value = 'structure'
@@ -129,6 +145,21 @@
   const openUser = () => {
     activeTab.value = 'user'
     drawerVisible.value = true
+  }
+  const openNavigateView = () => {
+    if (showNavigateView.value) {
+      showNavigateView.value = false
+      return
+    }
+    activeTab.value = 'navigateView'
+    const res = ctl.value?.GetNavigateNodesString()
+    navigateStrings.value =
+      ((res ?? '').split('&').map(item => item.split('=')) as [string, string][]) ?? []
+    showNavigateView.value = true
+  }
+
+  const navigateByNodeID = (activeIndex: string) => {
+    ctl.value?.NavigateByNodeID(activeIndex)
   }
 
   const addSubDoc = () => {
@@ -405,5 +436,12 @@
     height: 100%;
     padding: 8px 12px;
     box-sizing: border-box;
+  }
+
+  .navigate-view {
+    position: absolute;
+    right: 100px;
+    top: 50%;
+    transform: translateY(-50%);
   }
 </style>

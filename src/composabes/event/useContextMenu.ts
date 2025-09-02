@@ -176,6 +176,11 @@ export function genContextMenuOptions(
         const res = myWriterControl.DocumentSelection('XML')
         consola.info('保存片段结果\n', res)
       }
+    }, {
+      label: '保存为导航节点',
+      exec: () => {
+        myWriterControl.ExecuteCommand("TitleLevel", false, 0);
+      }
     })
   }
 
@@ -339,6 +344,15 @@ export function genContextMenuOptions(
 
   options.unshift(...baseOptions)
   options.push(propertyOption)
+  /** 测试命令 */
+  // options.push({
+  //   label: '获取标题列表',
+  //   exec: () => {
+  //     myWriterControl.ExecuteCommand("TitleLevel", false, 0);
+  //     const result = myWriterControl.GetNavigateNodesString()
+  //     console.log(result, '<<<<<< GetNavigateNodesString')
+  //   }
+  // })
   options = insertBetween(options, splitLine)
   return options
 }

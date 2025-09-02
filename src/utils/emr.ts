@@ -40,6 +40,8 @@ class EMREditor {
       console.log(eventSender, args, '文件加载完毕')
       // eventSender.RefreshDocument()
       // eventSender.RefreshInnerView()
+      // const result = rootElement.GetNavigateNodesString()
+      // console.log(result, '<<<<<< GetNavigateNodesString')
     }
   }
 
