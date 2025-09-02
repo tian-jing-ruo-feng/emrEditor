@@ -38,6 +38,9 @@
         id="myWriterControl"
         dctype="WriterControlForWASM"
         RuleVisible="true"
+        CaretCss="3,Blue"
+        IsUsePasteDiolog="true"
+        DocumentOptions.BehaviorOptions.CommentEditableWhenReadonly="true"
         registercode="0566987B1B6CD6DECCBEE8CE4CDEAD577FCF5A30201BE7553AFD47C841548F0C0CA6212C10F259E9AF13820AF8E4A17CCBF7612FFFF1A779EBF962627BCAF7ECB906FA8C96694D242208ED9CECD19A907F6820C142920C54553B32B4FE661F78E553F9D3CCE077B455FA558F71D78FE816"
       >
         <LoadingSkeleton v-if="isLoading"></LoadingSkeleton>

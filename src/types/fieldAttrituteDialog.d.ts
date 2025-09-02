@@ -72,7 +72,7 @@ export interface IFielddAttributeDialog {
   splitCellDialog(): void
 
   /** 显示当前批注信息对话框 */
-  EditDocumentCommentsDialog(): void
+  EditDocumentCommentsDialog(opts: unknown, ctl?: EMRElement): void
 
   /** 显示当前表单模式设置的对话框 */
   formModeDialog(): void

@@ -110,6 +110,9 @@ declare global {
       },
     ): void
 
+    /** 元素属性对话框点击确定按钮回调函数 */
+    EventDialogChangeProperties(ele: unknown): void
+
     /** 鼠标双击事件 */
     ondocumentdblclick(e: Event): void
 

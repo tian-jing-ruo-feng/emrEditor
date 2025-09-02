@@ -135,23 +135,15 @@ export function genContextMenuOptions(
           label: '插入注释',
           exec: () => {
             consola.info('插入注释')
+            const { Name: author } = myWriterControl.CurrentUser || {}
             const opts = {
-              BackgroundColor: "#64ff00",  //控制批注背景颜色 (20220324)
-              ForeColor: "#D9D919",//字体颜色
-              elebgColor: "#084ffc",  //被添加批注的元素的背景颜色 (20220324)  
+              BackColor: '#cccccc',
+              ForeColor: "#FF0000",//字体颜色
               Superscript: false, //顺序标记是否显示 (20220324)  
-              Text: "这是文档批注",
-              // UserName: "si李四主任医师",
-              // UserID: "li",
+              Text: "",
+              author,
             }
-
-            myWriterControl.NewComment(opts)
-            myWriterControl.RefreshInnerView()
-            setTimeout(() => {
-              const currentcomment = myWriterControl.GetCurrentComment()
-              console.log(currentcomment, '<<<<< insert comment');
-              myWriterControl.EditDocumentCommentsDialog()
-            }, 0);
+            myWriterControl.DCExecuteCommand('insertComment', true, opts)
           },
         }
       ]
