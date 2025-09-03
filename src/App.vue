@@ -89,30 +89,34 @@
 
     <!-- 导航视图 -->
     <NavigateView v-if="showNavigateView"></NavigateView>
+
+    <!-- 自定义对话框 -->
+    <SaveFragmentDialog ref="saveFragmentDialog"></SaveFragmentDialog>
   </div>
 </template>
 
 <script setup lang="ts">
-  import { onMounted, ref } from 'vue'
+  import { onMounted, ref, useTemplateRef } from 'vue'
   import { useEmrStore } from './store/emr'
+  import { usePanel } from './utils/panel.ts'
   import EMREditor from './utils/emr'
   import pkg from '../package.json'
-  /** mock数据👇 */
-  // import { xmlContent } from './mocks/constants'
-  import { emergencyDoc as xmlContent } from './mocks/emergency.ts'
-  // import { tableWithTabForm as xmlContent } from './mocks/tableTab.ts'
-  import { subDoc } from './mocks/subDoc'
-  import { navigatedoc } from './mocks/navigateDoc'
-  import { usePanel } from './utils/panel.ts'
   import consola from 'consola'
+  /** mock数据👇 */
+  // import { tableWithTabForm as xmlContent } from './mocks/tableTab.ts'
+  // import { xmlContent } from './mocks/constants'
+  // import { navigatedoc } from './mocks/navigateDoc'
+  import { emergencyDoc as xmlContent } from './mocks/emergency.ts'
+  import { subDoc } from './mocks/subDoc'
   import { SUB9 } from './mocks/subDocWithoutID.ts'
-  import emitter, { EVENT_SAVE_AS_NAVIGATION } from './utils/eventBus.ts'
+  /** mock数据👆 */
+  import emitter, { EVENT_SAVE_AS_NAVIGATION, EVENT_SAVE_AS_FRAGMENT } from './utils/eventBus.ts'
   /** 组件 */
   import DocumentSetting from './components/DocumentSetting.vue'
   import UserManagement from './components/UserManagement.vue'
   import NavigateView from './components/NavigateView.vue'
   import LoadingSkeleton from './components/LoadingSkeleton.vue'
-  /** mock数据👆 */
+  import SaveFragmentDialog from './components/SaveFragmentDialog.vue'
 
   const emrStore = useEmrStore()
   const {
@@ -133,6 +137,11 @@
   const activeTab = ref<'structure' | 'user' | 'navigateView'>('structure')
   // 导航
   const showNavigateView = ref(false)
+  // 对话框
+  const saveFragmentDialogRef = useTemplateRef<{
+    openDialog(): void
+    setFragmentContent(fragmentContent: string): void
+  }>('saveFragmentDialog')
 
   const openStructure = () => {
     activeTab.value = 'structure'
@@ -263,6 +272,10 @@
     /********************* 👇自定义事件监听 *********************/
     emitter.on(EVENT_SAVE_AS_NAVIGATION, strings => {
       setNavigateStrings(strings as [string, string][])
+    })
+    emitter.on(EVENT_SAVE_AS_FRAGMENT, htmlString => {
+      saveFragmentDialogRef.value?.setFragmentContent(htmlString as string)
+      saveFragmentDialogRef.value?.openDialog()
     })
     /********************* 👆自定义事件监听 *********************/
   })

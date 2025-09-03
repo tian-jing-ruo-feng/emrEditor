@@ -3,7 +3,7 @@ import type { IMenuSetting, TMenuOption, TMenuOptionSetting } from '../../types/
 import type { DocumentElementTypeEnum } from '../../types/enum'
 import { DocumentElementType } from '../../utils/constant'
 import { fragment } from '../../mocks/fragment'
-import emitter, { EVENT_SAVE_AS_NAVIGATION } from '../../utils/eventBus'
+import emitter, { EVENT_SAVE_AS_NAVIGATION, EVENT_SAVE_AS_FRAGMENT } from '../../utils/eventBus'
 
 const DC_CONTEXT_MENU_ID = 'dcContextMenu'
 /** 右键菜单元素 id */
@@ -173,9 +173,9 @@ export function genContextMenuOptions(
     options.push({
       label: '保存为片段',
       exec: () => {
-        /** 保存为xml格式 */
-        const res = myWriterControl.DocumentSelection('XML')
-        consola.info('保存片段结果\n', res)
+        /** 保存为HTML格式 */
+        const htmlString = myWriterControl.DocumentSelection('HTML')
+        emitter.emit(EVENT_SAVE_AS_FRAGMENT, htmlString)
       }
     }, {
       label: '保存为导航节点',

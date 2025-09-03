@@ -9,6 +9,7 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     DocumentSetting: typeof import('./src/components/DocumentSetting.vue')['default']
+    ElAlert: typeof import('element-plus/es')['ElAlert']
     ElButton: typeof import('element-plus/es')['ElButton']
     ElCard: typeof import('element-plus/es')['ElCard']
     ElCollapse: typeof import('element-plus/es')['ElCollapse']
@@ -28,6 +29,7 @@ declare module 'vue' {
     ElFormItem: typeof import('element-plus/es')['ElFormItem']
     ElIcon: typeof import('element-plus/es')['ElIcon']
     ElInput: typeof import('element-plus/es')['ElInput']
+    ElIntup: typeof import('element-plus/es')['ElIntup']
     ElMenu: typeof import('element-plus/es')['ElMenu']
     ElMenuItem: typeof import('element-plus/es')['ElMenuItem']
     ElMenuItemGroup: typeof import('element-plus/es')['ElMenuItemGroup']
@@ -48,6 +50,7 @@ declare module 'vue' {
     LoadingSkeleton: typeof import('./src/components/LoadingSkeleton.vue')['default']
     NavigateView: typeof import('./src/components/NavigateView.vue')['default']
     RightSide: typeof import('./src/components/RightSide.vue')['default']
+    SaveFragmentDialog: typeof import('./src/components/SaveFragmentDialog.vue')['default']
     Title: typeof import('./src/components/Title.vue')['default']
     UserLogin: typeof import('./src/components/UserLogin.vue')['default']
     UserManagement: typeof import('./src/components/UserManagement.vue')['default']

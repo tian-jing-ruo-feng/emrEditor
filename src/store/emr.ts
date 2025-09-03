@@ -2,8 +2,9 @@ import { defineStore } from 'pinia'
 import { computed, ref } from 'vue'
 import type { DocumentPageSettings } from '../types/pageSetting'
 import type { dataSourceItem } from '../types/dataSource'
-import EMREditor from '../utils/emr'
 import type { IMenuSetting } from '../types/contextMenu'
+import EMREditor from '../utils/emr'
+import type { IFragment } from '../types/fragment'
 
 export const useEmrStore = defineStore(
   'emr',
@@ -17,6 +18,8 @@ export const useEmrStore = defineStore(
     const bindingDocumentDataSource = ref<{ [key: string]: unknown }>({})
     const contextMenuEventInfo = ref<IMenuSetting>()
     const navigateStrings = ref<[string, string][]>([])
+    /** 片段 */
+    const fragments = ref<IFragment[]>([])
 
     /** 左侧栏目设置 */
     const leftsideSetting = computed(() => [
@@ -92,6 +95,11 @@ export const useEmrStore = defineStore(
       navigateStrings.value = strings
     }
 
+    /** 设置片段信息 */
+    const setFragments = (fragment: IFragment) => {
+      fragments.value.push(fragment)
+    }
+
 
     return {
       emrEditorInstance,
@@ -100,6 +108,7 @@ export const useEmrStore = defineStore(
       contextMenuEventInfo,
       bindingDocumentDataSource,
       navigateStrings,
+      fragments,
       setEmrEditorInstance,
       setPageSetting,
       setCommandList,
@@ -107,7 +116,8 @@ export const useEmrStore = defineStore(
       setBindingDataSources,
       setBindingdDocumentDataSource,
       setContextMenuEventInfo,
-      setNavigateStrings
+      setNavigateStrings,
+      setFragments
     }
   },
   {
