@@ -47,6 +47,7 @@ class EMREditor {
       rootElement: EMRElement,
       args: { WriterControl: EMRElement },
     ) => {
+      console.log(args, 'args');
       if (callback) {
         callback(rootElement)
       }
@@ -79,6 +80,7 @@ class EMREditor {
   queryListItem(rootElement: EMRElement) {
     console.log('动态下拉列表事件');
     rootElement.QueryListItems = function (sender: EMRElement, eventObject: EventObject) {
+      console.log(sender, 'sender')
       console.log(eventObject, 'eventObject');
       // console.log("QueryListItems获取的编号："
       //   + eventObject.ElementID

@@ -11,12 +11,12 @@ export type MenuConfig = {
 const DC_TOOLBAR_PANEL_SELECTOR = '.DC-toolBar-panel'
 const DC_TOOLBAR_PANEL_MENU_SELECTOR = '.DC-toolBar-panel-menu'
 const DC_TOOLBAR_PANEL_MENULIST_SELECTOR = '.DC-toolBar-panel-menuList'
-const DC_TOOBAR_MENULIST_LI_HASCHILDREN = 'DC-toolBar-menuList-li-hasChild'
-const DC_TOOLBAR_PANEL_TOOLBAR_SELECTOR = '.DC-toolBar-panel-toolsbar'
+// const DC_TOOBAR_MENULIST_LI_HASCHILDREN = 'DC-toolBar-menuList-li-hasChild'
+// const DC_TOOLBAR_PANEL_TOOLBAR_SELECTOR = '.DC-toolBar-panel-toolsbar'
 /** 二级菜单列表 */
 const DC_CHILDMENU = '#dc_childMenu'
-const DC_TOOLBAR_GROUP_SELECTOR = '.toolbar-group'
-const DC_TOOLBAR_BOX_SELECTOR = '.toolbar-box'
+// const DC_TOOLBAR_GROUP_SELECTOR = '.toolbar-group'
+// const DC_TOOLBAR_BOX_SELECTOR = '.toolbar-box'
 /** 分割线样式 */
 const MENU_ITEM_DIVIDED = 'menu_item__divided'
 /** icons 字典 */
@@ -75,21 +75,21 @@ const MenuListConfig: MenuConfig[] = [
         label: '子级1',
         icon: '',
         onClick(ctl: EMRElement) {
-          consola.info('子级1点击事件')
+          consola.info(ctl, '子级1点击事件')
         },
       },
       {
         label: '子级2',
         icon: '',
         onClick(ctl: EMRElement) {
-          consola.info('子级2点击事件')
+          consola.info(ctl, '子级2点击事件')
         },
       },
       {
         label: '子级3',
         icon: '',
         onClick(ctl: EMRElement) {
-          consola.info('子级3点击事件')
+          consola.info(ctl, '子级3点击事件')
         },
       },
     ],
@@ -118,7 +118,7 @@ function modifyFileMenuList(panelMenuEle: HTMLElement, menulistEles: HTMLElement
     const fileButton = panelMenuEle.children[0]
     if (fileButton) {
       /** 文件按钮下的菜单列表添加自定义按钮功能 */
-      fileButton.addEventListener('click', (e: Event) => {
+      fileButton.addEventListener('click', () => {
         setTimeout(() => {
           /** 菜单列表 ul 元素 */
           const ulEle = menulistEles?.querySelector('ul')

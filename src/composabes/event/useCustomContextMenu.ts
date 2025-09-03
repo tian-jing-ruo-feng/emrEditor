@@ -2,6 +2,7 @@ import consola from "consola";
 import type { ContextMenuParams } from "../../types/contextMenu";
 
 export function useCustomContextMenu(rootElement: EMRElement, args: ContextMenuParams['1']) {
+  console.log(rootElement, '<<<< rootElement');
   const { PageElement, X: leftToCanvas, Y: topToCanvas } = args
   const { x: canvasOrginX, y: canvasOrignY } = PageElement.getBoundingClientRect()
   const left = canvasOrginX + leftToCanvas
