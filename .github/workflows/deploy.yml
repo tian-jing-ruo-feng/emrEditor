@@ -30,8 +30,8 @@ jobs:
         with:
           version: latest
 
-      - name: Install pnpm
-        run: npm install -g pnpm@8
+      # - name: Install pnpm
+      #   run: npm install -g pnpm@8
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
