@@ -78,8 +78,9 @@
           <div class="panel-content">模板</div>
         </el-tab-pane>
         <el-tab-pane label="片段" name="fragment">
-          <!-- TODO: 片段内容列表展示 -->
-          <div class="panel-content">片段</div>
+          <div class="panel-content">
+            <FragmentList class="h-full" />
+          </div>
         </el-tab-pane>
         <el-tab-pane label="病程" name="subDocument">
           <div class="panel-content">病程</div>
@@ -117,6 +118,7 @@
   import NavigateView from './components/NavigateView.vue'
   import LoadingSkeleton from './components/LoadingSkeleton.vue'
   import SaveFragmentDialog from './components/SaveFragmentDialog.vue'
+  import FragmentList from './components/FragmentList.vue'
 
   const emrStore = useEmrStore()
   const {

@@ -45,6 +45,7 @@ declare module 'vue' {
     ElTabPane: typeof import('element-plus/es')['ElTabPane']
     ElTabs: typeof import('element-plus/es')['ElTabs']
     ElTag: typeof import('element-plus/es')['ElTag']
+    FragmentList: typeof import('./src/components/FragmentList.vue')['default']
     HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
     LeftSide: typeof import('./src/components/LeftSide.vue')['default']
     LoadingSkeleton: typeof import('./src/components/LoadingSkeleton.vue')['default']
