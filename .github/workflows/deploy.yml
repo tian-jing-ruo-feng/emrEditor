@@ -1,14 +1,10 @@
 name: Deploy to GitHub Pages
 
 on:
-  # 只在推送到 main 分支时触发
   push:
     branches: [main]
-  
-  # 允许手动触发部署
   workflow_dispatch:
 
-# 设置 GITHUB_TOKEN 的权限
 permissions:
   contents: read
   pages: write
@@ -22,55 +18,33 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
+      - name: Setup Node.js and pnpm
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          cache: 'pnpm'  # 使用 pnpm 缓存
+          cache: 'pnpm'
+          registry-url: 'https://registry.npmjs.org'
 
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v2
-        with:
-          version: 8  # 指定 pnpm 版本，根据需要调整
-          run_install: false
-
-      - name: Get pnpm store directory
-        shell: bash
-        run: |
-          echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_ENV
-
-      - name: Setup pnpm cache
-        uses: actions/cache@v3
-        with:
-          path: ${{ env.STORE_PATH }}
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pnpm-store-
+      - name: Install pnpm
+        run: npm install -g pnpm@8
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
       - name: Build
         run: pnpm run build
-        
-        # 如果您的构建命令不同，请相应调整
-        # 例如: run: pnpm run build:prod
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: dist  # Vite 默认输出目录
+          path: dist
 
   deploy:
     needs: build
-    
-    # 仅当源分支是 main 时部署
     if: github.ref == 'refs/heads/main'
-    
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    
     runs-on: ubuntu-latest
     steps:
       - name: Deploy to GitHub Pages
