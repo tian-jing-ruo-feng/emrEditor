@@ -16,6 +16,7 @@ export const useEmrStore = defineStore(
     const bindingDataSources = ref<string>('')
     const bindingDocumentDataSource = ref<{ [key: string]: unknown }>({})
     const contextMenuEventInfo = ref<IMenuSetting>()
+    const navigateStrings = ref<[string, string][]>([])
 
     /** 左侧栏目设置 */
     const leftsideSetting = computed(() => [
@@ -86,19 +87,27 @@ export const useEmrStore = defineStore(
       contextMenuEventInfo.value = info
     }
 
+    /** 设置导航节点信息  */
+    const setNavigateStrings = (strings: [string, string][]) => {
+      navigateStrings.value = strings
+    }
+
+
     return {
       emrEditorInstance,
       pageSetting,
       leftsideSetting,
       contextMenuEventInfo,
       bindingDocumentDataSource,
+      navigateStrings,
       setEmrEditorInstance,
       setPageSetting,
       setCommandList,
       setDocumentDataSource,
       setBindingDataSources,
       setBindingdDocumentDataSource,
-      setContextMenuEventInfo
+      setContextMenuEventInfo,
+      setNavigateStrings
     }
   },
   {

@@ -3,6 +3,7 @@ import type { IMenuSetting, TMenuOption, TMenuOptionSetting } from '../../types/
 import type { DocumentElementTypeEnum } from '../../types/enum'
 import { DocumentElementType } from '../../utils/constant'
 import { fragment } from '../../mocks/fragment'
+import emitter, { EVENT_SAVE_AS_NAVIGATION } from '../../utils/eventBus'
 
 const DC_CONTEXT_MENU_ID = 'dcContextMenu'
 /** 右键菜单元素 id */
@@ -180,6 +181,11 @@ export function genContextMenuOptions(
       label: '保存为导航节点',
       exec: () => {
         myWriterControl.ExecuteCommand("TitleLevel", false, 0);
+        const res = myWriterControl.GetNavigateNodesString()
+        const strings =
+          ((res ?? '').split('&').map(item => item.split('=')) as [string, string][]) ?? []
+        // setNavigateStrings(strings)
+        emitter.emit(EVENT_SAVE_AS_NAVIGATION, strings)
       }
     })
   }

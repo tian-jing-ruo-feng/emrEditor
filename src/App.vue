@@ -89,9 +89,13 @@
 
     <!-- 导航视图 -->
     <el-card v-if="showNavigateView" class="navigate-view">
-      <el-menu default-active="1" @select="navigateByNodeID" style="border-right: none">
+      <el-menu
+        default-active="1"
+        @select="navigateByNodeID"
+        style="border-right: none; width: 100%"
+      >
         <el-menu-item :index="item[0] + ''" v-for="item in navigateStrings" :key="item[0]">
-          {{ item[0] }}
+          <span style="margin-right: 10px">{{ item[0] + '.' }}</span>
           <span>{{ item[1] }}</span>
         </el-menu-item>
       </el-menu>
@@ -116,6 +120,8 @@
   import { usePanel } from './utils/panel.ts'
   import consola from 'consola'
   import { SUB9 } from './mocks/subDocWithoutID.ts'
+  import { storeToRefs } from 'pinia'
+  import emitter, { EVENT_SAVE_AS_NAVIGATION } from './utils/eventBus.ts'
   /** mock数据👆 */
 
   const emrStore = useEmrStore()
@@ -126,7 +132,9 @@
     setBindingDataSources,
     setBindingdDocumentDataSource,
     setEmrEditorInstance,
+    setNavigateStrings,
   } = emrStore
+  const { navigateStrings } = storeToRefs(emrStore)
   const ctl = ref<EMRElement | null>(null)
   const emrControl = ref<EMREditor>()
   const isLoading = ref(false)
@@ -135,7 +143,7 @@
   const drawerVisible = ref(false)
   const activeTab = ref<'structure' | 'user' | 'navigateView'>('structure')
   // 导航
-  const navigateStrings = ref<[string, string][]>([])
+  // const navigateStrings = ref<[string, string][]>([])
   const showNavigateView = ref(false)
 
   const openStructure = () => {
@@ -153,8 +161,9 @@
     }
     activeTab.value = 'navigateView'
     const res = ctl.value?.GetNavigateNodesString()
-    navigateStrings.value =
+    const strings =
       ((res ?? '').split('&').map(item => item.split('=')) as [string, string][]) ?? []
+    setNavigateStrings(strings)
     showNavigateView.value = true
   }
 
@@ -266,6 +275,11 @@
     emrEditorInstance.documentContentChangeEvent()
     isLoading.value = true
     emrEditorInstance.initDCWriter()
+
+    /********************* 自定义事件监听 *********************/
+    emitter.on(EVENT_SAVE_AS_NAVIGATION, strings => {
+      setNavigateStrings(strings as [string, string][])
+    })
   })
 </script>
 
