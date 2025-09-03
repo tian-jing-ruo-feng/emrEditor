@@ -1,9 +1,5 @@
 import type { DocumentFormat, WriterEventArgs } from '../types/emr'
-import { DocumentElementType } from './constant'
 import type {
-  IMenuSetting,
-  TMenuOption,
-  TMenuOptionSetting,
   ContextMenuParams,
 } from '../types/contextMenu'
 import { ContextMenu, genContextMenuOptions } from '../composabes/event/useContextMenu'

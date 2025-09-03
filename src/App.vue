@@ -88,28 +88,14 @@
     </el-drawer>
 
     <!-- 导航视图 -->
-    <el-card v-if="showNavigateView" class="navigate-view">
-      <el-menu
-        default-active="1"
-        @select="navigateByNodeID"
-        style="border-right: none; width: 100%"
-      >
-        <el-menu-item :index="item[0] + ''" v-for="item in navigateStrings" :key="item[0]">
-          <span style="margin-right: 10px">{{ item[0] + '.' }}</span>
-          <span>{{ item[1] }}</span>
-        </el-menu-item>
-      </el-menu>
-    </el-card>
+    <NavigateView v-if="showNavigateView"></NavigateView>
   </div>
 </template>
 
 <script setup lang="ts">
   import { onMounted, ref } from 'vue'
   import { useEmrStore } from './store/emr'
-  import DocumentSetting from './components/DocumentSetting.vue'
-  import UserManagement from './components/UserManagement.vue'
   import EMREditor from './utils/emr'
-  import LoadingSkeleton from './components/LoadingSkeleton.vue'
   import pkg from '../package.json'
   /** mock数据👇 */
   // import { xmlContent } from './mocks/constants'
@@ -120,8 +106,12 @@
   import { usePanel } from './utils/panel.ts'
   import consola from 'consola'
   import { SUB9 } from './mocks/subDocWithoutID.ts'
-  import { storeToRefs } from 'pinia'
   import emitter, { EVENT_SAVE_AS_NAVIGATION } from './utils/eventBus.ts'
+  /** 组件 */
+  import DocumentSetting from './components/DocumentSetting.vue'
+  import UserManagement from './components/UserManagement.vue'
+  import NavigateView from './components/NavigateView.vue'
+  import LoadingSkeleton from './components/LoadingSkeleton.vue'
   /** mock数据👆 */
 
   const emrStore = useEmrStore()
@@ -134,7 +124,6 @@
     setEmrEditorInstance,
     setNavigateStrings,
   } = emrStore
-  const { navigateStrings } = storeToRefs(emrStore)
   const ctl = ref<EMRElement | null>(null)
   const emrControl = ref<EMREditor>()
   const isLoading = ref(false)
@@ -143,7 +132,6 @@
   const drawerVisible = ref(false)
   const activeTab = ref<'structure' | 'user' | 'navigateView'>('structure')
   // 导航
-  // const navigateStrings = ref<[string, string][]>([])
   const showNavigateView = ref(false)
 
   const openStructure = () => {
@@ -165,10 +153,6 @@
       ((res ?? '').split('&').map(item => item.split('=')) as [string, string][]) ?? []
     setNavigateStrings(strings)
     showNavigateView.value = true
-  }
-
-  const navigateByNodeID = (activeIndex: string) => {
-    ctl.value?.NavigateByNodeID(activeIndex)
   }
 
   const addSubDoc = () => {
@@ -276,10 +260,11 @@
     isLoading.value = true
     emrEditorInstance.initDCWriter()
 
-    /********************* 自定义事件监听 *********************/
+    /********************* 👇自定义事件监听 *********************/
     emitter.on(EVENT_SAVE_AS_NAVIGATION, strings => {
       setNavigateStrings(strings as [string, string][])
     })
+    /********************* 👆自定义事件监听 *********************/
   })
 </script>
 
@@ -450,12 +435,5 @@
     height: 100%;
     padding: 8px 12px;
     box-sizing: border-box;
-  }
-
-  .navigate-view {
-    position: absolute;
-    right: 100px;
-    top: 50%;
-    transform: translateY(-50%);
   }
 </style>

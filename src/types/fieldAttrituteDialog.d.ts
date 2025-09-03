@@ -106,4 +106,7 @@ export interface IFielddAttributeDialog {
 
   /** 显示用户登录信息设置对话框 */
   loginDialog(): void
+
+  /** 关于编辑器弹窗 */
+  ShowAboutDialog(): void
 }

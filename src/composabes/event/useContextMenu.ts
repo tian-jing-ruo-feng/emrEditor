@@ -184,7 +184,6 @@ export function genContextMenuOptions(
         const res = myWriterControl.GetNavigateNodesString()
         const strings =
           ((res ?? '').split('&').map(item => item.split('=')) as [string, string][]) ?? []
-        // setNavigateStrings(strings)
         emitter.emit(EVENT_SAVE_AS_NAVIGATION, strings)
       }
     })
