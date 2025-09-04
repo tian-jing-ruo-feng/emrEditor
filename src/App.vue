@@ -236,7 +236,11 @@
     emrControl.value = emrEditorInstance
     setEmrEditorInstance(emrEditorInstance)
 
+    /** 编辑器初始化成功 */
     emrEditorInstance.dcwriterInitSuccessEvent((rootElement: EMRElement) => {
+      /** 👇开启管理员模式👇 */
+      ctl.value?.DCExecuteCommand('AdministratorViewMode', false, null)
+
       /** 自定义panel菜单栏 */
       usePanel(rootElement)
 

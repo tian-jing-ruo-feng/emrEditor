@@ -185,6 +185,22 @@ declare global {
       insertUp: boolean,
     ): boolean
 
+
+    /** 
+     * 获取所有病程记录
+     * @param {string} ID 字符串类型的病程编号ID，允许为空
+     * 当传病程ID时、获取指定ID的病程记录，
+     * 不传参数的时候，获取所有病程对象。
+     */
+    GetCourseRecords(ID?: string): []
+
+    /** 
+     * 通过病程ID定位到指定病程记录
+     * @param {string} id]
+     * @returns boolean 操作是否成功
+     */
+    SelectSubDocumentByID(id: string): boolean
+
     /** 加载病程 */
     LoadSubDocumentFromString(option: {
       FileContentXML: string
