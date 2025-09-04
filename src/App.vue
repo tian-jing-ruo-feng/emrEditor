@@ -97,7 +97,7 @@
 </template>
 
 <script setup lang="ts">
-  import { onMounted, ref, useTemplateRef } from 'vue'
+  import { onBeforeMount, onMounted, ref, useTemplateRef } from 'vue'
   import { useEmrStore } from './store/emr'
   import { usePanel } from './utils/panel.ts'
   import EMREditor from './utils/emr'
@@ -216,6 +216,20 @@
     // ctl.value.RefreshInnerView()
     emrControl.value?.ctl?.RefreshInnerView()
   }
+
+  onBeforeMount(() => {
+    // 初始化控件
+    const scriptUrls = [
+      'https://www.dcwriter.cn:8006/res/dcwriter5service?wasmres=dcwriter5.js',
+      `/jquery-1.7.2.min.js`,
+    ]
+
+    scriptUrls.forEach((url: string) => {
+      const script = document.createElement('script')
+      script.src = url
+      document.head.appendChild(script)
+    })
+  })
 
   onMounted(() => {
     const emrEditorInstance = new EMREditor(ctl.value)
