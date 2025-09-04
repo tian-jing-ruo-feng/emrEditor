@@ -221,7 +221,7 @@
     // 初始化控件
     const scriptUrls = [
       'https://www.dcwriter.cn:8006/res/dcwriter5service?wasmres=dcwriter5.js',
-      `/jquery-1.7.2.min.js`,
+      `./jquery-1.7.2.min.js`,
     ]
 
     scriptUrls.forEach((url: string) => {
